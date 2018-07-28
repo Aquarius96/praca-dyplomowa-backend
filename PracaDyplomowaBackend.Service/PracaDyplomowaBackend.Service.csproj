@@ -9,4 +9,16 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PracaDyplomowaBackend.Data\PracaDyplomowaBackend.Data.csproj" />
+    <ProjectReference Include="..\PracaDyplomowaBackend.Models\PracaDyplomowaBackend.Models.csproj" />
+    <ProjectReference Include="..\PracaDyplomowaBackend.Repo\PracaDyplomowaBackend.Repo.csproj" />
+    <ProjectReference Include="..\PracaDyplomowaBackend.Utilities\PracaDyplomowaBackend.Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracaDyplomowaBackend.Data"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracaDyplomowaBackend.Utilities", "PracaDyplomowaBackend.Utilities\PracaDyplomowaBackend.Utilities.csproj", "{AC570DD3-C743-44D1-9356-0D6FDE3D3656}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracaDyplomowaBackend.Entities", "PracaDyplomowaBackend.Models\PracaDyplomowaBackend.Entities.csproj", "{D6A135FB-7F77-4734-A72C-B944F4AB69E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracaDyplomowaBackend.Models", "PracaDyplomowaBackend.Models\PracaDyplomowaBackend.Models.csproj", "{D6A135FB-7F77-4734-A72C-B944F4AB69E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
