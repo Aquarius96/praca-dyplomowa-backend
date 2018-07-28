@@ -20,6 +20,7 @@ namespace PracaDyplomowaBackend.Api
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseUrls("http://localhost:8000/")
                 .Build();
     }
 }
