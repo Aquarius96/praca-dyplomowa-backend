@@ -30,6 +30,10 @@ namespace PracaDyplomowaBackend.Api
             services.AddDbContext<DataContext>(o => o.UseSqlServer(connectionString, b => b.MigrationsAssembly("PracaDyplomowaBackend.Repo")));
             #endregion
 
+            services.AddSwaggerGen(options =>
+            options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Praca dyplomowa", Version = "v1" })
+            );
+
             services.AddMvc();
         }
 
@@ -40,6 +44,11 @@ namespace PracaDyplomowaBackend.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "PracaDyplomowa")
+            );
 
             app.UseMvc();
         }
