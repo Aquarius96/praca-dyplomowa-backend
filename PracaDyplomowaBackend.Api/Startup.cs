@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Repo;
+using PracaDyplomowaBackend.Repo.Interfaces;
+using PracaDyplomowaBackend.Repo.Repositories;
 
 namespace PracaDyplomowaBackend.Api
 {
@@ -24,10 +27,18 @@ namespace PracaDyplomowaBackend.Api
             services.AddDbContext<DataContext>(o => o.UseSqlServer(connectionString, b => b.MigrationsAssembly("PracaDyplomowaBackend.Repo")));
             #endregion
 
+            #region Swagger
             services.AddSwaggerGen(options =>
             options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Praca dyplomowa", Version = "v1" })
             );
+            #endregion
 
+            #region Repositories
+            //services.AddSingleton(typeof(IRepositoryBase<,>), typeof(UserRepository));
+            #endregion
+
+            #region Services
+            #endregion
             services.AddMvc();
         }
 
