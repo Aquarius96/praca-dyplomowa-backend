@@ -11,7 +11,7 @@ namespace PracaDyplomowaBackend.Service.Services
 {
     public class AuthorService : ServiceBase<Author,AddAuthorModel, AuthorDto, int>, IAuthorService
     {
-        protected AuthorService(IAuthorRepository repository) : base(repository)
+        public AuthorService(IAuthorRepository repository) : base(repository)
         {
         }        
     }

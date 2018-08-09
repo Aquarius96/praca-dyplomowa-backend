@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PracaDyplomowaBackend.Data.DbModels.Common;
+using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.Models.Common.User;
+using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.User;
 using PracaDyplomowaBackend.Repo;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Repo.Repositories;
@@ -39,10 +42,12 @@ namespace PracaDyplomowaBackend.Api
 
             #region Repositories            
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             #endregion
 
             #region Services            
-            services.AddScoped<IUserService, UserService>();            
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             #endregion
 
             services.AddMvc();
@@ -71,6 +76,10 @@ namespace PracaDyplomowaBackend.Api
                     dest.Added = DateTime.UtcNow;
                     dest.Confirmed = false;
                 });
+                cfg.CreateMap<User, UserDto>();
+
+                cfg.CreateMap<AddAuthorModel, Author>();
+                cfg.CreateMap<Author, AuthorDto>();
             });
             #endregion
 
