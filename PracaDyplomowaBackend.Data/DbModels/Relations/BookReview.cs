@@ -7,14 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Relations
 {
-    public class BookReview
+    public class BookReview : EntityBase<int>
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [ForeignKey("BookId")]        
         public Book Book { get; set; }
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
 
         [ForeignKey("UserId")]        
         public User User { get; set; }

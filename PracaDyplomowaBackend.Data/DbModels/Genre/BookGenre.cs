@@ -8,10 +8,10 @@ namespace PracaDyplomowaBackend.Data.DbModels.Genre
     {
         [ForeignKey("GenreId")]
         public Genre Genre { get; set; }
-        public Guid GenreId { get; set; }
+        public int GenreId { get; set; }
 
         [ForeignKey("BookId")]
         public Book Book { get; set; }
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
     }
 }

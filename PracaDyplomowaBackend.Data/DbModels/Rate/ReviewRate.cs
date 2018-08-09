@@ -9,7 +9,7 @@ namespace PracaDyplomowaBackend.Data.DbModels.Rate
     {
         [ForeignKey("BookReviewId")]
         public BookReview BookReview { get; set; }
-        public Guid BookReviewId { get; set; }        
+        public int BookReviewId { get; set; }        
 
         [ForeignKey("UserId")]
         public User User { get; set; }

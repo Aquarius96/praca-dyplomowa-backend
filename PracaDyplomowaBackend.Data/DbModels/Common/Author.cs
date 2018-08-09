@@ -9,11 +9,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Common
 {
-    public class Author
-    {
-        [Key]
-        public Guid Id { get; set; }
-
+    public class Author : EntityBase<int>
+    {        
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime DateOfBirth { get; set; }

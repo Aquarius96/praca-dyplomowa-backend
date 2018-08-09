@@ -10,11 +10,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Common
 {
-    public class Book
-    {
-        [Key]
-        public Guid Id { get; set; }
-
+    public class Book : EntityBase<int>
+    {        
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
         public string Description { get; set; }        

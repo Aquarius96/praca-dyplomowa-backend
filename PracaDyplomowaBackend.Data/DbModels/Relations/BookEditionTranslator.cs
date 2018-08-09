@@ -11,12 +11,12 @@ namespace PracaDyplomowaBackend.Data.DbModels.Relations
     {
         [ForeignKey("BookEditionId,BookEditionBookId,BookEditionPublishingHomeId")]       
         public BookEdition BookEdition { get; set; }
-        public Guid BookEditionId { get; set; }
-        public Guid BookEditionBookId { get; set; }
-        public Guid BookEditionPublishingHomeId { get; set; }
+        public int BookEditionId { get; set; }
+        public int BookEditionBookId { get; set; }
+        public int BookEditionPublishingHomeId { get; set; }
 
         [ForeignKey("TranslatorId")]
         public Translator Translator { get; set; }
-        public Guid TranslatorId { get; set; }
+        public int TranslatorId { get; set; }
     }
 }

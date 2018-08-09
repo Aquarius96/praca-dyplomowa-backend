@@ -7,20 +7,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Edition
 {
-    public class BookEdition
+    public class BookEdition : EntityBase<int>
     {        
-        public Guid Id { get; set; }
         public DateTime Added { get; set; }
         public DateTime Released { get; set; }
         public string PhotoUrl { get; set; }
 
         [ForeignKey("BookId")]
         public Book Book { get; set; }
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
 
         [ForeignKey("PublishingHouseId")]
         public PublishingHouse PublishingHouse { get; set; }
-        public Guid PublishingHouseId { get; set; }
+        public int PublishingHouseId { get; set; }
         
         public ICollection<BookEditionTranslator> BookEditionTranslators { get; set; }
     }

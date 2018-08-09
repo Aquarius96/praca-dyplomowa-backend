@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Common
 {
-    public class PublishingHouse
-    {
-        [Key]
-        public Guid Id { get; set; }
+    public class PublishingHouse : EntityBase<int>
+    {        
         public string Name { get; set; }
         public string Description { get; set; }        
         public string PhotoUrl { get; set; }

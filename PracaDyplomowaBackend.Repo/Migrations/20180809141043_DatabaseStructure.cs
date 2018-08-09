@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "Authors",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BirthCity = table.Column<string>(nullable: true),
                     BirthCountry = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
@@ -31,7 +33,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Added = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     OriginalTitle = table.Column<string>(nullable: true),
@@ -48,7 +51,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "Genres",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     GenreName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -60,7 +64,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "PublishingHouses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Added = table.Column<DateTime>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
@@ -76,7 +81,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RoleName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -88,7 +94,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "Translators",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BirthCity = table.Column<string>(nullable: true),
                     BirthCountry = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
@@ -126,8 +133,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookAuthors",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(nullable: false),
-                    AuthorId = table.Column<Guid>(nullable: false)
+                    BookId = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,8 +157,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "AuthorGenres",
                 columns: table => new
                 {
-                    GenreId = table.Column<Guid>(nullable: false),
-                    AuthorId = table.Column<Guid>(nullable: false)
+                    GenreId = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,8 +181,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookGenres",
                 columns: table => new
                 {
-                    GenreId = table.Column<Guid>(nullable: false),
-                    BookId = table.Column<Guid>(nullable: false)
+                    GenreId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,9 +205,9 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookEditions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    BookId = table.Column<Guid>(nullable: false),
-                    PublishingHouseId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
+                    PublishingHouseId = table.Column<int>(nullable: false),
                     Added = table.Column<DateTime>(nullable: false),
                     PhotoUrl = table.Column<string>(nullable: true),
                     Released = table.Column<DateTime>(nullable: false)
@@ -208,6 +215,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookEditions", x => new { x.Id, x.BookId, x.PublishingHouseId });
+                    table.UniqueConstraint("AK_BookEditions_Id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BookEditions_Books_BookId",
                         column: x => x.BookId,
@@ -226,8 +234,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "AuthorComments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    AuthorId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Added = table.Column<DateTime>(nullable: false),
                     Content = table.Column<string>(nullable: true)
@@ -235,6 +243,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuthorComments", x => new { x.Id, x.AuthorId, x.UserId });
+                    table.UniqueConstraint("AK_AuthorComments_Id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AuthorComments_Authors_AuthorId",
                         column: x => x.AuthorId,
@@ -253,7 +262,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "AuthorRates",
                 columns: table => new
                 {
-                    AuthorId = table.Column<Guid>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Value = table.Column<int>(nullable: false)
                 },
@@ -278,8 +287,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookComments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    BookId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Added = table.Column<DateTime>(nullable: false),
                     Content = table.Column<string>(nullable: true)
@@ -306,7 +315,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookRates",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Value = table.Column<int>(nullable: false)
                 },
@@ -331,9 +340,10 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookReviews",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Added = table.Column<DateTime>(nullable: false),
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     UserId = table.Column<Guid>(nullable: false)
@@ -359,7 +369,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "CurrentlyReadBooks",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Added = table.Column<DateTime>(nullable: false)
                 },
@@ -384,7 +394,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "FavoriteAuthors",
                 columns: table => new
                 {
-                    AuthorId = table.Column<Guid>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -408,7 +418,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "FavoriteBooks",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -432,7 +442,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "ReadBooks",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Added = table.Column<DateTime>(nullable: false)
                 },
@@ -484,7 +494,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: false)
+                    RoleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -507,7 +517,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "WantedBooks",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Added = table.Column<DateTime>(nullable: false)
                 },
@@ -532,10 +542,10 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookEditionTranslator",
                 columns: table => new
                 {
-                    BookEditionId = table.Column<Guid>(nullable: false),
-                    BookEditionBookId = table.Column<Guid>(nullable: false),
-                    BookEditionPublishingHomeId = table.Column<Guid>(nullable: false),
-                    TranslatorId = table.Column<Guid>(nullable: false)
+                    BookEditionId = table.Column<int>(nullable: false),
+                    BookEditionBookId = table.Column<int>(nullable: false),
+                    BookEditionPublishingHomeId = table.Column<int>(nullable: false),
+                    TranslatorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -558,7 +568,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "ReviewRates",
                 columns: table => new
                 {
-                    BookReviewId = table.Column<Guid>(nullable: false),
+                    BookReviewId = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
                     Positive = table.Column<bool>(nullable: false)
                 },

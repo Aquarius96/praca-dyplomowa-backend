@@ -8,7 +8,7 @@ namespace PracaDyplomowaBackend.Data.DbModels.Library
     {
         [ForeignKey("AuthorId")]
         public Author Author { get; set; }
-        public Guid AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }

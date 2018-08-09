@@ -5,11 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Common
 {
-    public class Translator
-    {
-        [Key]
-        public Guid Id { get; set; }
-
+    public class Translator : EntityBase<int>
+    {        
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime DateOfBirth { get; set; }

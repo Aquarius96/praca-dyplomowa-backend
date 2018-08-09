@@ -12,6 +12,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Role
         
         [ForeignKey("RoleId")]        
         public Role Role { get; set; }
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
     }
 }

@@ -22,9 +22,9 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Comment.AuthorComment", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<int>("Id");
 
-                    b.Property<Guid>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.Property<Guid>("UserId");
 
@@ -33,6 +33,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.Property<string>("Content");
 
                     b.HasKey("Id", "AuthorId", "UserId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -43,9 +45,9 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Comment.BookComment", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<int>("Id");
 
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<Guid>("UserId");
 
@@ -66,7 +68,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.Author", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("BirthCity");
@@ -92,7 +94,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.Book", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Added");
@@ -114,7 +116,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.PublishingHouse", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Added");
@@ -134,7 +136,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.Translator", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("BirthCity");
@@ -186,11 +188,11 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Edition.BookEdition", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<int>("Id");
 
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
-                    b.Property<Guid>("PublishingHouseId");
+                    b.Property<int>("PublishingHouseId");
 
                     b.Property<DateTime>("Added");
 
@@ -199,6 +201,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.Property<DateTime>("Released");
 
                     b.HasKey("Id", "BookId", "PublishingHouseId");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("BookId");
 
@@ -209,9 +213,9 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Genre.AuthorGenre", b =>
                 {
-                    b.Property<Guid>("GenreId");
+                    b.Property<int>("GenreId");
 
-                    b.Property<Guid>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.HasKey("GenreId", "AuthorId");
 
@@ -222,9 +226,9 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Genre.BookGenre", b =>
                 {
-                    b.Property<Guid>("GenreId");
+                    b.Property<int>("GenreId");
 
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.HasKey("GenreId", "BookId");
 
@@ -235,7 +239,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Genre.Genre", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("GenreName");
@@ -247,7 +251,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Library.CurrentlyReadBook", b =>
                 {
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<Guid>("UserId");
 
@@ -262,7 +266,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Library.FavoriteAuthor", b =>
                 {
-                    b.Property<Guid>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.Property<Guid>("UserId");
 
@@ -275,7 +279,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Library.FavoriteBook", b =>
                 {
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<Guid>("UserId");
 
@@ -288,7 +292,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Library.ReadBook", b =>
                 {
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<Guid>("UserId");
 
@@ -303,7 +307,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Library.WantedBook", b =>
                 {
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<Guid>("UserId");
 
@@ -318,7 +322,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Rate.AuthorRate", b =>
                 {
-                    b.Property<Guid>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.Property<Guid>("UserId");
 
@@ -333,7 +337,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Rate.BookRate", b =>
                 {
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<Guid>("UserId");
 
@@ -348,7 +352,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Rate.ReviewRate", b =>
                 {
-                    b.Property<Guid>("BookReviewId");
+                    b.Property<int>("BookReviewId");
 
                     b.Property<Guid>("UserId");
 
@@ -363,9 +367,9 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookAuthor", b =>
                 {
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
-                    b.Property<Guid>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.HasKey("BookId", "AuthorId");
 
@@ -376,13 +380,13 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookEditionTranslator", b =>
                 {
-                    b.Property<Guid>("BookEditionId");
+                    b.Property<int>("BookEditionId");
 
-                    b.Property<Guid>("BookEditionBookId");
+                    b.Property<int>("BookEditionBookId");
 
-                    b.Property<Guid>("BookEditionPublishingHomeId");
+                    b.Property<int>("BookEditionPublishingHomeId");
 
-                    b.Property<Guid>("TranslatorId");
+                    b.Property<int>("TranslatorId");
 
                     b.HasKey("BookEditionId", "BookEditionBookId", "BookEditionPublishingHomeId", "TranslatorId");
 
@@ -393,12 +397,12 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookReview", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Added");
 
-                    b.Property<Guid>("BookId");
+                    b.Property<int>("BookId");
 
                     b.Property<string>("Content");
 
@@ -434,7 +438,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Role.Role", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("RoleName");
@@ -448,7 +452,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 {
                     b.Property<Guid>("UserId");
 
-                    b.Property<Guid>("RoleId");
+                    b.Property<int>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
