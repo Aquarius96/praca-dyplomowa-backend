@@ -11,7 +11,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 {
     public abstract class RepositoryBase<TEntity, TId> : IRepositoryBase<TEntity, TId> where TEntity : EntityBase<TId>
     {
-        private readonly DataContext _context;
+        protected readonly DataContext _context;
 
         protected RepositoryBase(DataContext context)
         {

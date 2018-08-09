@@ -4,9 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PracaDyplomowaBackend.Data.DbModels.Common;
+using PracaDyplomowaBackend.Models.Common.User;
 using PracaDyplomowaBackend.Repo;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Repo.Repositories;
+using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Service.Services;
+using System;
 
 namespace PracaDyplomowaBackend.Api
 {
@@ -33,12 +37,14 @@ namespace PracaDyplomowaBackend.Api
             );
             #endregion
 
-            #region Repositories
-            //services.AddSingleton(typeof(IRepositoryBase<,>), typeof(UserRepository));
+            #region Repositories            
+            services.AddScoped<IUserRepository, UserRepository>();
             #endregion
 
-            #region Services
+            #region Services            
+            services.AddScoped<IUserService, UserService>();            
             #endregion
+
             services.AddMvc();
         }
 
@@ -50,10 +56,23 @@ namespace PracaDyplomowaBackend.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            #region Swagger
             app.UseSwagger();
             app.UseSwaggerUI(options =>
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "PracaDyplomowa")
             );
+            #endregion
+
+            #region Mappers
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<RegisterModel, User>().AfterMap((src, dest) =>
+                {
+                    dest.Added = DateTime.UtcNow;
+                    dest.Confirmed = false;
+                });
+            });
+            #endregion
 
             app.UseMvc();
         }
