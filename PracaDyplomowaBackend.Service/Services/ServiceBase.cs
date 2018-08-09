@@ -2,6 +2,7 @@
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
 using System;
+using System.Linq.Expressions;
 
 namespace PracaDyplomowaBackend.Service.Services
 {
@@ -13,6 +14,12 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             _repository = repository;
         }
+
+        public bool Exists(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _repository.Exists(predicate);
+        }
+
         public bool Save()
         {
             return _repository.Save();

@@ -21,11 +21,16 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterModel registerModel)
+        public IActionResult Register([FromBody]RegisterModel registerModel)
         {
             if(registerModel == null)
             {
                 return BadRequest();
+            }
+
+            if(_userService.Exists(user => user.EmailAddress == registerModel.EmailAddress))
+            {
+                return BadRequest("Podany adres e-mail jest już zajęty.");
             }
 
             _userService.Register(registerModel);
