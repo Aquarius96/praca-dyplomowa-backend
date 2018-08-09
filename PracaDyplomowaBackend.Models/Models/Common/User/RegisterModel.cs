@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PracaDyplomowaBackend.Models.Common.User
+namespace PracaDyplomowaBackend.Models.Models.Common.User
 {
-    public class RegisterModel
+    public class RegisterModel : ModelBase
     {
         public string Username { get; set; }
         public string EmailAddress { get; set; }

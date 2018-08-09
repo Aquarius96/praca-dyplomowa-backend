@@ -1,12 +1,11 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
-using PracaDyplomowaBackend.Models.Common.User;
+using PracaDyplomowaBackend.Models.Models.Common.User;
+using PracaDyplomowaBackend.Models.ModelsDto.User;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PracaDyplomowaBackend.Service.Interfaces
 {
-    public interface IUserService : IServiceBase<User, Guid>
+    public interface IUserService : IServiceBase<User, RegisterModel, UserDto, Guid>
     {
         void Register(RegisterModel registerModel);
     }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PracaDyplomowaBackend.Data.DbModels.Common;
-using PracaDyplomowaBackend.Models.Common.User;
+using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Repo;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Repo.Repositories;

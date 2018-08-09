@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using PracaDyplomowaBackend.Models.Common.User;
+﻿using Microsoft.AspNetCore.Mvc;
+using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Service.Interfaces;
 
 namespace PracaDyplomowaBackend.Api.Controllers
