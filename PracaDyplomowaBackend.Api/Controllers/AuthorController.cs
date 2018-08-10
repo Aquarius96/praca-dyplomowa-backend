@@ -6,7 +6,7 @@ using PracaDyplomowaBackend.Service.Interfaces;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Author")]
+    [Route("api/author")]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;

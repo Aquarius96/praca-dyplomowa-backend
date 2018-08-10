@@ -5,8 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
+using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
 using PracaDyplomowaBackend.Repo;
 using PracaDyplomowaBackend.Repo.Interfaces;
@@ -36,11 +38,13 @@ namespace PracaDyplomowaBackend.Api
             #region Repositories            
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
             #endregion
 
             #region Services            
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IBookService, BookService>();
             #endregion
 
             services.AddMvc();
@@ -73,6 +77,9 @@ namespace PracaDyplomowaBackend.Api
 
                 cfg.CreateMap<AddAuthorModel, Author>();
                 cfg.CreateMap<Author, AuthorDto>();
+
+                cfg.CreateMap<AddBookModel, Book>();
+                cfg.CreateMap<Book, BookDto>();
             });
             #endregion
 
