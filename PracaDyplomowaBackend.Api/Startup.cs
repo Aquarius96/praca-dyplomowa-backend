@@ -13,6 +13,7 @@ using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Repo.Repositories;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Service.Services;
+using PracaDyplomowaBackend.Utilities.Extensions;
 using System;
 
 namespace PracaDyplomowaBackend.Api
@@ -28,18 +29,10 @@ namespace PracaDyplomowaBackend.Api
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            #region DataContext
-            var connectionString = Configuration["connectionStrings:pracaDyplomowaDBConnectionString"];
-            services.AddDbContext<DataContext>(o => o.UseSqlServer(connectionString, b => b.MigrationsAssembly("PracaDyplomowaBackend.Repo")));
-            #endregion
-
-            #region Swagger
-            services.AddSwaggerGen(options =>
-            options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Praca dyplomowa", Version = "v1" })
-            );
-            #endregion
-
+        {            
+            services.ConfigureDatabase(Configuration);          
+            services.ConfigureSwagger();
+         
             #region Repositories            
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
