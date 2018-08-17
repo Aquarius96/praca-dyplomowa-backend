@@ -22,8 +22,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
         public bool Confirmed { get; set; }
 
         public UserRole UserRole { get; set; }
-        public virtual ICollection<UserFriend> Friends { get; set; }
-        public virtual ICollection<UserFriend> FriendOf { get; set; }
 
         public ICollection<ReadBook> ReadBooks { get; set; }
         public ICollection<CurrentlyReadBook> CurrentlyReadBooks { get; set; }

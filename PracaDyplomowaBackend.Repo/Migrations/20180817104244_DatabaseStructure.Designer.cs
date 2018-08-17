@@ -11,7 +11,7 @@ using System;
 namespace PracaDyplomowaBackend.Repo.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180809141043_DatabaseStructure")]
+    [Migration("20180817104244_DatabaseStructure")]
     partial class DatabaseStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,50 +115,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.PublishingHouse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Added");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PhotoUrl");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PublishingHouses");
-                });
-
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.Translator", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("BirthCity");
-
-                    b.Property<string>("BirthCountry");
-
-                    b.Property<DateTime>("DateOfBirth");
-
-                    b.Property<DateTime>("DateOfDeath");
-
-                    b.Property<string>("Firstname");
-
-                    b.Property<string>("Gender");
-
-                    b.Property<string>("Lastname");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Translators");
-                });
-
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -185,31 +141,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Edition.BookEdition", b =>
-                {
-                    b.Property<int>("Id");
-
-                    b.Property<int>("BookId");
-
-                    b.Property<int>("PublishingHouseId");
-
-                    b.Property<DateTime>("Added");
-
-                    b.Property<string>("PhotoUrl");
-
-                    b.Property<DateTime>("Released");
-
-                    b.HasKey("Id", "BookId", "PublishingHouseId");
-
-                    b.HasAlternateKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("PublishingHouseId");
-
-                    b.ToTable("BookEditions");
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Genre.AuthorGenre", b =>
@@ -379,23 +310,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.ToTable("BookAuthors");
                 });
 
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookEditionTranslator", b =>
-                {
-                    b.Property<int>("BookEditionId");
-
-                    b.Property<int>("BookEditionBookId");
-
-                    b.Property<int>("BookEditionPublishingHomeId");
-
-                    b.Property<int>("TranslatorId");
-
-                    b.HasKey("BookEditionId", "BookEditionBookId", "BookEditionPublishingHomeId", "TranslatorId");
-
-                    b.HasIndex("TranslatorId");
-
-                    b.ToTable("BookEditionTranslator");
-                });
-
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookReview", b =>
                 {
                     b.Property<int>("Id")
@@ -418,23 +332,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BookReviews");
-                });
-
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.UserFriend", b =>
-                {
-                    b.Property<Guid>("Friend1Id");
-
-                    b.Property<Guid>("Friend2Id");
-
-                    b.Property<DateTime>("Added");
-
-                    b.Property<bool>("Confirmed");
-
-                    b.HasKey("Friend1Id", "Friend2Id");
-
-                    b.HasIndex("Friend2Id");
-
-                    b.ToTable("UserFriends");
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Role.Role", b =>
@@ -488,19 +385,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.User", "User")
                         .WithMany("BookComments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Edition.BookEdition", b =>
-                {
-                    b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.Book", "Book")
-                        .WithMany("BookEditions")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.PublishingHouse", "PublishingHouse")
-                        .WithMany("BookEditions")
-                        .HasForeignKey("PublishingHouseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -647,19 +531,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookEditionTranslator", b =>
-                {
-                    b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.Translator", "Translator")
-                        .WithMany("BookEditionTranslators")
-                        .HasForeignKey("TranslatorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PracaDyplomowaBackend.Data.DbModels.Edition.BookEdition", "BookEdition")
-                        .WithMany("BookEditionTranslators")
-                        .HasForeignKey("BookEditionId", "BookEditionBookId", "BookEditionPublishingHomeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookReview", b =>
                 {
                     b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.Book", "Book")
@@ -671,19 +542,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                         .WithMany("BookReviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.UserFriend", b =>
-                {
-                    b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.User", "Friend1")
-                        .WithMany("FriendOf")
-                        .HasForeignKey("Friend1Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PracaDyplomowaBackend.Data.DbModels.Common.User", "Friend2")
-                        .WithMany("Friends")
-                        .HasForeignKey("Friend2Id")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Role.UserRole", b =>

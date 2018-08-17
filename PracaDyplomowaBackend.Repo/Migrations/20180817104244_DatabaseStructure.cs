@@ -61,23 +61,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PublishingHouses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Added = table.Column<DateTime>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    PhotoUrl = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PublishingHouses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -88,25 +71,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Translators",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BirthCity = table.Column<string>(nullable: true),
-                    BirthCountry = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    DateOfDeath = table.Column<DateTime>(nullable: false),
-                    Firstname = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    Lastname = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Translators", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,35 +161,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                         name: "FK_BookGenres_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookEditions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    BookId = table.Column<int>(nullable: false),
-                    PublishingHouseId = table.Column<int>(nullable: false),
-                    Added = table.Column<DateTime>(nullable: false),
-                    PhotoUrl = table.Column<string>(nullable: true),
-                    Released = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookEditions", x => new { x.Id, x.BookId, x.PublishingHouseId });
-                    table.UniqueConstraint("AK_BookEditions_Id", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BookEditions_Books_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Books",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BookEditions_PublishingHouses_PublishingHouseId",
-                        column: x => x.PublishingHouseId,
-                        principalTable: "PublishingHouses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -464,32 +399,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserFriends",
-                columns: table => new
-                {
-                    Friend1Id = table.Column<Guid>(nullable: false),
-                    Friend2Id = table.Column<Guid>(nullable: false),
-                    Added = table.Column<DateTime>(nullable: false),
-                    Confirmed = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFriends", x => new { x.Friend1Id, x.Friend2Id });
-                    table.ForeignKey(
-                        name: "FK_UserFriends_Users_Friend1Id",
-                        column: x => x.Friend1Id,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserFriends_Users_Friend2Id",
-                        column: x => x.Friend2Id,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
@@ -535,32 +444,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookEditionTranslator",
-                columns: table => new
-                {
-                    BookEditionId = table.Column<int>(nullable: false),
-                    BookEditionBookId = table.Column<int>(nullable: false),
-                    BookEditionPublishingHomeId = table.Column<int>(nullable: false),
-                    TranslatorId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookEditionTranslator", x => new { x.BookEditionId, x.BookEditionBookId, x.BookEditionPublishingHomeId, x.TranslatorId });
-                    table.ForeignKey(
-                        name: "FK_BookEditionTranslator_Translators_TranslatorId",
-                        column: x => x.TranslatorId,
-                        principalTable: "Translators",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BookEditionTranslator_BookEditions_BookEditionId_BookEditionBookId_BookEditionPublishingHomeId",
-                        columns: x => new { x.BookEditionId, x.BookEditionBookId, x.BookEditionPublishingHomeId },
-                        principalTable: "BookEditions",
-                        principalColumns: new[] { "Id", "BookId", "PublishingHouseId" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -625,21 +508,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookEditions_BookId",
-                table: "BookEditions",
-                column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookEditions_PublishingHouseId",
-                table: "BookEditions",
-                column: "PublishingHouseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookEditionTranslator_TranslatorId",
-                table: "BookEditionTranslator",
-                column: "TranslatorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BookGenres_BookId",
                 table: "BookGenres",
                 column: "BookId");
@@ -685,11 +553,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserFriends_Friend2Id",
-                table: "UserFriends",
-                column: "Friend2Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
@@ -724,9 +587,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookComments");
 
             migrationBuilder.DropTable(
-                name: "BookEditionTranslator");
-
-            migrationBuilder.DropTable(
                 name: "BookGenres");
 
             migrationBuilder.DropTable(
@@ -748,19 +608,10 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "ReviewRates");
 
             migrationBuilder.DropTable(
-                name: "UserFriends");
-
-            migrationBuilder.DropTable(
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "WantedBooks");
-
-            migrationBuilder.DropTable(
-                name: "Translators");
-
-            migrationBuilder.DropTable(
-                name: "BookEditions");
 
             migrationBuilder.DropTable(
                 name: "Genres");
@@ -773,9 +624,6 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "PublishingHouses");
 
             migrationBuilder.DropTable(
                 name: "Books");
