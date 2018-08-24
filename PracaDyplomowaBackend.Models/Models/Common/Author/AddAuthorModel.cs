@@ -13,5 +13,7 @@ namespace PracaDyplomowaBackend.Models.Models.Common.Author
         public string BirthCity { get; set; }
         public string BirthCountry { get; set; }
         public string Gender { get; set; }
+
+        public ICollection<int> GenreIds { get; set; }
     }
 }

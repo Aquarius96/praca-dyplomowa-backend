@@ -9,5 +9,15 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public GenreRepository(DataContext context, IStringProvider stringProvider) : base(context, stringProvider)
         {
         }
+
+        public void AddAuthorGenre(AuthorGenre authorGenre)
+        {
+            _context.AuthorGenres.Add(authorGenre);
+        }
+
+        public void AddBookGenre(BookGenre bookGenre)
+        {
+            _context.BookGenres.Add(bookGenre);
+        }
     }
 }
