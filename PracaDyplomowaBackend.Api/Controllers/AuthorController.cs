@@ -16,6 +16,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         {
             _authorService = authorService;
         }
+
         [HttpPost]
         public IActionResult AddAuthor([FromBody]AddAuthorModel addAuthorModel)
         {
@@ -59,12 +60,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         public IActionResult GetAuthors(AuthorResourceParameters resourceParameters)
         {
             var authors = _authorService.GetList(resourceParameters);
-
-            if(authors.Count() == 0)
-            {
-                return NotFound();
-            }
-
+            
             return Ok(authors);
         }
     }

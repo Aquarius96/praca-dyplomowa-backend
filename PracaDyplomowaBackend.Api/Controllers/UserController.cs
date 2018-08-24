@@ -5,7 +5,7 @@ using PracaDyplomowaBackend.Service.Interfaces;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/user")]
+    [Route("api/User")]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;

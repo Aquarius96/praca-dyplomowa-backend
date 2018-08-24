@@ -1,9 +1,6 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace PracaDyplomowaBackend.Repo.Repositories
 {

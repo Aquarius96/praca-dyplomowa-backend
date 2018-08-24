@@ -11,7 +11,7 @@ using PracaDyplomowaBackend.Utilities.Paging;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/book")]
+    [Route("api/Book")]
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
@@ -64,12 +64,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         public IActionResult GetBooks(BookResourceParameters resourceParameters)
         {
             var books = _bookService.GetList(resourceParameters);
-
-            if(books.Count() == 0)
-            {
-                return NotFound();
-            }
-
+            
             return Ok(books);
         }
     }
