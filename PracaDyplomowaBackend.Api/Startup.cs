@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PracaDyplomowaBackend.Api.AutoMapperProfiles;
 using PracaDyplomowaBackend.Api.Helpers.Extensions;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
@@ -69,21 +70,12 @@ namespace PracaDyplomowaBackend.Api
             );
             #endregion
 
-            #region Mappers
+            #region MapperProfiles
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<RegisterModel, User>().AfterMap((src, dest) =>
-                {
-                    dest.Added = DateTime.UtcNow;
-                    dest.Confirmed = false;
-                });
-                cfg.CreateMap<User, UserDto>();
-
-                cfg.CreateMap<AddAuthorModel, Author>();
-                cfg.CreateMap<Author, AuthorDto>();
-
-                cfg.CreateMap<AddBookModel, Book>();
-                cfg.CreateMap<Book, BookDto>();
+                cfg.AddProfile<UserProfile>();
+                cfg.AddProfile<BookProfile>();
+                cfg.AddProfile<AuthorProfile>();
             });
             #endregion
 
