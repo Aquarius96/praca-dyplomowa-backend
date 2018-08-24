@@ -1,4 +1,5 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels;
+using PracaDyplomowaBackend.Utilities.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -14,6 +15,7 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         bool Exists(Expression<Func<TEntity, bool>> predicate);
         TEntity Get(TId id);
         IEnumerable<TEntity> GetList();
+        IEnumerable<TEntity> GetList(ResourceParameters resourceParameters);
         IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);
         bool Save();
     }

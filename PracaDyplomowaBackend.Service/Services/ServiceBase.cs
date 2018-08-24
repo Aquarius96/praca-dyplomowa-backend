@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Models.Models;
 using PracaDyplomowaBackend.Models.ModelsDto;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -51,6 +52,12 @@ namespace PracaDyplomowaBackend.Service.Services
         public IEnumerable<TDto> GetList(Expression<Func<TEntity, bool>> predicate)
         {
             var entities = _repository.GetList(predicate);
+            return Mapper.Map<IEnumerable<TDto>>(entities);
+        }
+
+        public IEnumerable<TDto> GetList(ResourceParameters resourceParameters)
+        {
+            var entities = _repository.GetList(resourceParameters);
             return Mapper.Map<IEnumerable<TDto>>(entities);
         }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.Paging;
 
 namespace PracaDyplomowaBackend.Api.Controllers
 {
@@ -60,9 +61,9 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBooks()
+        public IActionResult GetBooks(BookResourceParameters resourceParameters)
         {
-            var books = _bookService.GetList();
+            var books = _bookService.GetList(resourceParameters);
 
             if(books.Count() == 0)
             {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PracaDyplomowaBackend.Api.Helpers.Extensions;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
@@ -10,12 +10,12 @@ using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
-using PracaDyplomowaBackend.Repo;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Repo.Repositories;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Service.Services;
-using PracaDyplomowaBackend.Utilities.Extensions;
+using PracaDyplomowaBackend.Utilities.Providers;
+using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
 using System;
 
 namespace PracaDyplomowaBackend.Api
@@ -45,6 +45,10 @@ namespace PracaDyplomowaBackend.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBookService, BookService>();
+            #endregion
+
+            #region Helpers
+            services.AddScoped<IStringProvider, StringProvider>();
             #endregion
 
             services.AddMvc();

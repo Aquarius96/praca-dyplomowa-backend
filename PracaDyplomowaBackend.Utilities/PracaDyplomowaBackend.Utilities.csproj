@@ -15,7 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\PracaDyplomowaBackend.Data\PracaDyplomowaBackend.Data.csproj" />
     <ProjectReference Include="..\PracaDyplomowaBackend.Models\PracaDyplomowaBackend.Models.csproj" />
-    <ProjectReference Include="..\PracaDyplomowaBackend.Repo\PracaDyplomowaBackend.Repo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

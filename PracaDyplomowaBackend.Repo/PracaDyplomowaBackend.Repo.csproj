@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PracaDyplomowaBackend.Data\PracaDyplomowaBackend.Data.csproj" />
+    <ProjectReference Include="..\PracaDyplomowaBackend.Utilities\PracaDyplomowaBackend.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

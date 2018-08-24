@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PracaDyplomowaBackend.Repo;
 
-namespace PracaDyplomowaBackend.Utilities.Extensions
+namespace PracaDyplomowaBackend.Api.Helpers.Extensions
 {
     public static class ServiceExtensions
     {

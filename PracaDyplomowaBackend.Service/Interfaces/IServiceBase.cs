@@ -1,6 +1,7 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels;
 using PracaDyplomowaBackend.Models.Models;
 using PracaDyplomowaBackend.Models.ModelsDto;
+using PracaDyplomowaBackend.Utilities.Paging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         bool Exists(Expression<Func<TEntity, bool>> predicate);
         TDto Get(TId id);
         IEnumerable<TDto> GetList();
+        IEnumerable<TDto> GetList(ResourceParameters resourceParameters);
         IEnumerable<TDto> GetList(Expression<Func<TEntity, bool>> predicate);
         bool Save();
     }

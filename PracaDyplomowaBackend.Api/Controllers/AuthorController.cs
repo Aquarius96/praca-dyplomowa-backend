@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.Paging;
 
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/author")]
+    [Route("api/Author")]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;
@@ -55,9 +56,9 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAuthors()
+        public IActionResult GetAuthors(AuthorResourceParameters resourceParameters)
         {
-            var authors = _authorService.GetList();
+            var authors = _authorService.GetList(resourceParameters);
 
             if(authors.Count() == 0)
             {
