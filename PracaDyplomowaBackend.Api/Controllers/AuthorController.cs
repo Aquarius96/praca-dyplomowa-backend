@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -27,7 +27,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _authorService.Add(addAuthorModel);
 
-            return Save(_authorService, Ok("Autor został pomyślnie dodany do bazy."));
+            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
         }
 
         [HttpDelete("{id}")]

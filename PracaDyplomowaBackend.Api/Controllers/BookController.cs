@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.Paging;
@@ -31,7 +26,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _bookService.Add(addBookModel);
 
-            return Save(_bookService, Ok());
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
         [HttpDelete("{id}")]

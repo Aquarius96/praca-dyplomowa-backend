@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Service.Interfaces;
 
@@ -30,7 +31,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _userService.Register(registerModel);
 
-            return Save(_userService, Ok());
+            return Save(_userService, StatusCode(StatusCodes.Status201Created));
         }
     }
 }
