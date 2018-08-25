@@ -10,5 +10,6 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     public interface IBookService : IServiceBase<Book, AddBookModel, BookDto, int>
     {
         void AddBookGenres(Book book, ICollection<int> genreIds);
+        void AddBookAuthors(Book book, ICollection<int> authorIds);
     }
 }

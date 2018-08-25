@@ -13,5 +13,6 @@ namespace PracaDyplomowaBackend.Models.Models.Common.Book
         public DateTime Released { get; set; }        
 
         public ICollection<int> GenreIds { get; set; }
+        public ICollection<int> AuthorIds { get; set; }
     }
 }

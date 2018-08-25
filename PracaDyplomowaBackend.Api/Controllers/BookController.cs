@@ -13,11 +13,13 @@ namespace PracaDyplomowaBackend.Api.Controllers
     {
         private readonly IBookService _bookService;
         private readonly IGenreService _genreService;
+        private readonly IAuthorService _authorService;
 
-        public BookController(IBookService bookService, IGenreService genreService)
+        public BookController(IBookService bookService, IGenreService genreService, IAuthorService authorService)
         {
             _bookService = bookService;
             _genreService = genreService;
+            _authorService = authorService;
         }
 
         [HttpPost]
@@ -31,6 +33,11 @@ namespace PracaDyplomowaBackend.Api.Controllers
             if (!_genreService.ListExists(addBookModel.GenreIds))
             {
                 return NotFound(ErrorMessages.GenresNotFound);
+            }
+
+            if (!_authorService.ListExists(addBookModel.AuthorIds))
+            {
+                return NotFound(ErrorMessages.AuthorsNotFound);
             }
 
             _bookService.Add(addBookModel);

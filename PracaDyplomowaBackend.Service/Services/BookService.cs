@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
+using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Repo.Interfaces;
@@ -14,9 +15,11 @@ namespace PracaDyplomowaBackend.Service.Services
     public class BookService : ServiceBase<Book, AddBookModel, BookDto, int>, IBookService
     {
         private readonly IGenreRepository _genreRepository;
-        public BookService(IBookRepository repository, IGenreRepository genreRepository) : base(repository)
+        private readonly IAuthorRepository _authorRepository;
+        public BookService(IBookRepository repository, IGenreRepository genreRepository, IAuthorRepository authorRepository) : base(repository)
         {
             _genreRepository = genreRepository;
+            _authorRepository = authorRepository;
         }
 
         public new void Add(AddBookModel model)
@@ -26,6 +29,17 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository.Add(book);
 
             AddBookGenres(book, model.GenreIds);
+            AddBookAuthors(book, model.AuthorIds);
+        }
+
+        public void AddBookAuthors(Book book, ICollection<int> authorIds)
+        {
+            foreach(var authorId in authorIds)
+            {
+                var bookAuthor = new BookAuthor { Book = book, AuthorId = authorId };
+
+                _authorRepository.AddBookAuthor(bookAuthor);
+            }
         }
 
         public void AddBookGenres(Book book, ICollection<int> genreIds)

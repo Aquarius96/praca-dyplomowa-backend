@@ -61,6 +61,15 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jednego lub więcej autorów nie znaleziono w bazie danych..
+        /// </summary>
+        public static string AuthorsNotFound {
+            get {
+                return ResourceManager.GetString("AuthorsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jednego lub więcej gatunków nie znaleziono w bazie danych..
         /// </summary>
         public static string GenresNotFound {
