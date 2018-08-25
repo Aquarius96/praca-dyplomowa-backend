@@ -49,9 +49,7 @@ namespace PracaDyplomowaBackend.Repo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<AuthorComment>().HasKey(sc => new { sc.Id, sc.AuthorId, sc.UserId});
-            modelBuilder.Entity<BookComment>().HasKey(sc => new { sc.Id, sc.BookId, sc.UserId });
+            
             modelBuilder.Entity<AuthorGenre>().HasKey(sc => new { sc.GenreId, sc.AuthorId });
             modelBuilder.Entity<BookGenre>().HasKey(sc => new { sc.GenreId, sc.BookId });
             modelBuilder.Entity<CurrentlyReadBook>().HasKey(sc => new { sc.BookId, sc.UserId });

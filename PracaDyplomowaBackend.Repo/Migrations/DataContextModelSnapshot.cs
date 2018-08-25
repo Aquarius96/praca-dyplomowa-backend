@@ -22,19 +22,18 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Comment.AuthorComment", b =>
                 {
-                    b.Property<int>("Id");
-
-                    b.Property<int>("AuthorId");
-
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Added");
 
+                    b.Property<int>("AuthorId");
+
                     b.Property<string>("Content");
 
-                    b.HasKey("Id", "AuthorId", "UserId");
+                    b.Property<Guid>("UserId");
 
-                    b.HasAlternateKey("Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
@@ -45,19 +44,18 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Comment.BookComment", b =>
                 {
-                    b.Property<int>("Id");
-
-                    b.Property<int>("BookId");
-
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Added");
 
+                    b.Property<int>("BookId");
+
                     b.Property<string>("Content");
 
-                    b.HasKey("Id", "BookId", "UserId");
+                    b.Property<Guid>("UserId");
 
-                    b.HasAlternateKey("Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("BookId");
 

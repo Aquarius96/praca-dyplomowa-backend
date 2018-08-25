@@ -169,16 +169,16 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "AuthorComments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Added = table.Column<DateTime>(nullable: false),
-                    Content = table.Column<string>(nullable: true)
+                    AuthorId = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorComments", x => new { x.Id, x.AuthorId, x.UserId });
-                    table.UniqueConstraint("AK_AuthorComments_Id", x => x.Id);
+                    table.PrimaryKey("PK_AuthorComments", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AuthorComments_Authors_AuthorId",
                         column: x => x.AuthorId,
@@ -222,16 +222,16 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                 name: "BookComments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    BookId = table.Column<int>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Added = table.Column<DateTime>(nullable: false),
-                    Content = table.Column<string>(nullable: true)
+                    BookId = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookComments", x => new { x.Id, x.BookId, x.UserId });
-                    table.UniqueConstraint("AK_BookComments_Id", x => x.Id);
+                    table.PrimaryKey("PK_BookComments", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BookComments_Books_BookId",
                         column: x => x.BookId,
