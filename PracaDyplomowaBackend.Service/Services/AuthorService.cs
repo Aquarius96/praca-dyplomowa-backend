@@ -79,8 +79,11 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             var author = Mapper.Map<AuthorDto>(_repository.Get(id));
 
-            author.Genres = _genreRepository.GetAuthorGenres(id);
-            author.Comments = _repository.GetAuthorComments(id);
+            if (author != null)
+            {
+                author.Genres = _genreRepository.GetAuthorGenres(id);
+                author.Comments = _repository.GetAuthorComments(id);
+            }           
 
             return author;
         }        
