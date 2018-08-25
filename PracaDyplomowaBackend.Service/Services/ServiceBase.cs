@@ -61,6 +61,11 @@ namespace PracaDyplomowaBackend.Service.Services
             return Mapper.Map<IEnumerable<TDto>>(entities);
         }
 
+        public bool ListExists(IEnumerable<TId> ids)
+        {
+            return _repository.ListExists(ids);
+        }
+
         public bool Save()
         {
             return _repository.Save();

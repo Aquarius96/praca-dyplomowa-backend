@@ -65,6 +65,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             return entities;
         }
 
+        public bool ListExists(IEnumerable<TId> ids)
+        {
+            return _context.Set<TEntity>().Where(entity => ids.ToArray().Contains(entity.Id)).Count() == ids.Count();
+        }
+
         public bool Save()
         {
             return _context.SaveChanges() > 0;

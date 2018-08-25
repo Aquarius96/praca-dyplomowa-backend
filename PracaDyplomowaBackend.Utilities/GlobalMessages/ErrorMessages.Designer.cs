@@ -61,6 +61,15 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jednego lub więcej gatunków nie znaleziono w bazie danych..
+        /// </summary>
+        public static string GenresNotFound {
+            get {
+                return ResourceManager.GetString("GenresNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wystąpił błąd podczas zapisu..
         /// </summary>
         public static string SaveFailed {

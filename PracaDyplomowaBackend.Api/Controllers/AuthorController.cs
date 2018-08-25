@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
 
 namespace PracaDyplomowaBackend.Api.Controllers
@@ -11,10 +12,12 @@ namespace PracaDyplomowaBackend.Api.Controllers
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;
+        private readonly IGenreService _genreService;
 
-        public AuthorController(IAuthorService authorService)
+        public AuthorController(IAuthorService authorService, IGenreService genreService)
         {
             _authorService = authorService;
+            _genreService = genreService;
         }
 
         [HttpPost]
@@ -23,6 +26,11 @@ namespace PracaDyplomowaBackend.Api.Controllers
             if(addAuthorModel == null)
             {
                 return BadRequest();
+            }
+
+            if (!_genreService.ListExists(addAuthorModel.GenreIds))
+            {
+                return NotFound(ErrorMessages.GenresNotFound);
             }
 
             _authorService.Add(addAuthorModel);

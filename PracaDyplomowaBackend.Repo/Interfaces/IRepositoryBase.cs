@@ -13,6 +13,7 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         void Delete(TEntity entity);
         void Edit(TEntity entity);
         bool Exists(Expression<Func<TEntity, bool>> predicate);
+        bool ListExists(IEnumerable<TId> ids);
         TEntity Get(TId id);
         IEnumerable<TEntity> GetList();
         IEnumerable<TEntity> GetList(ResourceParameters resourceParameters);

@@ -14,6 +14,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void Add(TModel model);
         void Delete(TId id);        
         bool Exists(Expression<Func<TEntity, bool>> predicate);
+        bool ListExists(IEnumerable<TId> ids);
         TDto Get(TId id);
         IEnumerable<TDto> GetList();
         IEnumerable<TDto> GetList(ResourceParameters resourceParameters);
