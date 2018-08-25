@@ -95,6 +95,7 @@ namespace PracaDyplomowaBackend.Service.Services
             var book = Mapper.Map<BookDto>(_repository.Get(id));
 
             book.Genres = _genreRepository.GetBookGenres(id);
+            book.Comments = _repository.GetBookComments(id);
 
             return book;
         }

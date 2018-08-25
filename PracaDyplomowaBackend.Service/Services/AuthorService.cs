@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.Paging;
@@ -79,9 +80,10 @@ namespace PracaDyplomowaBackend.Service.Services
             var author = Mapper.Map<AuthorDto>(_repository.Get(id));
 
             author.Genres = _genreRepository.GetAuthorGenres(id);
+            author.Comments = _repository.GetAuthorComments(id);
 
             return author;
-        }
+        }        
 
         public new IEnumerable<AuthorDto> GetList(ResourceParameters resourceParameters)
         {

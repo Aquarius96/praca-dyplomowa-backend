@@ -1,6 +1,7 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Service.Interfaces
@@ -12,6 +13,6 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void AddAuthorComment(int authorId, string userEmailAddress, string content);        
 
         void DeleteAuthorGenre(int authorId, int genreId);
-        void DeleteAuthorComment(int id);
+        void DeleteAuthorComment(int id);        
     }
 }

@@ -71,6 +71,7 @@ namespace PracaDyplomowaBackend.Api
                 cfg.AddProfile<BookProfile>();
                 cfg.AddProfile<AuthorProfile>();
                 cfg.AddProfile<GenreProfile>();
+                cfg.AddProfile<CommentProfile>();
             });
             #endregion
 

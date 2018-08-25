@@ -1,8 +1,12 @@
-﻿using PracaDyplomowaBackend.Data.DbModels.Comment;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
+using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PracaDyplomowaBackend.Repo.Repositories
@@ -31,6 +35,13 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public AuthorComment GetAuthorComment(int id)
         {
             return _context.AuthorComments.FirstOrDefault(authorComment => authorComment.Id == id);
+        }
+
+        public IEnumerable<CommentDto> GetAuthorComments(int authorId)
+        {
+            var authorComments = _context.Authors.Where(author => author.Id == authorId).SelectMany(author => author.AuthorComments).Include(authorComment => authorComment.User);
+
+            return Mapper.Map<IEnumerable<CommentDto>>(authorComments);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Comment
