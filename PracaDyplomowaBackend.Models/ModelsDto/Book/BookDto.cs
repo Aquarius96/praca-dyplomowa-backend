@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PracaDyplomowaBackend.Models.ModelsDto.Genre;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PracaDyplomowaBackend.Models.ModelsDto.Book
 {
@@ -13,5 +13,7 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Book
         public int PagesCount { get; set; }
         public DateTime Released { get; set; }
         public DateTime Added { get; set; }
+
+        public IEnumerable<GenreDto> Genres { get; set; }
     }
 }

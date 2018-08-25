@@ -9,6 +9,7 @@ using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.Paging;
 
 namespace PracaDyplomowaBackend.Service.Services
 {
@@ -57,6 +58,27 @@ namespace PracaDyplomowaBackend.Service.Services
             BookGenre bookGenre = _genreRepository.GetBookGenre(bookId, genreId);
 
             _genreRepository.RemoveBookGenre(bookGenre);
+        }
+
+        public new BookDto Get(int id)
+        {
+            var book = Mapper.Map<BookDto>(_repository.Get(id));
+
+            book.Genres = _genreRepository.GetBookGenres(id);
+
+            return book;
+        }
+
+        public new IEnumerable<BookDto> GetList(ResourceParameters resourceParameters)
+        {
+            var books = Mapper.Map<IEnumerable<BookDto>>(_repository.GetList(resourceParameters));
+
+            foreach (var book in books)
+            {
+                book.Genres = _genreRepository.GetBookGenres(book.Id);
+            }
+
+            return books;
         }
     }
 }
