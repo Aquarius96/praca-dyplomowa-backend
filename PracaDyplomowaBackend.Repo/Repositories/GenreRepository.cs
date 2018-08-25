@@ -1,6 +1,9 @@
-﻿using PracaDyplomowaBackend.Data.DbModels.Genre;
+﻿using AutoMapper;
+using PracaDyplomowaBackend.Data.DbModels.Genre;
+using PracaDyplomowaBackend.Models.ModelsDto.Genre;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PracaDyplomowaBackend.Repo.Repositories
@@ -26,9 +29,23 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             return _context.AuthorGenres.FirstOrDefault(authorGenre => authorGenre.AuthorId == authorId && authorGenre.GenreId == genreId);
         }
 
+        public IEnumerable<GenreDto> GetAuthorGenres(int authorId)
+        {
+            var authorGenres = _context.Authors.Where(author => author.Id == authorId).SelectMany(author => author.AuthorGenres).Select(authorGenre => authorGenre.Genre);
+
+            return Mapper.Map<IEnumerable<GenreDto>>(authorGenres);
+        }
+
         public BookGenre GetBookGenre(int bookId, int genreId)
         {
             return _context.BookGenres.FirstOrDefault(bookGenre => bookGenre.BookId == bookId && bookGenre.GenreId == genreId);
+        }
+
+        public IEnumerable<GenreDto> GetBookGenres(int bookId)
+        {
+            var bookGenres = _context.Books.Where(book => book.Id == bookId).SelectMany(book => book.BookGenres).Select(bookGenre => bookGenre.Genre);
+
+            return Mapper.Map<IEnumerable<GenreDto>>(bookGenres);
         }
 
         public void RemoveAuthorGenre(AuthorGenre authorGenre)

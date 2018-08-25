@@ -1,4 +1,6 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Genre;
+using PracaDyplomowaBackend.Models.ModelsDto.Genre;
+using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Repo.Interfaces
 {
@@ -9,6 +11,9 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
 
         AuthorGenre GetAuthorGenre(int authorId, int genreId);
         BookGenre GetBookGenre(int bookId, int genreId);
+
+        IEnumerable<GenreDto> GetAuthorGenres(int authorId);
+        IEnumerable<GenreDto> GetBookGenres(int bookId);
 
         void RemoveAuthorGenre(AuthorGenre authorGenre);
         void RemoveBookGenre(BookGenre bookGenre);

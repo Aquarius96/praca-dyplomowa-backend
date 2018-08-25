@@ -5,6 +5,7 @@ using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.Paging;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Service.Services
@@ -41,6 +42,27 @@ namespace PracaDyplomowaBackend.Service.Services
             AuthorGenre authorGenre = _genreRepository.GetAuthorGenre(authorId, genreId);
 
             _genreRepository.RemoveAuthorGenre(authorGenre);
+        }
+
+        public new AuthorDto Get(int id)
+        {
+            var author = Mapper.Map<AuthorDto>(_repository.Get(id));
+
+            author.Genres = _genreRepository.GetAuthorGenres(id);
+
+            return author;
+        }
+
+        public new IEnumerable<AuthorDto> GetList(ResourceParameters resourceParameters)
+        {
+            var authors = Mapper.Map<IEnumerable<AuthorDto>>(_repository.GetList(resourceParameters));
+
+            foreach(var author in authors)
+            {
+                author.Genres = _genreRepository.GetAuthorGenres(author.Id);
+            }
+
+            return authors;
         }
     }
 }

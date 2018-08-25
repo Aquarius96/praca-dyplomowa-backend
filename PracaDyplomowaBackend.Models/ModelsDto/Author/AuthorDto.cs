@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PracaDyplomowaBackend.Models.ModelsDto.Genre;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,5 +15,7 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Author
         public string BirthCity { get; set; }
         public string BirthCountry { get; set; }
         public string Gender { get; set; }
+
+        public IEnumerable<GenreDto> Genres { get; set; }
     }
 }
