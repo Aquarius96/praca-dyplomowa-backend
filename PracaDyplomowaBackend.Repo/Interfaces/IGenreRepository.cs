@@ -15,7 +15,7 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         IEnumerable<GenreDto> GetAuthorGenres(int authorId);
         IEnumerable<GenreDto> GetBookGenres(int bookId);
 
-        void RemoveAuthorGenre(AuthorGenre authorGenre);
-        void RemoveBookGenre(BookGenre bookGenre);
+        void DeleteAuthorGenre(AuthorGenre authorGenre);
+        void DeleteBookGenre(BookGenre bookGenre);
     }
 }

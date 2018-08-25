@@ -9,8 +9,9 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     {
         void AddAuthorGenre(int authorId, int genreId);
         void AddAuthorGenres(Author author, ICollection<int> genreIds);
-        void AddAuthorComment(int authorId, string userEmailAddress, string content);
+        void AddAuthorComment(int authorId, string userEmailAddress, string content);        
 
         void DeleteAuthorGenre(int authorId, int genreId);
+        void DeleteAuthorComment(int id);
     }
 }

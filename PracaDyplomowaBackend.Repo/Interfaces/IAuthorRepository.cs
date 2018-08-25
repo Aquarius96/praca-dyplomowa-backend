@@ -8,5 +8,9 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
     {
         void AddBookAuthor(BookAuthor bookAuthor);
         void AddAuthorComment(AuthorComment authorComment);
+
+        void DeleteAuthorComment(AuthorComment authorComment);
+
+        AuthorComment GetAuthorComment(int id);
     }
 }

@@ -59,11 +59,18 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
+        public void DeleteAuthorComment(int id)
+        {
+            AuthorComment authorComment = _repository.GetAuthorComment(id);
+
+            _repository.DeleteAuthorComment(authorComment);
+        }
+
         public void DeleteAuthorGenre(int authorId, int genreId)
         {
             AuthorGenre authorGenre = _genreRepository.GetAuthorGenre(authorId, genreId);
 
-            _genreRepository.RemoveAuthorGenre(authorGenre);
+            _genreRepository.DeleteAuthorGenre(authorGenre);
         }
 
         public new AuthorDto Get(int id)

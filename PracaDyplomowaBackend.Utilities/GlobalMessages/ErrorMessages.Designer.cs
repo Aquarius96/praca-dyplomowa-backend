@@ -115,6 +115,15 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Komentarz nie został znaleziony w bazie danych..
+        /// </summary>
+        public static string CommentNotFound {
+            get {
+                return ResourceManager.GetString("CommentNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gatunek nie został znaleziony w bazie danych..
         /// </summary>
         public static string GenreNotFound {

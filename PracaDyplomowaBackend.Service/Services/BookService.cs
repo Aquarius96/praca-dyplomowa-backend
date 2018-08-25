@@ -64,7 +64,7 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             BookGenre bookGenre = _genreRepository.GetBookGenre(bookId, genreId);
 
-            _genreRepository.RemoveBookGenre(bookGenre);
+            _genreRepository.DeleteBookGenre(bookGenre);
         }
 
         public new BookDto Get(int id)

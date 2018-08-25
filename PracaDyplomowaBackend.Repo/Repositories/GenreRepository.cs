@@ -48,12 +48,12 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             return Mapper.Map<IEnumerable<GenreDto>>(bookGenres);
         }
 
-        public void RemoveAuthorGenre(AuthorGenre authorGenre)
+        public void DeleteAuthorGenre(AuthorGenre authorGenre)
         {
             _context.AuthorGenres.Remove(authorGenre);
         }
 
-        public void RemoveBookGenre(BookGenre bookGenre)
+        public void DeleteBookGenre(BookGenre bookGenre)
         {
             _context.BookGenres.Remove(bookGenre);
         }

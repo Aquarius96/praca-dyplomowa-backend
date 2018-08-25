@@ -110,6 +110,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, NoContent());
         }
 
+        [HttpDelete("comment/{commentId}")]
+        public IActionResult DeleteAuthorComment(int commentId)
+        {
+            if(!_authorService.Exists(author=>author.AuthorComments.Any(authorComment => authorComment.Id == commentId)))
+            {
+                return NotFound(ErrorMessages.CommentNotFound);
+            }
+
+            _authorService.DeleteAuthorComment(commentId);
+
+            return Save(_authorService, NoContent());
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetAuthor(int id)
         {            

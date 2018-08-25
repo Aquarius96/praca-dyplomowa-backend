@@ -3,6 +3,7 @@ using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
+using System.Linq;
 
 namespace PracaDyplomowaBackend.Repo.Repositories
 {
@@ -20,6 +21,16 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public void AddBookAuthor(BookAuthor bookAuthor)
         {
             _context.BookAuthors.Add(bookAuthor);
+        }
+
+        public void DeleteAuthorComment(AuthorComment authorComment)
+        {
+            _context.AuthorComments.Remove(authorComment);
+        }
+
+        public AuthorComment GetAuthorComment(int id)
+        {
+            return _context.AuthorComments.FirstOrDefault(authorComment => authorComment.Id == id);
         }
     }
 }
