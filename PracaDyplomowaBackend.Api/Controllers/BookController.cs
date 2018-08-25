@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Service.Interfaces;
+using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
 
 namespace PracaDyplomowaBackend.Api.Controllers
@@ -11,10 +12,12 @@ namespace PracaDyplomowaBackend.Api.Controllers
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
+        private readonly IGenreService _genreService;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IGenreService genreService)
         {
             _bookService = bookService;
+            _genreService = genreService;
         }
 
         [HttpPost]
@@ -23,6 +26,11 @@ namespace PracaDyplomowaBackend.Api.Controllers
             if(addBookModel == null)
             {
                 return BadRequest();
+            }
+
+            if (!_genreService.ListExists(addBookModel.GenreIds))
+            {
+                return NotFound(ErrorMessages.GenresNotFound);
             }
 
             _bookService.Add(addBookModel);
