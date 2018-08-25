@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PracaDyplomowaBackend.Models.Models.Comment;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
@@ -14,11 +15,13 @@ namespace PracaDyplomowaBackend.Api.Controllers
     {
         private readonly IAuthorService _authorService;
         private readonly IGenreService _genreService;
+        private readonly IUserService _userService;
 
-        public AuthorController(IAuthorService authorService, IGenreService genreService)
+        public AuthorController(IAuthorService authorService, IGenreService genreService, IUserService userService)
         {
             _authorService = authorService;
             _genreService = genreService;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -39,6 +42,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/comment")]
+        public IActionResult AddAuthorComment(int id, [FromBody]AddCommentModel addCommentModel)
+        {
+            if (!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addCommentModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _authorService.AddAuthorComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
+
+            return Save(_genreService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpPost("{id}/genre/{genreId}")]
         public IActionResult AddAuthorGenre(int id, int genreId)
         {
@@ -46,7 +67,6 @@ namespace PracaDyplomowaBackend.Api.Controllers
             {
                 return NotFound(ErrorMessages.AuthorNotFound);
             }
-
 
             if (!_genreService.Exists(genre => genre.Id == genreId))
             {

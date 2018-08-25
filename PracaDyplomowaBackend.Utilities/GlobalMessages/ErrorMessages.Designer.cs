@@ -140,5 +140,14 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
                 return ResourceManager.GetString("SaveFailed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie został znaleziony w bazie danych..
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
     }
 }

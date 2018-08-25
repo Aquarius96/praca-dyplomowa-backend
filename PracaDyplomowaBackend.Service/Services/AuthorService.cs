@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
@@ -6,16 +7,21 @@ using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.Paging;
+using System;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Service.Services
 {
     public class AuthorService : ServiceBase<Author,AddAuthorModel, AuthorDto, int>, IAuthorService
     {
+        private new readonly IAuthorRepository _repository;
         private readonly IGenreRepository _genreRepository;
-        public AuthorService(IAuthorRepository repository, IGenreRepository genreRepository) : base(repository)
+        private readonly IUserRepository _userRepository;
+        public AuthorService(IAuthorRepository repository, IGenreRepository genreRepository, IUserRepository userRepository) : base(repository)
         {
+            _repository = repository;
             _genreRepository = genreRepository;
+            _userRepository = userRepository;
         }
 
         public new void Add(AddAuthorModel model)
@@ -25,6 +31,15 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository.Add(author);
 
             AddAuthorGenres(author, model.GenreIds);
+        }
+
+        public void AddAuthorComment(int authorId, string userEmailAddress, string content)
+        {
+            var user = _userRepository.Get(userEmailAddress);
+
+            var authorComment = new AuthorComment { AuthorId = authorId, User = user, Content = content, Added = DateTime.UtcNow };
+
+            _repository.AddAuthorComment(authorComment);
         }
 
         public void AddAuthorGenre(int authorId, int genreId)
