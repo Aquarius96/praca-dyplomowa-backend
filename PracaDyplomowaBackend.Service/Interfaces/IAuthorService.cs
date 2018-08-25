@@ -8,5 +8,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     public interface IAuthorService : IServiceBase<Author, AddAuthorModel, AuthorDto, int>
     {
         void AddAuthorGenres(Author author, ICollection<int> genreIds);
+
+        void DeleteAuthorGenre(int authorId, int genreId);
     }
 }

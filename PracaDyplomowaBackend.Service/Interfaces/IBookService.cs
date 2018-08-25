@@ -11,5 +11,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     {
         void AddBookGenres(Book book, ICollection<int> genreIds);
         void AddBookAuthors(Book book, ICollection<int> authorIds);
+
+        void DeleteBookGenre(int bookId, int genreId);
     }
 }

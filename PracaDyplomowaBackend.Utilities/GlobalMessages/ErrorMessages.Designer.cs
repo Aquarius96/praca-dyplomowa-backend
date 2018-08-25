@@ -61,11 +61,56 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autor nie posiada danego gatunku..
+        /// </summary>
+        public static string AuthorGenreNotFound {
+            get {
+                return ResourceManager.GetString("AuthorGenreNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autor nie został znaleziony w bazie danych..
+        /// </summary>
+        public static string AuthorNotFound {
+            get {
+                return ResourceManager.GetString("AuthorNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jednego lub więcej autorów nie znaleziono w bazie danych..
         /// </summary>
         public static string AuthorsNotFound {
             get {
                 return ResourceManager.GetString("AuthorsNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Książka nie posiada takiego autora..
+        /// </summary>
+        public static string BookAuthorNotFound {
+            get {
+                return ResourceManager.GetString("BookAuthorNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Książka nie posiada danego gatunku..
+        /// </summary>
+        public static string BookGenreNotFound {
+            get {
+                return ResourceManager.GetString("BookGenreNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Książka nie została znaleziona w bazie danych..
+        /// </summary>
+        public static string BookNotFound {
+            get {
+                return ResourceManager.GetString("BookNotFound", resourceCulture);
             }
         }
         

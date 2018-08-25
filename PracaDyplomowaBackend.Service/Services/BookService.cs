@@ -51,5 +51,12 @@ namespace PracaDyplomowaBackend.Service.Services
                 _genreRepository.AddBookGenre(bookGenre);
             }
         }
+
+        public void DeleteBookGenre(int bookId, int genreId)
+        {
+            BookGenre bookGenre = _genreRepository.GetBookGenre(bookId, genreId);
+
+            _genreRepository.RemoveBookGenre(bookGenre);
+        }
     }
 }

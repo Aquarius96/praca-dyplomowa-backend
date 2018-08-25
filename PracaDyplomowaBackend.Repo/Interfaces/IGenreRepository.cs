@@ -6,5 +6,11 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
     {
         void AddAuthorGenre(AuthorGenre authorGenre);
         void AddBookGenre(BookGenre bookGenre);
+
+        AuthorGenre GetAuthorGenre(int authorId, int genreId);
+        BookGenre GetBookGenre(int bookId, int genreId);
+
+        void RemoveAuthorGenre(AuthorGenre authorGenre);
+        void RemoveBookGenre(BookGenre bookGenre);
     }
 }

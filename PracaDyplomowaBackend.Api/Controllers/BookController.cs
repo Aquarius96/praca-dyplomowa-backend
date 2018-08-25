@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
+using System.Linq;
 
 namespace PracaDyplomowaBackend.Api.Controllers
 {
@@ -50,10 +51,28 @@ namespace PracaDyplomowaBackend.Api.Controllers
         {
             if(!_bookService.Exists(book => book.Id == id))
             {
-                return NotFound();
+                return NotFound(ErrorMessages.BookNotFound);
             }
 
             _bookService.Delete(id);
+
+            return Save(_bookService, NoContent());
+        }
+
+        [HttpDelete("{id}/genre/{genreId}")]
+        public IActionResult DeleteBookGenre(int id, int genreId)
+        {
+            if(!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            if(!_bookService.Exists(book => book.Id == id && book.BookGenres.Any(bookGenre => bookGenre.GenreId == genreId)))
+            {
+                return NotFound(ErrorMessages.BookGenreNotFound);
+            }
+
+            _bookService.DeleteBookGenre(id, genreId);
 
             return Save(_bookService, NoContent());
         }
@@ -65,7 +84,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             if(book == null)
             {
-                return NotFound();
+                return NotFound(ErrorMessages.BookNotFound);
             }
 
             return Ok(book);

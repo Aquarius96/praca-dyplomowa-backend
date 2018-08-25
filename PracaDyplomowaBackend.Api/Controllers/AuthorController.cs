@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
+using System.Linq;
 
 namespace PracaDyplomowaBackend.Api.Controllers
 {
@@ -43,10 +44,28 @@ namespace PracaDyplomowaBackend.Api.Controllers
         {
             if(!_authorService.Exists(author => author.Id == id))
             {
-                return NotFound();
+                return NotFound(ErrorMessages.AuthorNotFound);
             }
 
             _authorService.Delete(id);
+
+            return Save(_authorService, NoContent());
+        }
+
+        [HttpDelete("{id}/genre/{genreId}")]
+        public IActionResult DeleteAuthorGenre(int id, int genreId)
+        {
+            if (!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            if(!_authorService.Exists(author => author.Id == id && author.AuthorGenres.Any(authorGenre => authorGenre.GenreId == genreId)))
+            {
+                return NotFound(ErrorMessages.AuthorGenreNotFound);
+            }
+
+            _authorService.DeleteAuthorGenre(id, genreId);
 
             return Save(_authorService, NoContent());
         }
@@ -58,7 +77,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             if(author == null)
             {
-                return NotFound();
+                return NotFound(ErrorMessages.AuthorNotFound);
             }
 
             return Ok(author);
