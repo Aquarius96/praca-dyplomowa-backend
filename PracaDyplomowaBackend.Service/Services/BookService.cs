@@ -1,7 +1,9 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 using AutoMapper;
+using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
@@ -15,12 +17,17 @@ namespace PracaDyplomowaBackend.Service.Services
 {
     public class BookService : ServiceBase<Book, AddBookModel, BookDto, int>, IBookService
     {
+        private new readonly IBookRepository _repository;
         private readonly IGenreRepository _genreRepository;
         private readonly IAuthorRepository _authorRepository;
-        public BookService(IBookRepository repository, IGenreRepository genreRepository, IAuthorRepository authorRepository) : base(repository)
+        private readonly IUserRepository _userRepository;
+
+        public BookService(IBookRepository repository, IGenreRepository genreRepository, IAuthorRepository authorRepository, IUserRepository userRepository) : base(repository)
         {
+            _repository = repository;
             _genreRepository = genreRepository;
             _authorRepository = authorRepository;
+            _userRepository = userRepository;
         }
 
         public new void Add(AddBookModel model)
@@ -43,6 +50,15 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
+        public void AddBookComment(int bookId, string userEmailAddress, string content)
+        {
+            var user = _userRepository.Get(userEmailAddress);
+
+            var bookComment = new BookComment { BookId = bookId, User = user, Content = content, Added = DateTime.UtcNow };
+
+            _repository.AddBookComment(bookComment);
+        }
+
         public void AddBookGenre(int bookId, int genreId)
         {
             var bookGenre = new BookGenre { BookId = bookId, GenreId = genreId };
@@ -58,6 +74,13 @@ namespace PracaDyplomowaBackend.Service.Services
 
                 _genreRepository.AddBookGenre(bookGenre);
             }
+        }
+
+        public void DeleteBookComment(int id)
+        {
+            var bookComment = _repository.GetBookComment(id);
+
+            _repository.DeleteBookComment(bookComment);
         }
 
         public void DeleteBookGenre(int bookId, int genreId)

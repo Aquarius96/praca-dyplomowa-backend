@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PracaDyplomowaBackend.Models.Models.Comment;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
@@ -15,12 +16,14 @@ namespace PracaDyplomowaBackend.Api.Controllers
         private readonly IBookService _bookService;
         private readonly IGenreService _genreService;
         private readonly IAuthorService _authorService;
+        private readonly IUserService _userService;
 
-        public BookController(IBookService bookService, IGenreService genreService, IAuthorService authorService)
+        public BookController(IBookService bookService, IGenreService genreService, IAuthorService authorService, IUserService userService)
         {
             _bookService = bookService;
             _genreService = genreService;
             _authorService = authorService;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -64,6 +67,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/comment")]
+        public IActionResult AddBookComment(int id, [FromBody]AddCommentModel addCommentModel)
+        {
+            if (!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addCommentModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _bookService.AddBookComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
+
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
@@ -91,6 +112,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             }
 
             _bookService.DeleteBookGenre(id, genreId);
+
+            return Save(_bookService, NoContent());
+        }
+
+        [HttpDelete("comment/{commentId}")]
+        public IActionResult DeleteBookComment(int commentId)
+        {
+            if (!_bookService.Exists(book => book.BookComments.Any(bookComment => bookComment.Id == commentId)))
+            {
+                return NotFound(ErrorMessages.CommentNotFound);
+            }
+
+            _bookService.DeleteBookComment(commentId);
 
             return Save(_bookService, NoContent());
         }

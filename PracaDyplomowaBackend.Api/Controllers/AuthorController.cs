@@ -40,25 +40,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _authorService.Add(addAuthorModel);
 
             return Save(_authorService, StatusCode(StatusCodes.Status201Created));
-        }
-
-        [HttpPost("{id}/comment")]
-        public IActionResult AddAuthorComment(int id, [FromBody]AddCommentModel addCommentModel)
-        {
-            if (!_authorService.Exists(author => author.Id == id))
-            {
-                return NotFound(ErrorMessages.AuthorNotFound);
-            }
-
-            if (!_userService.Exists(user => user.EmailAddress == addCommentModel.UserEmailAddress))
-            {
-                return NotFound(ErrorMessages.UserNotFound);
-            }
-
-            _authorService.AddAuthorComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
-
-            return Save(_genreService, StatusCode(StatusCodes.Status201Created));
-        }
+        }        
 
         [HttpPost("{id}/genre/{genreId}")]
         public IActionResult AddAuthorGenre(int id, int genreId)
@@ -78,6 +60,23 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_genreService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/comment")]
+        public IActionResult AddAuthorComment(int id, [FromBody]AddCommentModel addCommentModel)
+        {
+            if (!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addCommentModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _authorService.AddAuthorComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
+
+            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
+        }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id)
@@ -113,7 +112,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         [HttpDelete("comment/{commentId}")]
         public IActionResult DeleteAuthorComment(int commentId)
         {
-            if(!_authorService.Exists(author=>author.AuthorComments.Any(authorComment => authorComment.Id == commentId)))
+            if (!_authorService.Exists(author => author.AuthorComments.Any(authorComment => authorComment.Id == commentId)))
             {
                 return NotFound(ErrorMessages.CommentNotFound);
             }

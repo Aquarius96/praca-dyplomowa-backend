@@ -17,6 +17,7 @@ namespace PracaDyplomowaBackend.Service.Services
         private new readonly IAuthorRepository _repository;
         private readonly IGenreRepository _genreRepository;
         private readonly IUserRepository _userRepository;
+
         public AuthorService(IAuthorRepository repository, IGenreRepository genreRepository, IUserRepository userRepository) : base(repository)
         {
             _repository = repository;
