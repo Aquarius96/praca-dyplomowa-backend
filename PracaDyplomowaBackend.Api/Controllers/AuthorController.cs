@@ -39,6 +39,26 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/genre/{genreId}")]
+        public IActionResult AddAuthorGenre(int id, int genreId)
+        {
+            if(!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+
+            if (!_genreService.Exists(genre => genre.Id == genreId))
+            {
+                return NotFound(ErrorMessages.GenreNotFound);
+            }
+
+            _authorService.AddAuthorGenre(id, genreId);
+
+            return Save(_genreService, StatusCode(StatusCodes.Status201Created));
+        }
+
+
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id)
         {

@@ -46,6 +46,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/genre/{genreId}")]
+        public IActionResult AddBookGenre(int id, int genreId)
+        {
+            if (!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            if(!_genreService.Exists(genre => genre.Id == genreId))
+            {
+                return NotFound(ErrorMessages.GenreNotFound);
+            }
+
+            _bookService.AddBookGenre(id, genreId);
+
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {

@@ -27,6 +27,13 @@ namespace PracaDyplomowaBackend.Service.Services
             AddAuthorGenres(author, model.GenreIds);
         }
 
+        public void AddAuthorGenre(int authorId, int genreId)
+        {
+            var authorGenre = new AuthorGenre { AuthorId = authorId, GenreId = genreId };
+
+            _genreRepository.AddAuthorGenre(authorGenre);
+        }
+
         public void AddAuthorGenres(Author author, ICollection<int> genreIds)
         {
             foreach(var genreId in genreIds)

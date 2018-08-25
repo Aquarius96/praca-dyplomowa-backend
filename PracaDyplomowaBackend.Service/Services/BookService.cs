@@ -43,6 +43,13 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
+        public void AddBookGenre(int bookId, int genreId)
+        {
+            var bookGenre = new BookGenre { BookId = bookId, GenreId = genreId };
+
+            _genreRepository.AddBookGenre(bookGenre);
+        }
+
         public void AddBookGenres(Book book, ICollection<int> genreIds)
         {
             foreach (var genreId in genreIds)
