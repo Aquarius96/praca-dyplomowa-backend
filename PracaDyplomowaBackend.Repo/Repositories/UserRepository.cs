@@ -13,9 +13,29 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         {
         }
 
+        public void AddCurrentlyReadBook(CurrentlyReadBook currentlyReadBook)
+        {
+            _context.CurrentlyReadBooks.Add(currentlyReadBook);
+        }
+
         public void AddFavoriteBook(FavoriteBook favoriteBook)
         {
             _context.FavoriteBooks.Add(favoriteBook);
+        }
+
+        public void AddReadBook(ReadBook readBook)
+        {
+            _context.ReadBooks.Add(readBook);
+        }
+
+        public void AddWantedBook(WantedBook wantedBook)
+        {
+            _context.WantedBooks.Add(wantedBook);
+        }
+
+        public void DeleteCurrentlyReadBook(CurrentlyReadBook currentlyReadBook)
+        {
+            _context.CurrentlyReadBooks.Remove(currentlyReadBook);
         }
 
         public void DeleteFavoriteBook(FavoriteBook favoriteBook)
@@ -23,14 +43,39 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.FavoriteBooks.Remove(favoriteBook);
         }
 
+        public void DeleteReadbook(ReadBook readBook)
+        {
+            _context.ReadBooks.Remove(readBook);
+        }
+
+        public void DeleteWantedBook(WantedBook wantedBook)
+        {
+            _context.WantedBooks.Remove(wantedBook);
+        }
+
         public User Get(string emailAddress)
         {
             return _context.Users.FirstOrDefault(user => user.EmailAddress == emailAddress);
         }
 
+        public CurrentlyReadBook GetCurrentlyReadBook(string userEmailAddress, int bookId)
+        {
+            return _context.CurrentlyReadBooks.FirstOrDefault(currentlyReadBook => currentlyReadBook.User.EmailAddress == userEmailAddress && currentlyReadBook.BookId == bookId);
+        }
+
         public FavoriteBook GetFavoriteBook(string userEmailAddress, int bookId)
         {
             return _context.FavoriteBooks.FirstOrDefault(favoriteBook => favoriteBook.User.EmailAddress == userEmailAddress && favoriteBook.BookId == bookId);
+        }
+
+        public ReadBook GetReadBook(string userEmailAddress, int bookId)
+        {
+            return _context.ReadBooks.FirstOrDefault(readBook => readBook.User.EmailAddress == userEmailAddress && readBook.BookId == bookId);
+        }
+
+        public WantedBook GetWantedBook(string userEmailAddress, int bookId)
+        {
+            return _context.WantedBooks.FirstOrDefault(wantedBook => wantedBook.User.EmailAddress == userEmailAddress && wantedBook.BookId == bookId);
         }
     }
 }
