@@ -124,6 +124,33 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie posiada tej książki wśród listy aktualnie czytanych książek..
+        /// </summary>
+        public static string CurrentlyReadBookNotFound {
+            get {
+                return ResourceManager.GetString("CurrentlyReadBookNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie posiada tego autora wśród listy swoich ulubionych..
+        /// </summary>
+        public static string FavoriteAuthorNotFound {
+            get {
+                return ResourceManager.GetString("FavoriteAuthorNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie posiada tej książki wśród listy swoich ulubionych..
+        /// </summary>
+        public static string FavoriteBookNotFound {
+            get {
+                return ResourceManager.GetString("FavoriteBookNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gatunek nie został znaleziony w bazie danych..
         /// </summary>
         public static string GenreNotFound {
@@ -142,6 +169,15 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie posiada tej książki wśród listy przeczytanych książek..
+        /// </summary>
+        public static string ReadBookNotFound {
+            get {
+                return ResourceManager.GetString("ReadBookNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wystąpił błąd podczas zapisu..
         /// </summary>
         public static string SaveFailed {
@@ -156,6 +192,15 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         public static string UserNotFound {
             get {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie posiada tej książki wśród listy pożądanych książek..
+        /// </summary>
+        public static string WantedBookNotFound {
+            get {
+                return ResourceManager.GetString("WantedBookNotFound", resourceCulture);
             }
         }
     }

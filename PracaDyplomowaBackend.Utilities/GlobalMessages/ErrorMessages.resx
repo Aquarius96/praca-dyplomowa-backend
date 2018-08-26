@@ -138,16 +138,31 @@
   <data name="CommentNotFound" xml:space="preserve">
     <value>Komentarz nie został znaleziony w bazie danych.</value>
   </data>
+  <data name="CurrentlyReadBookNotFound" xml:space="preserve">
+    <value>Użytkownik nie posiada tej książki wśród listy aktualnie czytanych książek.</value>
+  </data>
+  <data name="FavoriteAuthorNotFound" xml:space="preserve">
+    <value>Użytkownik nie posiada tego autora wśród listy swoich ulubionych.</value>
+  </data>
+  <data name="FavoriteBookNotFound" xml:space="preserve">
+    <value>Użytkownik nie posiada tej książki wśród listy swoich ulubionych.</value>
+  </data>
   <data name="GenreNotFound" xml:space="preserve">
     <value>Gatunek nie został znaleziony w bazie danych.</value>
   </data>
   <data name="GenresNotFound" xml:space="preserve">
     <value>Jednego lub więcej gatunków nie znaleziono w bazie danych.</value>
   </data>
+  <data name="ReadBookNotFound" xml:space="preserve">
+    <value>Użytkownik nie posiada tej książki wśród listy przeczytanych książek.</value>
+  </data>
   <data name="SaveFailed" xml:space="preserve">
     <value>Wystąpił błąd podczas zapisu.</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>Użytkownik nie został znaleziony w bazie danych.</value>
+  </data>
+  <data name="WantedBookNotFound" xml:space="preserve">
+    <value>Użytkownik nie posiada tej książki wśród listy pożądanych książek.</value>
   </data>
 </root>
