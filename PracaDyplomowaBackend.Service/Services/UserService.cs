@@ -20,7 +20,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
         public void AddCurrentlyReadBook(string userEmailAddress, int bookId)
         {
-            var user = _repository.Get(userEmailAddress);
+            User user = _repository.Get(userEmailAddress);
 
             var currentlyReadBook = new CurrentlyReadBook { User = user, BookId = bookId };
 
@@ -32,9 +32,18 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository.AddCurrentlyReadBook(currentlyReadBook);
         }
 
+        public void AddFavoriteAuthor(string userEmailAddress, int authorId)
+        {
+            User user = _repository.Get(userEmailAddress);
+
+            var favoriteAuthor = new FavoriteAuthor { User = user, AuthorId = authorId };
+
+            _repository.AddFavoriteAuthor(favoriteAuthor);
+        }
+
         public void AddFavoriteBook(string userEmailAddress, int bookId)
         {
-            var user = _repository.Get(userEmailAddress);
+            User user = _repository.Get(userEmailAddress);
 
             var favoriteBook = new FavoriteBook { User = user, BookId = bookId };
 
@@ -43,7 +52,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
         public void AddReadBook(string userEmailAddress, int bookId, DateTime finished)
         {
-            var user = _repository.Get(userEmailAddress);
+            User user = _repository.Get(userEmailAddress);
 
             var readBook = new ReadBook { User = user, BookId = bookId, Added = finished };
 
@@ -62,7 +71,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
         public void AddWantedBook(string userEmailAddress, int bookId)
         {
-            var user = _repository.Get(userEmailAddress);
+            User user = _repository.Get(userEmailAddress);
 
             var wantedBook = new WantedBook { User = user, BookId = bookId };
 
@@ -74,6 +83,13 @@ namespace PracaDyplomowaBackend.Service.Services
             CurrentlyReadBook currentlyReadBook = _repository.GetCurrentlyReadBook(userEmailAddress, bookId);
 
             _repository.DeleteCurrentlyReadBook(currentlyReadBook);
+        }
+
+        public void DeleteFavoriteAuthor(string userEmailAddress, int authorId)
+        {
+            FavoriteAuthor favoriteAuthor = _repository.GetFavoriteAuthor(userEmailAddress, authorId);
+
+            _repository.DeleteFavoriteAuthor(favoriteAuthor);
         }
 
         public void DeleteFavoriteBook(string userEmailAddress, int bookId)
@@ -99,7 +115,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
         public void Register(RegisterModel registerModel)
         {
-            var user = Mapper.Map<User>(registerModel);
+            User user = Mapper.Map<User>(registerModel);
             _repository.Add(user);
         }        
     }

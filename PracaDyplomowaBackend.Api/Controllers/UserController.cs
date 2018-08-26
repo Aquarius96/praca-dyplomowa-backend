@@ -13,11 +13,13 @@ namespace PracaDyplomowaBackend.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
+        private readonly IAuthorService _authorService;
 
-        public UserController(IUserService userService, IBookService bookService)
+        public UserController(IUserService userService, IBookService bookService, IAuthorService authorService)
         {
             _userService = userService;
             _bookService = bookService;
+            _authorService = authorService;
         }
 
         [HttpPost("register")]
@@ -110,6 +112,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_userService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{emailAddress}/favoriteauthor/{authorId}")]
+        public IActionResult AddFavoriteAuthor(string emailAddress, int authorId)
+        {
+            if (!_userService.Exists(user => user.EmailAddress == emailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            if (!_authorService.Exists(author => author.Id == authorId))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            _userService.AddFavoriteAuthor(emailAddress, authorId);
+
+            return Save(_userService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpDelete("{emailAddress}/favoritebook/{bookId}")]
         public IActionResult DeleteFavoriteBook(string emailAddress, int bookId)
         {
@@ -178,6 +198,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             }
 
             _userService.DeleteReadBook(emailAddress, bookId);
+
+            return Save(_userService, NoContent());
+        }
+
+        [HttpDelete("{emailAddress}/favoriteauthor/{authorId}")]
+        public IActionResult DeleteFavoriteAuthor(string emailAddress, int authorId)
+        {
+            if (!_userService.Exists(user => user.EmailAddress == emailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == emailAddress && user.FavoriteAuthors.Any(favoriteAuthor => favoriteAuthor.AuthorId == authorId)))
+            {
+                return NotFound(ErrorMessages.FavoriteAuthorNotFound);
+            }
+
+            _userService.DeleteFavoriteAuthor(emailAddress, authorId);
 
             return Save(_userService, NoContent());
         }

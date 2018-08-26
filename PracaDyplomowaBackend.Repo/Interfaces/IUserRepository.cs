@@ -10,16 +10,19 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         void AddWantedBook(WantedBook wantedBook);
         void AddCurrentlyReadBook(CurrentlyReadBook currentlyReadBook);
         void AddReadBook(ReadBook readBook);
+        void AddFavoriteAuthor(FavoriteAuthor favoriteAuthor);
 
         void DeleteFavoriteBook(FavoriteBook favoriteBook);
         void DeleteWantedBook(WantedBook wantedBook);
         void DeleteCurrentlyReadBook(CurrentlyReadBook currentlyReadBook);
         void DeleteReadbook(ReadBook readBook);
+        void DeleteFavoriteAuthor(FavoriteAuthor favoriteAuthor);
 
         FavoriteBook GetFavoriteBook(string userEmailAddress, int bookId);
         WantedBook GetWantedBook(string userEmailAddress, int bookId);
         CurrentlyReadBook GetCurrentlyReadBook(string userEmailAddress, int bookId);
         ReadBook GetReadBook(string userEmailAddress, int bookId);
+        FavoriteAuthor GetFavoriteAuthor(string userEmailAddress, int authorId);
         User Get(string emailAddress);
     }
 }

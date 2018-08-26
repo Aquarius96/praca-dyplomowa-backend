@@ -18,6 +18,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.CurrentlyReadBooks.Add(currentlyReadBook);
         }
 
+        public void AddFavoriteAuthor(FavoriteAuthor favoriteAuthor)
+        {
+            _context.FavoriteAuthors.Add(favoriteAuthor);
+        }
+
         public void AddFavoriteBook(FavoriteBook favoriteBook)
         {
             _context.FavoriteBooks.Add(favoriteBook);
@@ -36,6 +41,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public void DeleteCurrentlyReadBook(CurrentlyReadBook currentlyReadBook)
         {
             _context.CurrentlyReadBooks.Remove(currentlyReadBook);
+        }
+
+        public void DeleteFavoriteAuthor(FavoriteAuthor favoriteAuthor)
+        {
+            _context.FavoriteAuthors.Remove(favoriteAuthor);
         }
 
         public void DeleteFavoriteBook(FavoriteBook favoriteBook)
@@ -61,6 +71,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public CurrentlyReadBook GetCurrentlyReadBook(string userEmailAddress, int bookId)
         {
             return _context.CurrentlyReadBooks.FirstOrDefault(currentlyReadBook => currentlyReadBook.User.EmailAddress == userEmailAddress && currentlyReadBook.BookId == bookId);
+        }
+
+        public FavoriteAuthor GetFavoriteAuthor(string userEmailAddress, int authorId)
+        {
+            return _context.FavoriteAuthors.FirstOrDefault(favoriteAuthor => favoriteAuthor.User.EmailAddress == userEmailAddress && favoriteAuthor.AuthorId == authorId);
         }
 
         public FavoriteBook GetFavoriteBook(string userEmailAddress, int bookId)

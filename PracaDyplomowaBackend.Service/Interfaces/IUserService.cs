@@ -13,10 +13,12 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void AddWantedBook(string userEmailAddress, int bookId);
         void AddCurrentlyReadBook(string userEmailAddress, int bookId);
         void AddReadBook(string userEmailAddress, int bookId, DateTime finished);
+        void AddFavoriteAuthor(string userEmailAddress, int authorId);
 
         void DeleteFavoriteBook(string userEmailAddress, int bookId);
         void DeleteWantedBook(string userEmailAddress, int bookId);
         void DeleteCurrentlyReadBook(string userEmailAddress, int bookId);
         void DeleteReadBook(string userEmailAddress, int bookId);
+        void DeleteFavoriteAuthor(string userEmailAddress, int authorId);
     }
 }
