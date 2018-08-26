@@ -54,7 +54,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
             if (_repository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.CurrentlyReadBooks.Any(currentlyReadBook => currentlyReadBook.BookId == bookId)))
             {
-                DeleteWantedBook(userEmailAddress, bookId);
+                DeleteCurrentlyReadBook(userEmailAddress, bookId);
             }
 
             _repository.AddReadBook(readBook);
