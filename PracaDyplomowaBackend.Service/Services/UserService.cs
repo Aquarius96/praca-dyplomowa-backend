@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Library;
@@ -23,6 +24,11 @@ namespace PracaDyplomowaBackend.Service.Services
 
             var currentlyReadBook = new CurrentlyReadBook { User = user, BookId = bookId };
 
+            if (_repository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.WantedBooks.Any(wantedBook => wantedBook.BookId == bookId)))
+            {
+                DeleteWantedBook(userEmailAddress, bookId);
+            }
+            
             _repository.AddCurrentlyReadBook(currentlyReadBook);
         }
 
@@ -40,6 +46,16 @@ namespace PracaDyplomowaBackend.Service.Services
             var user = _repository.Get(userEmailAddress);
 
             var readBook = new ReadBook { User = user, BookId = bookId, Added = finished };
+
+            if (_repository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.WantedBooks.Any(wantedBook => wantedBook.BookId == bookId)))
+            {
+                DeleteWantedBook(userEmailAddress, bookId);
+            }
+
+            if (_repository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.CurrentlyReadBooks.Any(currentlyReadBook => currentlyReadBook.BookId == bookId)))
+            {
+                DeleteWantedBook(userEmailAddress, bookId);
+            }
 
             _repository.AddReadBook(readBook);
         }
