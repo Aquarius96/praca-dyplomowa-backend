@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Library;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
@@ -95,30 +96,43 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<LibraryBookDto> GetUserCurrentlyReadBooks(string userEmailAddress)
         {
-            var currentlyReadBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.CurrentlyReadBooks).Select(currentlyReadBook => Mapper.Map<LibraryBookDto>(currentlyReadBook.Book));
+            var currentlyReadBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.CurrentlyReadBooks).Include(currentlyReadBook => currentlyReadBook.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(favBook => favBook.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
 
-            return currentlyReadBooks;
+            return Mapper.Map<IEnumerable<LibraryBookDto>>(currentlyReadBooks);
         }
+
+        //public IEnumerable<LibraryBookDto> test(string email)
+        //{
+        //    var authors = _context.Books.Where(book => book.Id == 1).SelectMany(book => book.BookAuthors).Select(author => Mapper.Map<BookAuthorDto>(author.Author));
+
+        //    var books = _context.Users.Where(user => user.EmailAddress == email).SelectMany(user => user.FavoriteBooks).Include(favoriteBook => favoriteBook.Book.BookGenres).Include(favoriteBook => favoriteBook.Book.BookAuthors);
+
+        //    var booksv2 = _context.Users.Where(user => user.EmailAddress == email).SelectMany(user => user.FavoriteBooks).Select(x => Mapper.Map(x.Book, Mapper.Map(x.Book.BookGenres.First(), Mapper.Map<LibraryBookDto>(x.Book.BookAuthors.First()))));
+        //}
 
         public IEnumerable<LibraryBookDto> GetUserFavoriteBooks(string userEmailAddress)
         {
-            var favoriteBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.FavoriteBooks).Select(favoriteBook => Mapper.Map<LibraryBookDto>(favoriteBook.Book));
+            //var favoriteBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.FavoriteBooks).Select(favoriteBook => Mapper.Map<LibraryBookDto>(favoriteBook.Book));
 
-            return favoriteBooks;
+            var favoriteBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.FavoriteBooks).Include(favBook => favBook.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(favBook => favBook.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
+
+            //var favoriteBooks2 = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(x => x.FavoriteBooks).Select(y => Mapper.Map(y.Book, Mapper.Map(y.Book.BookGenres.Select(z => z.Genre), Mapper.Map<IEnumerable<Author>, LibraryBookDto>(y.Book.BookAuthors.Select(z => z.Author)))));
+
+            return Mapper.Map<IEnumerable<LibraryBookDto>>(favoriteBooks);
         }
 
         public IEnumerable<ReadBookDto> GetUserReadBooks(string userEmailAddress)
         {
-            var readBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.FavoriteBooks).Select(readBook => Mapper.Map<ReadBookDto>(readBook.Book));
+            var readBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.ReadBooks).Include(readBook => readBook.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(favBook => favBook.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
 
-            return readBooks;
+            return Mapper.Map<IEnumerable<ReadBookDto>>(readBooks);
         }
 
         public IEnumerable<LibraryBookDto> GetUserWantedBooks(string userEmailAddress)
         {
-            var wantedBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.WantedBooks).Select(wantedBook => Mapper.Map<LibraryBookDto>(wantedBook));
+            var wantedBooks = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.WantedBooks).Include(wantedBook => wantedBook.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(favBook => favBook.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
 
-            return wantedBooks;
+            return Mapper.Map<IEnumerable<LibraryBookDto>>(wantedBooks);
         }
 
         public WantedBook GetWantedBook(string userEmailAddress, int bookId)
