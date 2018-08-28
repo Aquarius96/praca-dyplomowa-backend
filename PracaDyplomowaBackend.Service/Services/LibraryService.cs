@@ -1,6 +1,7 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Library;
 using PracaDyplomowaBackend.Models.Models.Common.User;
+using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -113,6 +114,20 @@ namespace PracaDyplomowaBackend.Service.Services
             WantedBook wantedBook = _libraryRepository.GetWantedBook(userEmailAddress, bookId);
 
             _libraryRepository.DeleteWantedBook(wantedBook);
+        }
+
+        public LibraryDto GetUserLibrary(string userEmailAddress)
+        {
+            var library = new LibraryDto
+            {
+                CurrentlyReadBooks = _libraryRepository.GetUserCurrentlyReadBooks(userEmailAddress),
+                FavoriteAuthors = _libraryRepository.GetUserFavoriteAuthors(userEmailAddress),
+                FavoriteBooks = _libraryRepository.GetUserFavoriteBooks(userEmailAddress),
+                ReadBooks = _libraryRepository.GetUserReadBooks(userEmailAddress),
+                WantedBooks = _libraryRepository.GetUserWantedBooks(userEmailAddress)
+            };
+
+            return library;
         }
     }
 }

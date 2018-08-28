@@ -1,5 +1,6 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.User;
+using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
 using System;
 
@@ -18,5 +19,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void DeleteCurrentlyReadBook(string userEmailAddress, int bookId);
         void DeleteReadBook(string userEmailAddress, int bookId);
         void DeleteFavoriteAuthor(string userEmailAddress, int authorId);
+
+        LibraryDto GetUserLibrary(string userEmailAddress);
     }
 }

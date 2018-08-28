@@ -1,6 +1,8 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Library;
+using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using System;
+using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Repo.Interfaces
 {
@@ -23,5 +25,11 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         CurrentlyReadBook GetCurrentlyReadBook(string userEmailAddress, int bookId);
         ReadBook GetReadBook(string userEmailAddress, int bookId);
         FavoriteAuthor GetFavoriteAuthor(string userEmailAddress, int authorId);
+
+        IEnumerable<LibraryBookDto> GetUserCurrentlyReadBooks(string userEmailAddress);
+        IEnumerable<LibraryBookDto> GetUserFavoriteBooks(string userEmailAddress);
+        IEnumerable<ReadBookDto> GetUserReadBooks(string userEmailAddress);
+        IEnumerable<LibraryBookDto> GetUserWantedBooks(string userEmailAddress);
+        IEnumerable<FavoriteAuthorDto> GetUserFavoriteAuthors(string userEmailAddress);
     }
 }

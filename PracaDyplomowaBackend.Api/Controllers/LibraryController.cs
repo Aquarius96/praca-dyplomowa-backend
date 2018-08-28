@@ -202,6 +202,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _libraryService.DeleteFavoriteAuthor(userEmailAddress, authorId);
 
             return Save(_libraryService, NoContent());
-        }        
+        }
+        
+        [HttpGet("userEmailAddress")]
+        public IActionResult GetUserLibrary(string userEmailAddress)
+        {
+            if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            var library = _libraryService.GetUserLibrary(userEmailAddress);
+
+            return Ok(library);
+        }
     }
 }
