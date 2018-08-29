@@ -15,12 +15,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
         public BookProfile()
         {           
             CreateMap<AddBookModel, Book>();
-            CreateMap<Book, BookDto>();            
-
-            CreateMap<Author, BookAuthorDto>().AfterMap((src, dest) =>
-            {
-                dest.AuthorName = $"{src.Firstname} {src.Lastname}";
-            });           
+            CreateMap<Book, BookDto>();                  
 
             CreateMap<Genre, BookGenreDto>();
 

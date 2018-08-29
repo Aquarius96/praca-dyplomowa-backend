@@ -8,6 +8,6 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Library
         public IEnumerable<LibraryBookDto> FavoriteBooks { get; set; }
         public IEnumerable<ReadBookDto> ReadBooks { get; set; }
         public IEnumerable<LibraryBookDto> WantedBooks { get; set; }
-        public IEnumerable<FavoriteAuthorDto> FavoriteAuthors { get; set; }
+        public IEnumerable<BookAuthorDto> FavoriteAuthors { get; set; }
     }
 }

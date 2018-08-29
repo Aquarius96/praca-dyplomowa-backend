@@ -30,6 +30,6 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         IEnumerable<LibraryBookDto> GetUserFavoriteBooks(string userEmailAddress);
         IEnumerable<ReadBookDto> GetUserReadBooks(string userEmailAddress);
         IEnumerable<LibraryBookDto> GetUserWantedBooks(string userEmailAddress);
-        IEnumerable<FavoriteAuthorDto> GetUserFavoriteAuthors(string userEmailAddress);
+        IEnumerable<BookAuthorDto> GetUserFavoriteAuthors(string userEmailAddress);
     }
 }

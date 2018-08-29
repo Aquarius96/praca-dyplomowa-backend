@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
-using PracaDyplomowaBackend.Data.DbModels.Library;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
@@ -14,7 +13,10 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
             CreateMap<AddAuthorModel, Author>();
             CreateMap<Author, AuthorDto>();
 
-            CreateMap<Author, FavoriteAuthorDto>();
+            CreateMap<Author, BookAuthorDto>().AfterMap((src, dest) =>
+            {
+                dest.AuthorName = $"{src.Firstname} {src.Lastname}";
+            });
         }
     }
 }
