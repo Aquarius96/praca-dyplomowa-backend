@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
@@ -96,6 +94,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
             if (book != null)
             {
+                book.Authors = _authorRepository.GetBookAuthors(id);
                 book.Genres = _genreRepository.GetBookGenres(id);
                 book.Comments = _repository.GetBookComments(id);
             }            
@@ -109,6 +108,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
             foreach (var book in books)
             {
+                book.Authors = _authorRepository.GetBookAuthors(book.Id);
                 book.Genres = _genreRepository.GetBookGenres(book.Id);
             }
 

@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
+using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
 using System.Collections.Generic;
@@ -42,6 +43,13 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             var authorComments = _context.Authors.Where(author => author.Id == authorId).SelectMany(author => author.AuthorComments).Include(authorComment => authorComment.User);
 
             return Mapper.Map<IEnumerable<CommentDto>>(authorComments);
+        }
+
+        public IEnumerable<BookAuthorDto> GetBookAuthors(int bookId)
+        {
+            var bookAuthors = _context.Books.Where(book => book.Id == bookId).SelectMany(book => book.BookAuthors).Select(bookAuthor => bookAuthor.Author);
+
+            return Mapper.Map<IEnumerable<BookAuthorDto>>(bookAuthors);
         }
     }
 }

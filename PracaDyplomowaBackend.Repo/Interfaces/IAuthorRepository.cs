@@ -2,6 +2,7 @@
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
+using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Repo.Interfaces
@@ -16,5 +17,6 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         AuthorComment GetAuthorComment(int id);
 
         IEnumerable<CommentDto> GetAuthorComments(int authorId);
+        IEnumerable<BookAuthorDto> GetBookAuthors(int bookId);
     }
 }
