@@ -113,11 +113,12 @@ namespace PracaDyplomowaBackend.Service.Services
                 book.Authors = _authorRepository.GetBookAuthors(id);
                 book.Genres = _genreRepository.GetBookGenres(id);
                 book.Comments = _repository.GetBookComments(id);
+                book.Reviews = _repository.GetBookReviews(id);
             }            
 
             return book;
         }
-
+        
         public new IEnumerable<BookDto> GetList(ResourceParameters resourceParameters)
         {
             var books = Mapper.Map<IEnumerable<BookDto>>(_repository.GetList(resourceParameters));
@@ -126,6 +127,7 @@ namespace PracaDyplomowaBackend.Service.Services
             {
                 book.Authors = _authorRepository.GetBookAuthors(book.Id);
                 book.Genres = _genreRepository.GetBookGenres(book.Id);
+                book.Reviews = _repository.GetBookReviews(book.Id);
             }
 
             return books;
