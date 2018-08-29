@@ -74,6 +74,15 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
+        public void AddBookReview(int bookId, string userEmailAddress, string title, string content)
+        {
+            var user = _userRepository.Get(userEmailAddress);
+
+            var bookReview = new BookReview { BookId = bookId, User = user, Title = title, Content = content, Added = DateTime.UtcNow };
+
+            _repository.AddBookReview(bookReview);
+        }
+
         public void DeleteBookComment(int id)
         {
             var bookComment = _repository.GetBookComment(id);
@@ -86,6 +95,13 @@ namespace PracaDyplomowaBackend.Service.Services
             BookGenre bookGenre = _genreRepository.GetBookGenre(bookId, genreId);
 
             _genreRepository.DeleteBookGenre(bookGenre);
+        }
+
+        public void DeleteBookReview(int id)
+        {
+            var bookReview = _repository.GetBookReview(id);
+
+            _repository.DeleteBookReview(bookReview);
         }
 
         public new BookDto Get(int id)

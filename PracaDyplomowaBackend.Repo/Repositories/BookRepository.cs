@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
+using PracaDyplomowaBackend.Data.DbModels.Relations;
+using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
@@ -21,9 +23,19 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.BookComments.Add(bookComment);
         }
 
+        public void AddBookReview(BookReview bookReview)
+        {
+            _context.BookReviews.Add(bookReview);
+        }
+
         public void DeleteBookComment(BookComment bookComment)
         {
             _context.BookComments.Remove(bookComment);
+        }
+
+        public void DeleteBookReview(BookReview bookReview)
+        {
+            _context.BookReviews.Remove(bookReview);
         }
 
         public BookComment GetBookComment(int id)
@@ -36,6 +48,18 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             var bookComments = _context.Books.Where(book => book.Id == bookId).SelectMany(book => book.BookComments).Include(bookComment => bookComment.User);
 
             return Mapper.Map<IEnumerable<CommentDto>>(bookComments);
+        }
+
+        public BookReview GetBookReview(int id)
+        {
+            return _context.BookReviews.FirstOrDefault(bookReview => bookReview.Id == id);
+        }
+
+        public IEnumerable<BookReviewDto> GetBookReviews(int bookId)
+        {
+            var bookReviews = _context.BookReviews.Where(bookReview => bookReview.BookId == bookId);
+
+            return Mapper.Map<IEnumerable<BookReviewDto>>(bookReviews);
         }
     }
 }

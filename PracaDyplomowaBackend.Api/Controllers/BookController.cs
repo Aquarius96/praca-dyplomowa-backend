@@ -85,6 +85,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/review")]
+        public IActionResult AddBookReview(int id, [FromBody]AddBookReviewModel addBookReviewModel)
+        {
+            if (!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addBookReviewModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _bookService.AddBookReview(id, addBookReviewModel.UserEmailAddress, addBookReviewModel.Title, addBookReviewModel.Content);
+
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
@@ -125,6 +143,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             }
 
             _bookService.DeleteBookComment(commentId);
+
+            return Save(_bookService, NoContent());
+        }
+
+        [HttpDelete("review/{reviewId}")]
+        public IActionResult DeleteBookReview(int reviewId)
+        {
+            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.Id == reviewId)))
+            {
+                return NotFound(ErrorMessages.BookReviewNotFound);
+            }
+
+            _bookService.DeleteBookReview(reviewId);
 
             return Save(_bookService, NoContent());
         }

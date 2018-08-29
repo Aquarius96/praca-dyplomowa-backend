@@ -135,6 +135,9 @@
   <data name="BookNotFound" xml:space="preserve">
     <value>Książka nie została znaleziona w bazie danych.</value>
   </data>
+  <data name="BookReviewNotFound" xml:space="preserve">
+    <value>Recenzja nie została znaleziona w bazie danych.</value>
+  </data>
   <data name="CommentNotFound" xml:space="preserve">
     <value>Komentarz nie został znaleziony w bazie danych.</value>
   </data>

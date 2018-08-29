@@ -2,7 +2,6 @@
 using PracaDyplomowaBackend.Data.DbModels.Rate;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Relations
