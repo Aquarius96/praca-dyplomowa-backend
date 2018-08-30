@@ -8,10 +8,8 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
     {
         public CommentProfile()
         {
-            CreateMap<AuthorComment, CommentDto>().AfterMap((src, dest) =>
-            {
-                dest.UserEmailAddress = src.User.EmailAddress;
-            });
+            CreateMap<AuthorComment, CommentDto>()
+                .ForMember(dest => dest.UserEmailAddress, opt => opt.MapFrom(src => src.User.EmailAddress));
         }
     }
 }

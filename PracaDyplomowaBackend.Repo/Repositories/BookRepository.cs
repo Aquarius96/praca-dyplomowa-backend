@@ -58,7 +58,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<BookReviewDto> GetBookReviews(int bookId)
         {
-            var bookReviews = _context.BookReviews.Where(bookReview => bookReview.BookId == bookId).Include(bookReview=>bookReview.Book).ThenInclude(book=>book.BookGenres).ThenInclude(bookGenre=>bookGenre.Genre).Include(bookReview=>bookReview.Book).ThenInclude(book=>book.BookAuthors).ThenInclude(bookAuthor=>bookAuthor.Author).Include(bookReview => bookReview.User);
+            var bookReviews = _context.BookReviews.Where(bookReview => bookReview.BookId == bookId).Include(bookReview => bookReview.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre).Include(bookReview => bookReview.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(bookReview => bookReview.User);
 
             return Mapper.Map<IEnumerable<BookReviewDto>>(bookReviews);
         }
