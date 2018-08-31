@@ -6,8 +6,10 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,6 +61,13 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public AuthorRate GetAuthorRate(int authorId, string userEmailAddress)
         {
             return _context.AuthorRates.FirstOrDefault(authorRate => authorRate.User.EmailAddress == userEmailAddress && authorRate.AuthorId == authorId);
+        }
+
+        public RateDto GetAuthorRating(int authorId)
+        {
+            var rateDto = new RateDto { Value = Math.Round(_context.AuthorRates.Average(author => author.Value), 2), VotesAmount = _context.AuthorRates.Count() };
+
+            return rateDto;
         }
 
         public IEnumerable<BookAuthorDto> GetBookAuthors(int bookId)

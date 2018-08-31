@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Repo.Interfaces
@@ -24,6 +25,8 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         BookReview GetBookReview(int id);
         BookRate GetBookRate(int bookId, string userEmailAddress);
         ReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress);
+        RateDto GetBookRating(int bookId);
+        RateDto GetBookReviewRating(int bookReviewId);
         
         IEnumerable<CommentDto> GetBookComments(int bookId);
         IEnumerable<BookReviewDto> GetBookReviews(int bookId);

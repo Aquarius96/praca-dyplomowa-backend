@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Repo.Interfaces
@@ -19,6 +20,7 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
 
         AuthorComment GetAuthorComment(int id);
         AuthorRate GetAuthorRate(int authorId, string userEmailAddress);
+        RateDto GetAuthorRating(int authorId);
 
         IEnumerable<CommentDto> GetAuthorComments(int authorId);
         IEnumerable<BookAuthorDto> GetBookAuthors(int bookId);

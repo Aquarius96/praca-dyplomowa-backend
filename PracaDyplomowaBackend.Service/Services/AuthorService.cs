@@ -99,6 +99,7 @@ namespace PracaDyplomowaBackend.Service.Services
             {
                 author.Genres = _genreRepository.GetAuthorGenres(id);
                 author.Comments = _repository.GetAuthorComments(id);
+                author.Rating = _repository.GetAuthorRating(id);
             }           
 
             return author;
@@ -111,6 +112,7 @@ namespace PracaDyplomowaBackend.Service.Services
             foreach(var author in authors)
             {
                 author.Genres = _genreRepository.GetAuthorGenres(author.Id);
+                author.Comments = _repository.GetAuthorComments(author.Id);
             }
 
             return authors;

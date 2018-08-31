@@ -6,7 +6,9 @@ using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,7 +30,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
 
             CreateMap<BookReview, BookReviewDto>()
                 .ForMember(dest => dest.Book, opt => opt.MapFrom(src => Mapper.Map<LibraryBookDto>(src.Book)))
-                .ForMember(dest => dest.ReviewAuthor, opt => opt.MapFrom(src => Mapper.Map<BookReviewAuthorDto>(src.User)));
+                .ForMember(dest => dest.ReviewAuthor, opt => opt.MapFrom(src => Mapper.Map<BookReviewAuthorDto>(src.User)));                
 
             CreateMap<Book, LibraryBookDto>()
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.BookAuthors.Select(x => x.Author))))

@@ -7,8 +7,10 @@ using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -77,6 +79,13 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             return _context.BookRates.FirstOrDefault(bookRate => bookRate.BookId == bookId && bookRate.User.EmailAddress == userEmailAddress);
         }
 
+        public RateDto GetBookRating(int bookId)
+        {
+            var rateDto = new RateDto { Value = Math.Round(_context.BookRates.Average(book => book.Value), 2), VotesAmount = _context.BookRates.Count() };
+
+            return rateDto;
+        }
+
         public BookReview GetBookReview(int id)
         {
             return _context.BookReviews.FirstOrDefault(bookReview => bookReview.Id == id);
@@ -85,6 +94,18 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public ReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress)
         {
             return _context.ReviewRates.FirstOrDefault(reviewRate => reviewRate.BookReviewId == bookReviewId && reviewRate.User.EmailAddress == userEmailAddress);
+        }
+
+        public RateDto GetBookReviewRating(int bookReviewId)
+        {
+            if(_context.ReviewRates.Count() == 0)
+            {
+                return new RateDto { Value = 0, VotesAmount = 0 };
+            }
+
+            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(reviewRate => reviewRate.Positive).Count() / _context.ReviewRates.Count()), 2), VotesAmount = _context.ReviewRates.Count() };
+
+            return rateDto;
         }
 
         public IEnumerable<BookReviewDto> GetBookReviews(int bookId)

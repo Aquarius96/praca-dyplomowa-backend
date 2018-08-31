@@ -143,10 +143,18 @@ namespace PracaDyplomowaBackend.Service.Services
 
             if (book != null)
             {
+                var reviews = _repository.GetBookReviews(id);
+
+                foreach(var review in reviews)
+                {
+                    review.Rating = _repository.GetBookReviewRating(review.Id);
+                }
+
                 book.Authors = _authorRepository.GetBookAuthors(id);
                 book.Genres = _genreRepository.GetBookGenres(id);
                 book.Comments = _repository.GetBookComments(id);
-                book.Reviews = _repository.GetBookReviews(id);
+                book.Reviews = reviews;
+                book.Rating = _repository.GetBookRating(id);
             }            
 
             return book;
@@ -158,9 +166,17 @@ namespace PracaDyplomowaBackend.Service.Services
 
             foreach (var book in books)
             {
+                var reviews = _repository.GetBookReviews(book.Id);
+
+                foreach (var review in reviews)
+                {
+                    review.Rating = _repository.GetBookReviewRating(review.Id);
+                }
+
                 book.Authors = _authorRepository.GetBookAuthors(book.Id);
                 book.Genres = _genreRepository.GetBookGenres(book.Id);
-                book.Reviews = _repository.GetBookReviews(book.Id);
+                book.Reviews = reviews;
+                book.Rating = _repository.GetBookRating(book.Id);
             }
 
             return books;

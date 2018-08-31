@@ -1,5 +1,6 @@
 ﻿using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Genre;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +17,9 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Author
         public string BirthCountry { get; set; }
         public string Gender { get; set; }
 
+        public RateDto Rating { get; set; }
+
         public IEnumerable<GenreDto> Genres { get; set; }
-        public IEnumerable<CommentDto> Comments { get; set; }
+        public IEnumerable<CommentDto> Comments { get; set; }        
     }
 }
