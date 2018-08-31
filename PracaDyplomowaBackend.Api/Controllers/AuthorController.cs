@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Comment;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
+using PracaDyplomowaBackend.Models.Models.Rate;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
@@ -78,6 +79,24 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/rate")]
+        public IActionResult AddAuthorRate(int id, [FromBody]AddRateModel addRateModel)
+        {
+            if (!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addRateModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _authorService.AddAuthorRate(id, addRateModel.UserEmailAddress, addRateModel.Value);
+
+            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id)
         {
@@ -118,6 +137,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             }
 
             _authorService.DeleteAuthorComment(commentId);
+
+            return Save(_authorService, NoContent());
+        }
+
+        [HttpDelete("rate/{authorId}/{userEmailAddress}")]
+        public IActionResult DeleteAuthorRate(int authorId, string userEmailAddress)
+        {
+            if(!_authorService.Exists(author => author.AuthorRates.Any(authorRate => authorRate.AuthorId == authorId && authorRate.User.EmailAddress == userEmailAddress)))
+            {
+                return NotFound(ErrorMessages.RateNotFound);
+            }
+
+            _authorService.DeleteAuthorRate(authorId, userEmailAddress);
 
             return Save(_authorService, NoContent());
         }

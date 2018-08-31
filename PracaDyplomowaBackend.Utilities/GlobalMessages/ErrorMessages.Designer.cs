@@ -178,6 +178,15 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ocena nie została znaleziona w bazie danych..
+        /// </summary>
+        public static string RateNotFound {
+            get {
+                return ResourceManager.GetString("RateNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Użytkownik nie posiada tej książki wśród listy przeczytanych książek..
         /// </summary>
         public static string ReadBookNotFound {

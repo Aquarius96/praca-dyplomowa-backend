@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
+using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
@@ -24,9 +25,19 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.BookComments.Add(bookComment);
         }
 
+        public void AddBookRate(BookRate bookRate)
+        {
+            _context.BookRates.Add(bookRate);
+        }
+
         public void AddBookReview(BookReview bookReview)
         {
             _context.BookReviews.Add(bookReview);
+        }
+
+        public void AddBookReviewRate(ReviewRate reviewRate)
+        {
+            _context.ReviewRates.Add(reviewRate);
         }
 
         public void DeleteBookComment(BookComment bookComment)
@@ -34,10 +45,20 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.BookComments.Remove(bookComment);
         }
 
+        public void DeleteBookRate(BookRate bookRate)
+        {
+            _context.BookRates.Remove(bookRate);
+        }
+
         public void DeleteBookReview(BookReview bookReview)
         {
             _context.BookReviews.Remove(bookReview);
-        }        
+        }
+
+        public void DeleteBookReviewRate(ReviewRate reviewRate)
+        {
+            _context.ReviewRates.Remove(reviewRate);
+        }
 
         public BookComment GetBookComment(int id)
         {
@@ -50,10 +71,20 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
             return Mapper.Map<IEnumerable<CommentDto>>(bookComments);
         }
-       
+
+        public BookRate GetBookRate(int bookId, string userEmailAddress)
+        {
+            return _context.BookRates.FirstOrDefault(bookRate => bookRate.BookId == bookId && bookRate.User.EmailAddress == userEmailAddress);
+        }
+
         public BookReview GetBookReview(int id)
         {
             return _context.BookReviews.FirstOrDefault(bookReview => bookReview.Id == id);
+        }
+
+        public ReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress)
+        {
+            return _context.ReviewRates.FirstOrDefault(reviewRate => reviewRate.BookReviewId == bookReviewId && reviewRate.User.EmailAddress == userEmailAddress);
         }
 
         public IEnumerable<BookReviewDto> GetBookReviews(int bookId)

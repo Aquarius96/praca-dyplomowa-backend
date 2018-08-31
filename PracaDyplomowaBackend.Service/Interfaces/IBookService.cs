@@ -12,9 +12,13 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void AddBookAuthors(Book book, ICollection<int> authorIds);
         void AddBookComment(int bookId, string userEmailAddress, string content);
         void AddBookReview(int bookId, string userEmailAddress, string title, string content);
+        void AddBookRate(int bookId, string userEmailAddress, int value);
+        void AddBookReviewRate(int bookReviewId, string userEmailAddress, bool value);
 
         void DeleteBookGenre(int bookId, int genreId);
         void DeleteBookComment(int id);
         void DeleteBookReview(int id);
+        void DeleteBookRate(int bookId, string userEmailAddress);
+        void DeleteBookReviewRate(int bookReviewId, string userEmailAddress);
     }
 }

@@ -2,6 +2,7 @@
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
+using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Repo.Interfaces;
@@ -60,6 +61,15 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
+        public void AddAuthorRate(int authorId, string userEmailAddress, int value)
+        {
+            var user = _userRepository.Get(userEmailAddress);
+
+            var authorRate = new AuthorRate { AuthorId = authorId, User = user, Value = value };
+
+            _repository.AddAuthorRate(authorRate);
+        }
+
         public void DeleteAuthorComment(int id)
         {
             AuthorComment authorComment = _repository.GetAuthorComment(id);
@@ -72,6 +82,13 @@ namespace PracaDyplomowaBackend.Service.Services
             AuthorGenre authorGenre = _genreRepository.GetAuthorGenre(authorId, genreId);
 
             _genreRepository.DeleteAuthorGenre(authorGenre);
+        }
+
+        public void DeleteAuthorRate(int authorId, string userEmailAddress)
+        {
+            AuthorRate authorRate = _repository.GetAuthorRate(authorId, userEmailAddress);
+
+            _repository.DeleteAuthorRate(authorRate);
         }
 
         public new AuthorDto Get(int id)

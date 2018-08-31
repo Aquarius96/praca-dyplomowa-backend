@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Comment;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
+using PracaDyplomowaBackend.Models.Models.Rate;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
@@ -103,6 +104,42 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [HttpPost("{id}/rate")]
+        public IActionResult AddBookRate(int id, [FromBody]AddRateModel addRateModel)
+        {
+            if (!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addRateModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _bookService.AddBookRate(id, addRateModel.UserEmailAddress, addRateModel.Value);
+
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+        }
+
+        [HttpPost("review/{id}/rate")]
+        public IActionResult AddBookReviewRate(int id, [FromBody]AddBookReviewRateModel addBookReviewRateModel)
+        {
+            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.Id == id)))
+            {
+                return NotFound(ErrorMessages.BookReviewNotFound);
+            }
+
+            if (!_userService.Exists(user => user.EmailAddress == addBookReviewRateModel.UserEmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _bookService.AddBookReviewRate(id, addBookReviewRateModel.UserEmailAddress, addBookReviewRateModel.Value);
+
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
@@ -156,6 +193,32 @@ namespace PracaDyplomowaBackend.Api.Controllers
             }
 
             _bookService.DeleteBookReview(reviewId);
+
+            return Save(_bookService, NoContent());
+        }
+
+        [HttpDelete("rate/{bookId}/{userEmailAddress}")]
+        public IActionResult DeleteBookRate(int bookId, string userEmailAddress)
+        {
+            if (!_bookService.Exists(book => book.BookRates.Any(bookRate => bookRate.BookId == bookId && bookRate.User.EmailAddress == userEmailAddress)))
+            {
+                return NotFound(ErrorMessages.RateNotFound);
+            }
+
+            _bookService.DeleteBookRate(bookId, userEmailAddress);
+
+            return Save(_bookService, NoContent());
+        }
+
+        [HttpDelete("review/{reviewId}/rate/{userEmailAddress}")]
+        public IActionResult DeleteBookReviewRate(int reviewId, string userEmailAddress)
+        {
+            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.ReviewRates.Any(reviewRate => reviewRate.BookReviewId == reviewId && reviewRate.User.EmailAddress == userEmailAddress))))
+            {
+                return NotFound(ErrorMessages.RateNotFound);
+            }
+
+            _bookService.DeleteBookReviewRate(reviewId, userEmailAddress);
 
             return Save(_bookService, NoContent());
         }

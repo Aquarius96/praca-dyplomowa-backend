@@ -4,6 +4,7 @@ using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
+using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
@@ -74,6 +75,15 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
+        public void AddBookRate(int bookId, string userEmailAddress, int value)
+        {
+            var user = _userRepository.Get(userEmailAddress);
+
+            var bookRate = new BookRate { BookId = bookId, User = user, Value = value };
+
+            _repository.AddBookRate(bookRate);
+        }
+
         public void AddBookReview(int bookId, string userEmailAddress, string title, string content)
         {
             var user = _userRepository.Get(userEmailAddress);
@@ -81,6 +91,15 @@ namespace PracaDyplomowaBackend.Service.Services
             var bookReview = new BookReview { BookId = bookId, User = user, Title = title, Content = content, Added = DateTime.UtcNow };
 
             _repository.AddBookReview(bookReview);
+        }
+
+        public void AddBookReviewRate(int bookReviewId, string userEmailAddress, bool value)
+        {
+            var user = _userRepository.Get(userEmailAddress);
+
+            var bookReviewRate = new ReviewRate { BookReviewId = bookReviewId, User = user, Positive = value };
+
+            _repository.AddBookReviewRate(bookReviewRate);
         }
 
         public void DeleteBookComment(int id)
@@ -97,11 +116,25 @@ namespace PracaDyplomowaBackend.Service.Services
             _genreRepository.DeleteBookGenre(bookGenre);
         }
 
+        public void DeleteBookRate(int bookId, string userEmailAddress)
+        {
+            BookRate bookRate = _repository.GetBookRate(bookId, userEmailAddress);
+
+            _repository.DeleteBookRate(bookRate);
+        }
+
         public void DeleteBookReview(int id)
         {
             var bookReview = _repository.GetBookReview(id);
 
             _repository.DeleteBookReview(bookReview);
+        }
+
+        public void DeleteBookReviewRate(int bookReviewId, string userEmailAddress)
+        {
+            ReviewRate reviewRate = _repository.GetBookReviewRate(bookReviewId, userEmailAddress);
+
+            _repository.DeleteBookReviewRate(reviewRate);
         }
 
         public new BookDto Get(int id)

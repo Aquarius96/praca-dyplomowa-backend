@@ -95,7 +95,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         }
 
         public IEnumerable<LibraryBookDto> GetUserCurrentlyReadBooks(string userEmailAddress)
-        {            
+        {                       
             var currentlyReadBooks = _context.CurrentlyReadBooks.Where(currentlyReadBook => currentlyReadBook.User.EmailAddress == userEmailAddress).Select(currentlyReadBook => currentlyReadBook.Book).Include(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
 
             return Mapper.Map<IEnumerable<LibraryBookDto>>(currentlyReadBooks);
