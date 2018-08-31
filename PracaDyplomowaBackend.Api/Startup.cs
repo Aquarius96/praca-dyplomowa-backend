@@ -34,6 +34,7 @@ namespace PracaDyplomowaBackend.Api
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             #endregion
 
             #region Services            
@@ -42,6 +43,7 @@ namespace PracaDyplomowaBackend.Api
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<ILibraryService, LibraryService>();
+            services.AddScoped<IRoleService, RoleService>();
             #endregion
 
             #region Helpers
@@ -74,6 +76,7 @@ namespace PracaDyplomowaBackend.Api
                 cfg.AddProfile<AuthorProfile>();
                 cfg.AddProfile<GenreProfile>();
                 cfg.AddProfile<CommentProfile>();
+                cfg.AddProfile<RoleProfile>();
             });
             #endregion
 

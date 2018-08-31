@@ -162,6 +162,9 @@
   <data name="ReadBookNotFound" xml:space="preserve">
     <value>Użytkownik nie posiada tej książki wśród listy przeczytanych książek.</value>
   </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>Rola nie została znaleziona w bazie danych.</value>
+  </data>
   <data name="SaveFailed" xml:space="preserve">
     <value>Wystąpił błąd podczas zapisu.</value>
   </data>
