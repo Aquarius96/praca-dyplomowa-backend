@@ -1,10 +1,11 @@
-﻿using PracaDyplomowaBackend.Models.ModelsDto.Rate;
+﻿using PracaDyplomowaBackend.Models.ModelsDto.Library;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
 using System;
 
 namespace PracaDyplomowaBackend.Models.ModelsDto.Book
 {
-    public class BookReviewDto
+    public class ReviewDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -13,6 +14,7 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Book
 
         public RateDto Rating { get; set; }
 
+        public LibraryBookDto Book { get; set; }
         public BookReviewAuthorDto ReviewAuthor { get; set; }
     }
 }

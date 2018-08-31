@@ -181,5 +181,17 @@ namespace PracaDyplomowaBackend.Service.Services
 
             return books;
         }
+
+        public IEnumerable<ReviewDto> GetReviews()
+        {
+            var reviews = _repository.GetReviews();
+
+            foreach(var review in reviews)
+            {
+                review.Rating = _repository.GetBookReviewRating(review.Id);
+            }
+
+            return reviews;
+        }
     }
 }

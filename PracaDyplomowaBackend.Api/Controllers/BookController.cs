@@ -243,5 +243,13 @@ namespace PracaDyplomowaBackend.Api.Controllers
             
             return Ok(books);
         }
+
+        [HttpGet("reviews")]
+        public IActionResult GetReviews()
+        {
+            var reviews = _bookService.GetReviews();
+
+            return Ok(reviews);
+        }
     }
 }

@@ -103,7 +103,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
                 return new RateDto { Value = 0, VotesAmount = 0 };
             }
 
-            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(reviewRate => reviewRate.Positive).Count() / _context.ReviewRates.Count()), 2), VotesAmount = _context.ReviewRates.Count() };
+            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(reviewRate => reviewRate.Positive).Count()) / _context.ReviewRates.Count(), 2) * 100, VotesAmount = _context.ReviewRates.Count() };
 
             return rateDto;
         }
@@ -113,6 +113,13 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             var bookReviews = _context.BookReviews.Where(bookReview => bookReview.BookId == bookId).Include(bookReview => bookReview.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre).Include(bookReview => bookReview.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(bookReview => bookReview.User);
 
             return Mapper.Map<IEnumerable<BookReviewDto>>(bookReviews);
+        }
+
+        public IEnumerable<ReviewDto> GetReviews()
+        {
+            var reviews = _context.BookReviews.Include(bookReview => bookReview.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre).Include(bookReview => bookReview.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(bookReview => bookReview.User);
+
+            return Mapper.Map<IEnumerable<ReviewDto>>(reviews);
         }
     }
 }

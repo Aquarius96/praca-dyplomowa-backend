@@ -20,5 +20,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void DeleteBookReview(int id);
         void DeleteBookRate(int bookId, string userEmailAddress);
         void DeleteBookReviewRate(int bookReviewId, string userEmailAddress);
+
+        IEnumerable<ReviewDto> GetReviews();
     }
 }

@@ -30,5 +30,6 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         
         IEnumerable<CommentDto> GetBookComments(int bookId);
         IEnumerable<BookReviewDto> GetBookReviews(int bookId);
+        IEnumerable<ReviewDto> GetReviews();
     }
 }
