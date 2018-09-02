@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
+using CryptoHelper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Library;
 using PracaDyplomowaBackend.Models.Models.Common.User;
@@ -21,6 +22,9 @@ namespace PracaDyplomowaBackend.Service.Services
         public void Register(RegisterModel registerModel)
         {
             User user = Mapper.Map<User>(registerModel);
+
+            user.Password = Crypto.HashPassword(user.Password);
+
             _repository.Add(user);
         }        
     }
