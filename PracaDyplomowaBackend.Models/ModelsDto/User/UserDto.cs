@@ -9,5 +9,6 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.User
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime Added { get; set; }
+        public string Role { get; set; }
     }
 }

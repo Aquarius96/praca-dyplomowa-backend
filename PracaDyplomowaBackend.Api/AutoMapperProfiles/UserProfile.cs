@@ -15,7 +15,8 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
                 dest.Added = DateTime.UtcNow;
                 dest.Confirmed = false;
             });
-            CreateMap<User, UserDto>();            
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.UserRole.Role.RoleName));
         }        
     }
 }

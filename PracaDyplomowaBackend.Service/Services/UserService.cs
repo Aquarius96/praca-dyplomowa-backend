@@ -5,6 +5,7 @@ using System.Security.Claims;
 using AutoMapper;
 using CryptoHelper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
+using PracaDyplomowaBackend.Data.DbModels.Role;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
 using PracaDyplomowaBackend.Repo.Interfaces;
@@ -16,11 +17,13 @@ namespace PracaDyplomowaBackend.Service.Services
     public class UserService : ServiceBase<User, RegisterModel, UserDto, Guid>, IUserService
     {
         private new readonly IUserRepository _repository;
+        private readonly IRoleRepository _roleRepository;
         private readonly ITokenProvider _tokenProvider;
 
-        public UserService(IUserRepository repository, ITokenProvider tokenProvider) : base(repository)
+        public UserService(IUserRepository repository, ITokenProvider tokenProvider, IRoleRepository roleRepository) : base(repository)
         {
             _repository = repository;
+            _roleRepository = roleRepository;
             _tokenProvider = tokenProvider;
         }
 
@@ -39,7 +42,9 @@ namespace PracaDyplomowaBackend.Service.Services
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),
                 new Claim(JwtRegisteredClaimNames.GivenName, user.Firstname),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.Lastname)
+                new Claim(JwtRegisteredClaimNames.FamilyName, user.Lastname),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("Role", user.Role)
             };
 
             return _tokenProvider.BuildToken(claims);
@@ -57,7 +62,7 @@ namespace PracaDyplomowaBackend.Service.Services
             User user = _repository.Get(emailAddress);
 
             return Mapper.Map<UserDto>(user);
-        }
+        }        
 
         public void Register(RegisterModel registerModel)
         {
@@ -65,7 +70,10 @@ namespace PracaDyplomowaBackend.Service.Services
 
             user.Password = Crypto.HashPassword(user.Password);
 
+            var userRole = new UserRole { User = user, RoleId = 2 };
+
             _repository.Add(user);
+            _roleRepository.AddUserRole(userRole);
         }        
     }
 }

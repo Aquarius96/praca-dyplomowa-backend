@@ -1,7 +1,6 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Role;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
-using System.Linq;
 
 namespace PracaDyplomowaBackend.Repo.Repositories
 {
