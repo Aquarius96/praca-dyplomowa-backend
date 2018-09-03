@@ -23,8 +23,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
 
             CreateMap<Genre, BookGenreDto>();
             
-            CreateMap<ReadBook, ReadBookDto>()
-                .ForMember(dest => dest.Finished, opt => opt.MapFrom(src => src.Added))
+            CreateMap<ReadBook, ReadBookDto>()                
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.Book.BookAuthors.Select(x => x.Author))))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.Book.BookGenres.Select(x => x.Genre))));
 

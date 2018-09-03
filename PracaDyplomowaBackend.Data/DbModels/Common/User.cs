@@ -5,7 +5,6 @@ using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Data.DbModels.Role;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Common
 {
@@ -15,10 +14,10 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
         public string EmailAddress { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string Password { get; set; }
-        public string PasswordSalt { get; set; }
+        public string Password { get; set; }        
         public DateTime Added { get; set; }
-        public string ConfirmationCode { get; set; }
+        public string PhotoUrl { get; set; }
+        public Guid ConfirmationCode { get; set; }
         public bool Confirmed { get; set; }
 
         public UserRole UserRole { get; set; }
@@ -35,6 +34,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
         public ICollection<AuthorRate> AuthorRates { get; set; }
 
         public ICollection<BookReview> BookReviews { get; set; }
-        public ICollection<ReviewRate> ReviewRates { get; set; }
+        public ICollection<BookReviewRate> ReviewRates { get; set; }
     }
 }

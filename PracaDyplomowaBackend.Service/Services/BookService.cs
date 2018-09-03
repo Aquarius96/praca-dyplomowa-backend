@@ -97,7 +97,7 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             var user = _userRepository.Get(userEmailAddress);
 
-            var bookReviewRate = new ReviewRate { BookReviewId = bookReviewId, User = user, Positive = value };
+            var bookReviewRate = new BookReviewRate { BookReviewId = bookReviewId, User = user, Positive = value };
 
             _repository.AddBookReviewRate(bookReviewRate);
         }
@@ -132,9 +132,9 @@ namespace PracaDyplomowaBackend.Service.Services
 
         public void DeleteBookReviewRate(int bookReviewId, string userEmailAddress)
         {
-            ReviewRate reviewRate = _repository.GetBookReviewRate(bookReviewId, userEmailAddress);
+            BookReviewRate bookReviewRate = _repository.GetBookReviewRate(bookReviewId, userEmailAddress);
 
-            _repository.DeleteBookReviewRate(reviewRate);
+            _repository.DeleteBookReviewRate(bookReviewRate);
         }
 
         public new BookDto Get(int id)

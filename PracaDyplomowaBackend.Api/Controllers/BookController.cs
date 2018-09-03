@@ -213,7 +213,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         [HttpDelete("review/{reviewId}/rate/{userEmailAddress}")]
         public IActionResult DeleteBookReviewRate(int reviewId, string userEmailAddress)
         {
-            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.ReviewRates.Any(reviewRate => reviewRate.BookReviewId == reviewId && reviewRate.User.EmailAddress == userEmailAddress))))
+            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.ReviewRates.Any(bookReviewRate => bookReviewRate.BookReviewId == reviewId && bookReviewRate.User.EmailAddress == userEmailAddress))))
             {
                 return NotFound(ErrorMessages.RateNotFound);
             }

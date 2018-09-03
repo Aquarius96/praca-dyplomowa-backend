@@ -38,7 +38,7 @@ namespace PracaDyplomowaBackend.Repo
 
         public DbSet<AuthorRate> AuthorRates { get; set; }
         public DbSet<BookRate> BookRates { get; set; }
-        public DbSet<ReviewRate> ReviewRates { get; set; }
+        public DbSet<BookReviewRate> ReviewRates { get; set; }
 
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }        
@@ -59,11 +59,11 @@ namespace PracaDyplomowaBackend.Repo
             modelBuilder.Entity<WantedBook>().HasKey(sc => new { sc.BookId, sc.UserId });
             modelBuilder.Entity<AuthorRate>().HasKey(sc => new { sc.AuthorId, sc.UserId });
             modelBuilder.Entity<BookRate>().HasKey(sc => new { sc.BookId, sc.UserId });
-            modelBuilder.Entity<ReviewRate>().HasKey(sc => new { sc.BookReviewId, sc.UserId });
+            modelBuilder.Entity<BookReviewRate>().HasKey(sc => new { sc.BookReviewId, sc.UserId });
             modelBuilder.Entity<BookAuthor>().HasKey(sc => new { sc.BookId, sc.AuthorId });
             modelBuilder.Entity<UserRole>().HasKey(sc => new { sc.UserId, sc.RoleId });                       
             
-            modelBuilder.Entity<ReviewRate>()
+            modelBuilder.Entity<BookReviewRate>()
                 .HasOne(c => c.User)
                 .WithMany(c => c.ReviewRates)
                 .HasForeignKey(f => f.UserId)

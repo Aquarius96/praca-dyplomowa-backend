@@ -12,8 +12,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Library
 
         [ForeignKey("UserId")]
         public User User { get; set; }
-        public Guid UserId { get; set; }
-
-        public DateTime Added { get; set; }
+        public Guid UserId { get; set; }        
     }
 }

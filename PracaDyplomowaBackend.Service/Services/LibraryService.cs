@@ -57,7 +57,7 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             User user = _userRepository.Get(userEmailAddress);
 
-            var readBook = new ReadBook { User = user, BookId = bookId, Added = finished };
+            var readBook = new ReadBook { User = user, BookId = bookId, Finished = finished };
 
             if (_userRepository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.WantedBooks.Any(wantedBook => wantedBook.BookId == bookId)))
             {

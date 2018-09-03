@@ -14,17 +14,17 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         void AddBookComment(BookComment bookComment);
         void AddBookReview(BookReview bookReview);
         void AddBookRate(BookRate bookRate);
-        void AddBookReviewRate(ReviewRate reviewRate);
+        void AddBookReviewRate(BookReviewRate bookReviewRate);
 
         void DeleteBookComment(BookComment bookComment);
         void DeleteBookReview(BookReview bookReview);
         void DeleteBookRate(BookRate bookRate);
-        void DeleteBookReviewRate(ReviewRate reviewRate);
+        void DeleteBookReviewRate(BookReviewRate bookReviewRate);
 
         BookComment GetBookComment(int id);
         BookReview GetBookReview(int id);
         BookRate GetBookRate(int bookId, string userEmailAddress);
-        ReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress);
+        BookReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress);
         RateDto GetBookRating(int bookId);
         RateDto GetBookReviewRating(int bookReviewId);
         

@@ -37,9 +37,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.BookReviews.Add(bookReview);
         }
 
-        public void AddBookReviewRate(ReviewRate reviewRate)
+        public void AddBookReviewRate(BookReviewRate bookReviewRate)
         {
-            _context.ReviewRates.Add(reviewRate);
+            _context.ReviewRates.Add(bookReviewRate);
         }
 
         public void DeleteBookComment(BookComment bookComment)
@@ -57,9 +57,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.BookReviews.Remove(bookReview);
         }
 
-        public void DeleteBookReviewRate(ReviewRate reviewRate)
+        public void DeleteBookReviewRate(BookReviewRate bookReviewRate)
         {
-            _context.ReviewRates.Remove(reviewRate);
+            _context.ReviewRates.Remove(bookReviewRate);
         }
 
         public BookComment GetBookComment(int id)
@@ -91,9 +91,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             return _context.BookReviews.FirstOrDefault(bookReview => bookReview.Id == id);
         }
 
-        public ReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress)
+        public BookReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress)
         {
-            return _context.ReviewRates.FirstOrDefault(reviewRate => reviewRate.BookReviewId == bookReviewId && reviewRate.User.EmailAddress == userEmailAddress);
+            return _context.ReviewRates.FirstOrDefault(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId && bookReviewRate.User.EmailAddress == userEmailAddress);
         }
 
         public RateDto GetBookReviewRating(int bookReviewId)
@@ -103,7 +103,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
                 return new RateDto { Value = 0, VotesAmount = 0 };
             }
 
-            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(reviewRate => reviewRate.Positive).Count()) / _context.ReviewRates.Count(), 2) * 100, VotesAmount = _context.ReviewRates.Count() };
+            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(bookReviewRate => bookReviewRate.Positive).Count()) / _context.ReviewRates.Count(), 2) * 100, VotesAmount = _context.ReviewRates.Count() };
 
             return rateDto;
         }

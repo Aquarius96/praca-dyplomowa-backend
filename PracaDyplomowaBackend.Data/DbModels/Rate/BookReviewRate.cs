@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PracaDyplomowaBackend.Data.DbModels.Rate
 {
-    public class ReviewRate
+    public class BookReviewRate
     {
         [ForeignKey("BookReviewId")]
         public BookReview BookReview { get; set; }

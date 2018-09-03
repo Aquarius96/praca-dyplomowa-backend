@@ -14,6 +14,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Library
         public User User { get; set; }
         public Guid UserId { get; set; }
 
-        public DateTime Added { get; set; }
+        public DateTime Finished { get; set; }
     }
 }

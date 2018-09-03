@@ -20,6 +20,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Relations
         public string Content { get; set; }
         public DateTime Added { get; set; }
         
-        public ICollection<ReviewRate> ReviewRates { get; set; }
+        public ICollection<BookReviewRate> ReviewRates { get; set; }
     }
 }
