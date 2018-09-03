@@ -178,11 +178,29 @@ namespace PracaDyplomowaBackend.Utilities.GlobalMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Obraz nie został znaleziony w bazie danych..
+        /// </summary>
+        public static string ImageNotFound {
+            get {
+                return ResourceManager.GetString("ImageNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Podane hasło jest niepoprawne..
         /// </summary>
         public static string IncorrectPassword {
             get {
                 return ResourceManager.GetString("IncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plik jest pusty..
+        /// </summary>
+        public static string NullFile {
+            get {
+                return ResourceManager.GetString("NullFile", resourceCulture);
             }
         }
         

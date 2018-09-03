@@ -10,6 +10,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void Register(RegisterModel registerModel);
         bool Authenticate(LoginModel loginModel);
         string CreateToken(LoginModel loginModel);
+        void AddImage(string userEmailAddress, string fileName);
 
         void Delete(string emailAddress);
 

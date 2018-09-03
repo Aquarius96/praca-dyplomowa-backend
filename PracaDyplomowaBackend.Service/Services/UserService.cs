@@ -27,6 +27,13 @@ namespace PracaDyplomowaBackend.Service.Services
             _tokenProvider = tokenProvider;
         }
 
+        public void AddImage(string userEmailAddress, string fileName)
+        {
+            var user = _repository.Get(userEmailAddress);
+
+            user.PhotoUrl = fileName;
+        }
+
         public bool Authenticate(LoginModel loginModel)
         {
             var user = _repository.Get(loginModel.EmailAddress);
