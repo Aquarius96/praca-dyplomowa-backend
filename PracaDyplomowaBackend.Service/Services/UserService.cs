@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using AutoMapper;
 using CryptoHelper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
-using PracaDyplomowaBackend.Data.DbModels.Library;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Models.ModelsDto.User;
 using PracaDyplomowaBackend.Repo.Interfaces;
@@ -17,7 +15,21 @@ namespace PracaDyplomowaBackend.Service.Services
         public UserService(IUserRepository repository) : base(repository)
         {
             _repository = repository;
-        }       
+        }
+
+        public void Delete(string emailAddress)
+        {
+            var user = _repository.Get(emailAddress);
+
+            _repository.Delete(user);
+        }
+
+        public UserDto Get(string emailAddress)
+        {
+            User user = _repository.Get(emailAddress);
+
+            return Mapper.Map<UserDto>(user);
+        }
 
         public void Register(RegisterModel registerModel)
         {

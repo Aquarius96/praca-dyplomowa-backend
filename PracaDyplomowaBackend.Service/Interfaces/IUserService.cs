@@ -7,6 +7,10 @@ namespace PracaDyplomowaBackend.Service.Interfaces
 {
     public interface IUserService : IServiceBase<User, RegisterModel, UserDto, Guid>
     {
-        void Register(RegisterModel registerModel);        
+        void Register(RegisterModel registerModel);
+
+        void Delete(string emailAddress);
+
+        UserDto Get(string emailAddress);
     }
 }

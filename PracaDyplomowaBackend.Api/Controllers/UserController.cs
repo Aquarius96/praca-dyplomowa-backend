@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
+using PracaDyplomowaBackend.Utilities.Paging;
 using System.Linq;
 
 namespace PracaDyplomowaBackend.Api.Controllers
@@ -38,6 +39,40 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _userService.Register(registerModel);
 
             return Save(_userService, StatusCode(StatusCodes.Status201Created));
-        }        
+        }     
+        
+        [HttpDelete("{emailAddress}")]
+        public IActionResult DeleteUser(string emailAddress)
+        {
+            if (!_userService.Exists(user => user.EmailAddress == emailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            _userService.Delete(emailAddress);
+
+            return Save(_userService, NoContent());
+        }
+
+        [HttpGet("{emailAddress}")]
+        public IActionResult GetUser(string emailAddress)
+        {
+            var user = _userService.Get(emailAddress);
+
+            if(user == null)
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet]
+        public IActionResult GetUsers(UserResourceParameters resourceParameters)
+        {
+            var users = _userService.GetList(resourceParameters);
+
+            return Ok(users);
+        }
     }
 }
