@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -39,7 +40,26 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _userService.Register(registerModel);
 
             return Save(_userService, StatusCode(StatusCodes.Status201Created));
-        }     
+        }    
+        
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public IActionResult Login([FromBody]LoginModel loginModel)
+        {
+            if (!_userService.Exists(user => user.EmailAddress == loginModel.EmailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            if (!_userService.Authenticate(loginModel))
+            {
+                return BadRequest(ErrorMessages.IncorrectPassword);
+            }
+
+            var token = _userService.CreateToken(loginModel);
+
+            return Ok(token);
+        }
         
         [HttpDelete("{emailAddress}")]
         public IActionResult DeleteUser(string emailAddress)

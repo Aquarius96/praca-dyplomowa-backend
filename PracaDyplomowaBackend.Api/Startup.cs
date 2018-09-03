@@ -27,7 +27,8 @@ namespace PracaDyplomowaBackend.Api
         {            
             services.ConfigureDatabase(Configuration);          
             services.ConfigureSwagger();
-         
+            services.ConfigureAuthentication(Configuration);
+
             #region Repositories            
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
@@ -48,6 +49,7 @@ namespace PracaDyplomowaBackend.Api
 
             #region Helpers
             services.AddScoped<IStringProvider, StringProvider>();
+            services.AddScoped<ITokenProvider, TokenProvider>();
             #endregion
 
             services.AddMvc();
@@ -79,6 +81,8 @@ namespace PracaDyplomowaBackend.Api
                 cfg.AddProfile<RoleProfile>();
             });
             #endregion
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

@@ -8,6 +8,8 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     public interface IUserService : IServiceBase<User, RegisterModel, UserDto, Guid>
     {
         void Register(RegisterModel registerModel);
+        bool Authenticate(LoginModel loginModel);
+        string CreateToken(LoginModel loginModel);
 
         void Delete(string emailAddress);
 

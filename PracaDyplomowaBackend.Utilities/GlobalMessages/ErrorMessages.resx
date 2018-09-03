@@ -156,6 +156,9 @@
   <data name="GenresNotFound" xml:space="preserve">
     <value>Jednego lub więcej gatunków nie znaleziono w bazie danych.</value>
   </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Podane hasło jest niepoprawne.</value>
+  </data>
   <data name="RateNotFound" xml:space="preserve">
     <value>Ocena nie została znaleziona w bazie danych.</value>
   </data>
