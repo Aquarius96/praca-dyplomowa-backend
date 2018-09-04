@@ -14,6 +14,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void AddBookReview(int bookId, string userEmailAddress, string title, string content);
         void AddBookRate(int bookId, string userEmailAddress, int value);
         void AddBookReviewRate(int bookReviewId, string userEmailAddress, bool value);
+        void AddImage(int bookId, string imageUrl);
 
         void DeleteBookGenre(int bookId, int genreId);
         void DeleteBookComment(int id);

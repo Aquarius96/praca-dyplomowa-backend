@@ -70,6 +70,13 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository.AddAuthorRate(authorRate);
         }
 
+        public void AddImage(int authorId, string imageUrl)
+        {
+            var author = _repository.Get(authorId);
+
+            author.PhotoUrl = imageUrl;
+        }
+
         public void DeleteAuthorComment(int id)
         {
             AuthorComment authorComment = _repository.GetAuthorComment(id);

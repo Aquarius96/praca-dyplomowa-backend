@@ -11,6 +11,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void AddAuthorGenres(Author author, ICollection<int> genreIds);
         void AddAuthorComment(int authorId, string userEmailAddress, string content);
         void AddAuthorRate(int authorId, string userEmailAddress, int value);
+        void AddImage(int authorId, string imageUrl);
 
         void DeleteAuthorGenre(int authorId, int genreId);
         void DeleteAuthorComment(int id);

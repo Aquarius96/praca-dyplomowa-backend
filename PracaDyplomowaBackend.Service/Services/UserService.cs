@@ -27,11 +27,11 @@ namespace PracaDyplomowaBackend.Service.Services
             _tokenProvider = tokenProvider;
         }
 
-        public void AddImage(string userEmailAddress, string fileName)
+        public void AddImage(string userEmailAddress, string imageUrl)
         {
             var user = _repository.Get(userEmailAddress);
 
-            user.PhotoUrl = fileName;
+            user.PhotoUrl = imageUrl;
         }
 
         public bool Authenticate(LoginModel loginModel)

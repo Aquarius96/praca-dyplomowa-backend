@@ -15,11 +15,15 @@ namespace PracaDyplomowaBackend.Api.Controllers
     {
         private readonly IHostingEnvironment _environment;
         private readonly IUserService _userService;
+        private readonly IAuthorService _authorService;
+        private readonly IBookService _bookService;
 
-        public PhotoController(IHostingEnvironment environment, IUserService userService)
+        public PhotoController(IHostingEnvironment environment, IUserService userService, IAuthorService authorService, IBookService bookService)
         {
             _environment = environment;
             _userService = userService;
+            _authorService = authorService;
+            _bookService = bookService;
         }
 
         [HttpPost("user/{emailAddress}")]
@@ -40,6 +44,46 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _userService.AddImage(emailAddress, GenerateImageUrl(fileName));
 
             return Save(_userService, StatusCode(StatusCodes.Status201Created));
+        }
+
+        [HttpPost("author/{id}")]
+        public IActionResult AddAuthorImage(int id, IFormFile file)
+        {
+            if (!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            if (file == null)
+            {
+                return BadRequest(ErrorMessages.NullFile);
+            }
+
+            string fileName = SaveFile(_environment, file);
+
+            _authorService.AddImage(id, GenerateImageUrl(fileName));
+
+            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
+        }
+
+        [HttpPost("book/{id}")]
+        public IActionResult AddBookImage(int id, IFormFile file)
+        {
+            if (!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            if (file == null)
+            {
+                return BadRequest(ErrorMessages.NullFile);
+            }
+
+            string fileName = SaveFile(_environment, file);
+
+            _bookService.AddImage(id, GenerateImageUrl(fileName));
+
+            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
         [HttpGet("{fileName}")]

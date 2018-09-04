@@ -102,6 +102,13 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository.AddBookReviewRate(bookReviewRate);
         }
 
+        public void AddImage(int bookId, string imageUrl)
+        {
+            var book = _repository.Get(bookId);
+
+            book.PhotoUrl = imageUrl;
+        }
+
         public void DeleteBookComment(int id)
         {
             var bookComment = _repository.GetBookComment(id);
