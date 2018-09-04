@@ -120,6 +120,7 @@ namespace PracaDyplomowaBackend.Service.Services
             {
                 author.Genres = _genreRepository.GetAuthorGenres(author.Id);
                 author.Comments = _repository.GetAuthorComments(author.Id);
+                author.Rating = _repository.GetAuthorRating(author.Id);
             }
 
             return authors;

@@ -81,7 +81,12 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public RateDto GetBookRating(int bookId)
         {
-            var rateDto = new RateDto { Value = Math.Round(_context.BookRates.Average(book => book.Value), 2), VotesAmount = _context.BookRates.Count() };
+            var rateDto = new RateDto { Value = 0, VotesAmount = 0 };
+
+            if (_context.BookRates.Count() != 0)
+            {
+                rateDto = new RateDto { Value = Math.Round(_context.BookRates.Average(book => book.Value), 2), VotesAmount = _context.BookRates.Count() };
+            }            
 
             return rateDto;
         }

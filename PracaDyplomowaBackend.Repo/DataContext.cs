@@ -68,6 +68,8 @@ namespace PracaDyplomowaBackend.Repo
                 .WithMany(c => c.ReviewRates)
                 .HasForeignKey(f => f.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.EnsureDataForSeeding();
         }       
     }
 }
