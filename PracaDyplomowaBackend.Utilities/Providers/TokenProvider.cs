@@ -24,11 +24,12 @@ namespace PracaDyplomowaBackend.Utilities.Providers
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
-          _configuration["Jwt:Issuer"],
-          expires: DateTime.Now.AddDays(30),
-          signingCredentials: credentials,
-          claims: claims);
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Issuer"],
+                expires: DateTime.Now.AddDays(30),
+                signingCredentials: credentials,
+                claims: claims);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

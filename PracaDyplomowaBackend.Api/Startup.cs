@@ -84,6 +84,12 @@ namespace PracaDyplomowaBackend.Api
 
             app.UseAuthentication();
 
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
+
             app.UseMvc();
         }
     }

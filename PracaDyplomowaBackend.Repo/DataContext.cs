@@ -69,7 +69,7 @@ namespace PracaDyplomowaBackend.Repo
                 .HasForeignKey(f => f.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.EnsureDataForSeeding();
+            modelBuilder.EnsureDataForSeeding();            
         }       
     }
 }

@@ -6,7 +6,6 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
-using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
