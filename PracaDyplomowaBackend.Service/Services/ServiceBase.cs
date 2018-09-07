@@ -20,10 +20,13 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository = repository;
         }
 
-        public void Add(TModel model)
+        public TEntity Add(TModel model)
         {
             var entity = Mapper.Map<TEntity>(model);
+
             _repository.Add(entity);
+
+            return entity;
         }
 
         public void Delete(TId id)

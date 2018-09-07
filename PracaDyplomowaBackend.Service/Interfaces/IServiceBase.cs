@@ -11,7 +11,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
 {
     public interface IServiceBase<TEntity, TModel, TDto, TId> where TEntity : EntityBase<TId> where TModel : ModelBase where TDto : DtoBase
     {
-        void Add(TModel model);
+        TEntity Add(TModel model);
         void Delete(TId id);        
         bool Exists(Expression<Func<TEntity, bool>> predicate);
         bool ListExists(IEnumerable<TId> ids);

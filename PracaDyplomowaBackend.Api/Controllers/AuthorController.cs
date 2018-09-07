@@ -38,9 +38,9 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return NotFound(ErrorMessages.GenresNotFound);
             }
 
-            _authorService.Add(addAuthorModel);
+            var author = _authorService.Add(addAuthorModel);
 
-            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
+            return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { author.Id }, null), author, "Get");
         }        
 
         [HttpPost("{id}/genre/{genreId}")]

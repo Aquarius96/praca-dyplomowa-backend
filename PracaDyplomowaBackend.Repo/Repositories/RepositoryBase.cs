@@ -21,9 +21,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _stringProvider = stringProvider;
         }
 
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Added;
+            _context.Entry(entity).State = EntityState.Added;            
+
+            return entity;
         }
 
         public void Delete(TEntity entity)

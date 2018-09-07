@@ -26,13 +26,15 @@ namespace PracaDyplomowaBackend.Service.Services
             _userRepository = userRepository;
         }
 
-        public new void Add(AddAuthorModel model)
+        public new Author Add(AddAuthorModel model)
         {
             var author = Mapper.Map<Author>(model);
 
             _repository.Add(author);
 
             AddAuthorGenres(author, model.GenreIds);
+
+            return author;
         }
 
         public void AddAuthorComment(int authorId, string userEmailAddress, string content)

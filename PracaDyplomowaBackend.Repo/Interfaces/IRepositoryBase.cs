@@ -9,7 +9,7 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
 {
     public interface IRepositoryBase<TEntity, TId> where TEntity : EntityBase<TId>
     {
-        void Add(TEntity entity);
+        TEntity Add(TEntity entity);
         void Delete(TEntity entity);
         void Edit(TEntity entity);
         bool Exists(Expression<Func<TEntity, bool>> predicate);
