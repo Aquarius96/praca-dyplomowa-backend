@@ -69,7 +69,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
             if(_context.AuthorRates.Count() != 0)
             {
-                rateDto = new RateDto { Value = Math.Round(_context.AuthorRates.Average(author => author.Value), 2), VotesAmount = _context.AuthorRates.Count() };
+                rateDto = new RateDto { Value = Math.Round(_context.AuthorRates.Where(author => author.AuthorId == authorId).Average(author => author.Value), 2), VotesAmount = _context.AuthorRates.Where(author => author.AuthorId == authorId).Count() };
             }
             
             return rateDto;

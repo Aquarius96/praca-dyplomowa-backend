@@ -38,7 +38,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return NotFound(ErrorMessages.GenresNotFound);
             }
 
-            var author = _authorService.Add(addAuthorModel);
+            var author = _authorService.Add(addAuthorModel);  
 
             return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { author.Id }, null), author, "Get");
         }        
@@ -82,6 +82,11 @@ namespace PracaDyplomowaBackend.Api.Controllers
         [HttpPost("{id}/rate")]
         public IActionResult AddAuthorRate(int id, [FromBody]AddRateModel addRateModel)
         {
+            if(addRateModel == null)
+            {
+                return BadRequest();
+            }
+
             if (!_authorService.Exists(author => author.Id == id))
             {
                 return NotFound(ErrorMessages.AuthorNotFound);
@@ -94,7 +99,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _authorService.AddAuthorRate(id, addRateModel.UserEmailAddress, addRateModel.Value);
 
-            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
+            return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { id }, null), id, "GetAuthorRating");
         }
 
         [HttpDelete("{id}")]

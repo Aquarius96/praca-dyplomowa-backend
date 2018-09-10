@@ -1,6 +1,7 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Service.Interfaces
@@ -23,5 +24,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void DeleteBookReviewRate(int bookReviewId, string userEmailAddress);
 
         IEnumerable<ReviewDto> GetReviews();
+        RateDto GetBookRating(int bookId);
+        RateDto GetBookReviewRating(int bookReviewId);
     }
 }

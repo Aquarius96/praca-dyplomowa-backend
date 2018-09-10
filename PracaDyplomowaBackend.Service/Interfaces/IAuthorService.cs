@@ -1,6 +1,7 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Service.Interfaces
@@ -16,5 +17,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void DeleteAuthorGenre(int authorId, int genreId);
         void DeleteAuthorComment(int id);
         void DeleteAuthorRate(int authorId, string userEmailAddress);
+
+        RateDto GetAuthorRating(int authorId);
     }
 }

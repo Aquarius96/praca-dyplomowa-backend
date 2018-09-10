@@ -119,7 +119,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _bookService.AddBookRate(id, addRateModel.UserEmailAddress, addRateModel.Value);
 
-            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+            return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookRating");
         }
 
         [HttpPost("review/{id}/rate")]
@@ -137,7 +137,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _bookService.AddBookReviewRate(id, addBookReviewRateModel.UserEmailAddress, addBookReviewRateModel.Value);
 
-            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+            return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookReviewRating");
         }
 
         [HttpDelete("{id}")]

@@ -8,6 +8,7 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.Paging;
@@ -79,9 +80,17 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             var user = _userRepository.Get(userEmailAddress);
 
-            var bookRate = new BookRate { BookId = bookId, User = user, Value = value };
+            var bookRate = _repository.GetBookRate(bookId, userEmailAddress);
 
-            _repository.AddBookRate(bookRate);
+            if (bookRate == null)
+            {
+                bookRate = new BookRate { BookId = bookId, User = user, Value = value };
+                _repository.AddBookRate(bookRate);
+            }            
+            else
+            {
+                bookRate.Value = value;
+            }            
         }
 
         public void AddBookReview(int bookId, string userEmailAddress, string title, string content)
@@ -97,9 +106,17 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             var user = _userRepository.Get(userEmailAddress);
 
-            var bookReviewRate = new BookReviewRate { BookReviewId = bookReviewId, User = user, Positive = value };
+            var bookReviewRate = _repository.GetBookReviewRate(bookReviewId, userEmailAddress);
 
-            _repository.AddBookReviewRate(bookReviewRate);
+            if(bookReviewRate == null)
+            {
+                bookReviewRate = new BookReviewRate { BookReviewId = bookReviewId, User = user, Positive = value };
+                _repository.AddBookReviewRate(bookReviewRate);
+            }
+            else
+            {
+                bookReviewRate.Positive = value;
+            }            
         }
 
         public void AddImage(int bookId, string imageUrl)
@@ -166,7 +183,17 @@ namespace PracaDyplomowaBackend.Service.Services
 
             return book;
         }
-        
+
+        public RateDto GetBookRating(int bookId)
+        {
+            return _repository.GetBookRating(bookId);
+        }
+
+        public RateDto GetBookReviewRating(int bookReviewId)
+        {
+            return _repository.GetBookReviewRating(bookReviewId);
+        }
+
         public new IEnumerable<BookDto> GetList(ResourceParameters resourceParameters)
         {
             var books = Mapper.Map<IEnumerable<BookDto>>(_repository.GetList(resourceParameters));

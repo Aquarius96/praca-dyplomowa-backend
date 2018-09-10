@@ -5,6 +5,7 @@ using PracaDyplomowaBackend.Data.DbModels.Genre;
 using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.Paging;
@@ -67,9 +68,17 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             var user = _userRepository.Get(userEmailAddress);
 
-            var authorRate = new AuthorRate { AuthorId = authorId, User = user, Value = value };
+            var authorRate = _repository.GetAuthorRate(authorId, userEmailAddress);
 
-            _repository.AddAuthorRate(authorRate);
+            if (authorRate == null)
+            {
+                authorRate = new AuthorRate { AuthorId = authorId, User = user, Value = value };
+                _repository.AddAuthorRate(authorRate);
+            }
+            else
+            {
+                authorRate.Value = value;
+            }
         }
 
         public void AddImage(int authorId, string imageUrl)
@@ -112,7 +121,12 @@ namespace PracaDyplomowaBackend.Service.Services
             }           
 
             return author;
-        }        
+        }
+
+        public RateDto GetAuthorRating(int authorId)
+        {
+            return _repository.GetAuthorRating(authorId);
+        }
 
         public new IEnumerable<AuthorDto> GetList(ResourceParameters resourceParameters)
         {

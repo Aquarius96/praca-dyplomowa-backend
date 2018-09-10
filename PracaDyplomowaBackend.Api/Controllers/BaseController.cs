@@ -20,10 +20,23 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             var methodToInvoke = service.GetType().GetMethod(method);
 
-            successActionResult.Value = methodToInvoke.Invoke(service, new object[] { entity.Id });            
+            successActionResult.Value = methodToInvoke.Invoke(service, new object[] { entity.Id });      
 
             var result =  !saved ? StatusCode(500, ErrorMessages.SaveFailed) : successActionResult;
             
+            return result;
+        }
+
+        public IActionResult Save<TEntity, TModel, TDto, TId>(IServiceBase<TEntity, TModel, TDto, TId> service, CreatedAtActionResult successActionResult, TId id, string method) where TEntity : EntityBase<TId> where TModel : ModelBase where TDto : DtoBase
+        {
+            var saved = service.Save();
+
+            var methodToInvoke = service.GetType().GetMethod(method);
+
+            successActionResult.Value = methodToInvoke.Invoke(service, new object[] { id });
+
+            var result = !saved ? StatusCode(500, ErrorMessages.SaveFailed) : successActionResult;
+
             return result;
         }
     }
