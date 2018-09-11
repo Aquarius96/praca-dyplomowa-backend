@@ -36,6 +36,7 @@ namespace PracaDyplomowaBackend.Api
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             #endregion
 
             #region Services            
@@ -45,11 +46,12 @@ namespace PracaDyplomowaBackend.Api
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<ILibraryService, LibraryService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IReviewService, ReviewService>();
             #endregion
 
             #region Helpers
             services.AddScoped<IStringProvider, StringProvider>();
-            services.AddScoped<ITokenProvider, TokenProvider>();
+            services.AddScoped<ITokenProvider, TokenProvider>();            
             #endregion
 
             services.AddMvc();
@@ -79,6 +81,7 @@ namespace PracaDyplomowaBackend.Api
                 cfg.AddProfile<GenreProfile>();
                 cfg.AddProfile<CommentProfile>();
                 cfg.AddProfile<RoleProfile>();
+                cfg.AddProfile<ReviewProfile>();
             });
             #endregion
 

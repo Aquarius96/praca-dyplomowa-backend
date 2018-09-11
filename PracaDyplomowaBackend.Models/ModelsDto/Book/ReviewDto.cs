@@ -5,7 +5,7 @@ using System;
 
 namespace PracaDyplomowaBackend.Models.ModelsDto.Book
 {
-    public class ReviewDto
+    public class ReviewDto : DtoBase
     {
         public int Id { get; set; }
         public string Title { get; set; }

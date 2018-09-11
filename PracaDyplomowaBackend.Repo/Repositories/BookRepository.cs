@@ -82,9 +82,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         {
             var rateDto = new RateDto { Value = 0, VotesAmount = 0 };
 
-            if (_context.BookRates.Count() != 0)
+            if (_context.BookRates.Where(bookRate => bookRate.BookId == bookId).Count() != 0)
             {
-                rateDto = new RateDto { Value = Math.Round(_context.BookRates.Average(book => book.Value), 2), VotesAmount = _context.BookRates.Count() };
+                rateDto = new RateDto { Value = Math.Round(_context.BookRates.Where(bookRate => bookRate.BookId == bookId).Average(book => book.Value), 2), VotesAmount = _context.BookRates.Count() };
             }            
 
             return rateDto;
@@ -95,22 +95,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             return _context.BookReviews.FirstOrDefault(bookReview => bookReview.Id == id);
         }
 
-        public BookReviewRate GetBookReviewRate(int bookReviewId, string userEmailAddress)
-        {
-            return _context.ReviewRates.FirstOrDefault(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId && bookReviewRate.User.EmailAddress == userEmailAddress);
-        }
+        
 
-        public RateDto GetBookReviewRating(int bookReviewId)
-        {
-            if(_context.ReviewRates.Count() == 0)
-            {
-                return new RateDto { Value = 0, VotesAmount = 0 };
-            }
-
-            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(bookReviewRate => bookReviewRate.Positive).Count()) / _context.ReviewRates.Count(), 2) * 100, VotesAmount = _context.ReviewRates.Count() };
-
-            return rateDto;
-        }
+        
 
         public IEnumerable<BookReviewDto> GetBookReviews(int bookId)
         {

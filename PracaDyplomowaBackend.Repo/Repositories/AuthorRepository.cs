@@ -67,9 +67,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         {
             var rateDto = new RateDto { Value = 0, VotesAmount = 0};
 
-            if(_context.AuthorRates.Count() != 0)
+            if(_context.AuthorRates.Where(authorRate => authorRate.AuthorId == authorId).Count() != 0)
             {
-                rateDto = new RateDto { Value = Math.Round(_context.AuthorRates.Where(author => author.AuthorId == authorId).Average(author => author.Value), 2), VotesAmount = _context.AuthorRates.Where(author => author.AuthorId == authorId).Count() };
+                rateDto = new RateDto { Value = Math.Round(_context.AuthorRates.Where(authorRate => authorRate.AuthorId == authorId).Average(author => author.Value), 2), VotesAmount = _context.AuthorRates.Where(author => author.AuthorId == authorId).Count() };
             }
             
             return rateDto;

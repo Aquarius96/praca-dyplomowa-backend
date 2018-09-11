@@ -85,25 +85,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
-
-        [HttpPost("{id}/review")]
-        public IActionResult AddBookReview(int id, [FromBody]AddBookReviewModel addBookReviewModel)
-        {
-            if (!_bookService.Exists(book => book.Id == id))
-            {
-                return NotFound(ErrorMessages.BookNotFound);
-            }
-
-            if (!_userService.Exists(user => user.EmailAddress == addBookReviewModel.UserEmailAddress))
-            {
-                return NotFound(ErrorMessages.UserNotFound);
-            }
-
-            _bookService.AddBookReview(id, addBookReviewModel.UserEmailAddress, addBookReviewModel.Title, addBookReviewModel.Content);
-
-            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
-        }
-
+       
         [HttpPost("{id}/rate")]
         public IActionResult AddBookRate(int id, [FromBody]AddRateModel addRateModel)
         {
@@ -120,25 +102,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _bookService.AddBookRate(id, addRateModel.UserEmailAddress, addRateModel.Value);
 
             return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookRating");
-        }
-
-        [HttpPost("review/{id}/rate")]
-        public IActionResult AddBookReviewRate(int id, [FromBody]AddBookReviewRateModel addBookReviewRateModel)
-        {
-            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.Id == id)))
-            {
-                return NotFound(ErrorMessages.BookReviewNotFound);
-            }
-
-            if (!_userService.Exists(user => user.EmailAddress == addBookReviewRateModel.UserEmailAddress))
-            {
-                return NotFound(ErrorMessages.UserNotFound);
-            }
-
-            _bookService.AddBookReviewRate(id, addBookReviewRateModel.UserEmailAddress, addBookReviewRateModel.Value);
-
-            return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookReviewRating");
-        }
+        }        
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
@@ -182,20 +146,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _bookService.DeleteBookComment(commentId);
 
             return Save(_bookService, NoContent());
-        }
-
-        [HttpDelete("review/{reviewId}")]
-        public IActionResult DeleteBookReview(int reviewId)
-        {
-            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.Id == reviewId)))
-            {
-                return NotFound(ErrorMessages.BookReviewNotFound);
-            }
-
-            _bookService.DeleteBookReview(reviewId);
-
-            return Save(_bookService, NoContent());
-        }
+        }        
 
         [HttpDelete("rate/{bookId}/{userEmailAddress}")]
         public IActionResult DeleteBookRate(int bookId, string userEmailAddress)
@@ -208,20 +159,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _bookService.DeleteBookRate(bookId, userEmailAddress);
 
             return Save(_bookService, NoContent());
-        }
-
-        [HttpDelete("review/{reviewId}/rate/{userEmailAddress}")]
-        public IActionResult DeleteBookReviewRate(int reviewId, string userEmailAddress)
-        {
-            if (!_bookService.Exists(book => book.BookReviews.Any(bookReview => bookReview.ReviewRates.Any(bookReviewRate => bookReviewRate.BookReviewId == reviewId && bookReviewRate.User.EmailAddress == userEmailAddress))))
-            {
-                return NotFound(ErrorMessages.RateNotFound);
-            }
-
-            _bookService.DeleteBookReviewRate(reviewId, userEmailAddress);
-
-            return Save(_bookService, NoContent());
-        }
+        }        
 
         [HttpGet("{id}")]
         public IActionResult GetBook(int id)
@@ -242,14 +180,6 @@ namespace PracaDyplomowaBackend.Api.Controllers
             var books = _bookService.GetList(resourceParameters);
             
             return Ok(books);
-        }
-
-        [HttpGet("reviews")]
-        public IActionResult GetReviews()
-        {
-            var reviews = _bookService.GetReviews();
-
-            return Ok(reviews);
-        }
+        }        
     }
 }

@@ -21,13 +21,15 @@ namespace PracaDyplomowaBackend.Service.Services
         private readonly IGenreRepository _genreRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IReviewRepository _reviewRepository;
 
-        public BookService(IBookRepository repository, IGenreRepository genreRepository, IAuthorRepository authorRepository, IUserRepository userRepository) : base(repository)
+        public BookService(IBookRepository repository, IGenreRepository genreRepository, IAuthorRepository authorRepository, IUserRepository userRepository, IReviewRepository reviewRepository) : base(repository)
         {
             _repository = repository;
             _genreRepository = genreRepository;
             _authorRepository = authorRepository;
             _userRepository = userRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public new void Add(AddBookModel model)
@@ -92,33 +94,7 @@ namespace PracaDyplomowaBackend.Service.Services
                 bookRate.Value = value;
             }            
         }
-
-        public void AddBookReview(int bookId, string userEmailAddress, string title, string content)
-        {
-            var user = _userRepository.Get(userEmailAddress);
-
-            var bookReview = new BookReview { BookId = bookId, User = user, Title = title, Content = content, Added = DateTime.UtcNow };
-
-            _repository.AddBookReview(bookReview);
-        }
-
-        public void AddBookReviewRate(int bookReviewId, string userEmailAddress, bool value)
-        {
-            var user = _userRepository.Get(userEmailAddress);
-
-            var bookReviewRate = _repository.GetBookReviewRate(bookReviewId, userEmailAddress);
-
-            if(bookReviewRate == null)
-            {
-                bookReviewRate = new BookReviewRate { BookReviewId = bookReviewId, User = user, Positive = value };
-                _repository.AddBookReviewRate(bookReviewRate);
-            }
-            else
-            {
-                bookReviewRate.Positive = value;
-            }            
-        }
-
+        
         public void AddImage(int bookId, string imageUrl)
         {
             var book = _repository.Get(bookId);
@@ -147,31 +123,17 @@ namespace PracaDyplomowaBackend.Service.Services
             _repository.DeleteBookRate(bookRate);
         }
 
-        public void DeleteBookReview(int id)
-        {
-            var bookReview = _repository.GetBookReview(id);
-
-            _repository.DeleteBookReview(bookReview);
-        }
-
-        public void DeleteBookReviewRate(int bookReviewId, string userEmailAddress)
-        {
-            BookReviewRate bookReviewRate = _repository.GetBookReviewRate(bookReviewId, userEmailAddress);
-
-            _repository.DeleteBookReviewRate(bookReviewRate);
-        }
-
         public new BookDto Get(int id)
         {
             var book = Mapper.Map<BookDto>(_repository.Get(id));
 
             if (book != null)
             {
-                var reviews = _repository.GetBookReviews(id);
+                var reviews = _reviewRepository.GetBookReviews(id);
 
-                foreach(var review in reviews)
+                foreach (var review in reviews)
                 {
-                    review.Rating = _repository.GetBookReviewRating(review.Id);
+                    review.Rating = _reviewRepository.GetBookReviewRating(review.Id);
                 }
 
                 book.Authors = _authorRepository.GetBookAuthors(id);
@@ -188,23 +150,18 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             return _repository.GetBookRating(bookId);
         }
-
-        public RateDto GetBookReviewRating(int bookReviewId)
-        {
-            return _repository.GetBookReviewRating(bookReviewId);
-        }
-
+        
         public new IEnumerable<BookDto> GetList(ResourceParameters resourceParameters)
         {
             var books = Mapper.Map<IEnumerable<BookDto>>(_repository.GetList(resourceParameters));
 
             foreach (var book in books)
             {
-                var reviews = _repository.GetBookReviews(book.Id);
+                var reviews = _reviewRepository.GetBookReviews(book.Id);
 
                 foreach (var review in reviews)
                 {
-                    review.Rating = _repository.GetBookReviewRating(review.Id);
+                    review.Rating = _reviewRepository.GetBookReviewRating(review.Id);
                 }
 
                 book.Authors = _authorRepository.GetBookAuthors(book.Id);
@@ -214,18 +171,6 @@ namespace PracaDyplomowaBackend.Service.Services
             }
 
             return books;
-        }
-
-        public IEnumerable<ReviewDto> GetReviews()
-        {
-            var reviews = _repository.GetReviews();
-
-            foreach(var review in reviews)
-            {
-                review.Rating = _repository.GetBookReviewRating(review.Id);
-            }
-
-            return reviews;
-        }
+        }        
     }
 }

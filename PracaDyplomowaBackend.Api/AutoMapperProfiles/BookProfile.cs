@@ -26,19 +26,10 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
             CreateMap<ReadBook, ReadBookDto>()                
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.Book.BookAuthors.Select(x => x.Author))))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.Book.BookGenres.Select(x => x.Genre))));
-
-            CreateMap<BookReview, ReviewDto>()
-                .ForMember(dest => dest.Book, opt => opt.MapFrom(src => Mapper.Map<LibraryBookDto>(src.Book)))
-                .ForMember(dest => dest.ReviewAuthor, opt => opt.MapFrom(src => Mapper.Map<BookReviewAuthorDto>(src.User)));
-
-            CreateMap<BookReview, BookReviewDto>()
-                .ForMember(dest => dest.ReviewAuthor, opt => opt.MapFrom(src => Mapper.Map<BookReviewAuthorDto>(src.User)));
-
+           
             CreateMap<Book, LibraryBookDto>()
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.BookAuthors.Select(x => x.Author))))
-                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.BookGenres.Select(x => x.Genre))));
-
-            CreateMap<User, BookReviewAuthorDto>();
+                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.BookGenres.Select(x => x.Genre))));            
         }
     }
 }
