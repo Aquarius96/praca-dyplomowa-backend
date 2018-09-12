@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Models.Models.Comment;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.Models.Rate;
@@ -44,7 +45,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }        
 
         [HttpPost("{id}/genre/{genreId}")]
-        public IActionResult AddAuthorGenre(int id, int genreId)
+        private IActionResult AddAuthorGenre(int id, int genreId)
         {
             if(!_authorService.Exists(author => author.Id == id))
             {
@@ -74,9 +75,9 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return NotFound(ErrorMessages.UserNotFound);
             }
 
-            _authorService.AddAuthorComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
+            AuthorComment comment = _authorService.AddAuthorComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
 
-            return Save(_authorService, StatusCode(StatusCodes.Status201Created));
+            return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { comment.Id }, null), "GetAuthorComment", comment);
         }
 
         [HttpPost("{id}/rate")]
@@ -116,7 +117,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpDelete("{id}/genre/{genreId}")]
-        public IActionResult DeleteAuthorGenre(int id, int genreId)
+        private IActionResult DeleteAuthorGenre(int id, int genreId)
         {
             if (!_authorService.Exists(author => author.Id == id))
             {
@@ -147,7 +148,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpDelete("rate/{authorId}/{userEmailAddress}")]
-        public IActionResult DeleteAuthorRate(int authorId, string userEmailAddress)
+        private IActionResult DeleteAuthorRate(int authorId, string userEmailAddress)
         {
             if(!_authorService.Exists(author => author.AuthorRates.Any(authorRate => authorRate.AuthorId == authorId && authorRate.User.EmailAddress == userEmailAddress)))
             {

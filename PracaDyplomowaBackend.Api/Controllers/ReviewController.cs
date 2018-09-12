@@ -86,7 +86,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpDelete("{id}/rate/{userEmailAddress}")]
-        public IActionResult DeleteBookReviewRate(int id, string userEmailAddress)
+        private IActionResult DeleteBookReviewRate(int id, string userEmailAddress)
         {
             if (!_reviewService.Exists(bookReview => bookReview.ReviewRates.Any(bookReviewRate => bookReviewRate.BookReviewId == id && bookReviewRate.User.EmailAddress == userEmailAddress)))
             {

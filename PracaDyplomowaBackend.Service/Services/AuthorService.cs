@@ -5,6 +5,7 @@ using PracaDyplomowaBackend.Data.DbModels.Genre;
 using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -38,13 +39,15 @@ namespace PracaDyplomowaBackend.Service.Services
             return author;
         }
 
-        public void AddAuthorComment(int authorId, string userEmailAddress, string content)
+        public AuthorComment AddAuthorComment(int authorId, string userEmailAddress, string content)
         {
             var user = _userRepository.Get(userEmailAddress);
 
             var authorComment = new AuthorComment { AuthorId = authorId, User = user, Content = content, Added = DateTime.UtcNow };
 
             _repository.AddAuthorComment(authorComment);
+
+            return authorComment;
         }
 
         public void AddAuthorGenre(int authorId, int genreId)
@@ -121,6 +124,11 @@ namespace PracaDyplomowaBackend.Service.Services
             }           
 
             return author;
+        }
+
+        public CommentDto GetAuthorComment(int commentId)
+        {
+            return Mapper.Map<CommentDto>(_repository.GetAuthorComment(commentId));
         }
 
         public RateDto GetAuthorRating(int authorId)

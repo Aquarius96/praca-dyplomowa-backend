@@ -27,6 +27,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return result;
         }
 
+        public IActionResult Save<TEntity, TModel, TDto, TId, AnotherTEntity>(IServiceBase<TEntity, TModel, TDto, TId> service, CreatedAtActionResult successActionResult, string method, AnotherTEntity entity) where TEntity : EntityBase<TId> where TModel : ModelBase where TDto : DtoBase where AnotherTEntity : EntityBase<TId>
+        {
+            var saved = service.Save();
+
+            var methodToInvoke = service.GetType().GetMethod(method);
+
+            successActionResult.Value = methodToInvoke.Invoke(service, new object[] { entity.Id });
+
+            var result = !saved ? StatusCode(500, ErrorMessages.SaveFailed) : successActionResult;
+
+            return result;
+        }
+
         public IActionResult Save<TEntity, TModel, TDto, TId>(IServiceBase<TEntity, TModel, TDto, TId> service, CreatedAtActionResult successActionResult, TId id, string method) where TEntity : EntityBase<TId> where TModel : ModelBase where TDto : DtoBase
         {
             var saved = service.Save();

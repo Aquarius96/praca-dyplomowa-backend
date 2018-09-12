@@ -1,6 +1,8 @@
-﻿using PracaDyplomowaBackend.Data.DbModels.Common;
+﻿using PracaDyplomowaBackend.Data.DbModels.Comment;
+using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Author;
+using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System.Collections.Generic;
 
@@ -10,7 +12,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     {
         void AddAuthorGenre(int authorId, int genreId);
         void AddAuthorGenres(Author author, ICollection<int> genreIds);
-        void AddAuthorComment(int authorId, string userEmailAddress, string content);
+        AuthorComment AddAuthorComment(int authorId, string userEmailAddress, string content);
         void AddAuthorRate(int authorId, string userEmailAddress, int value);
         void AddImage(int authorId, string imageUrl);
 
@@ -19,5 +21,6 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         void DeleteAuthorRate(int authorId, string userEmailAddress);
 
         RateDto GetAuthorRating(int authorId);
+        CommentDto GetAuthorComment(int commentId);
     }
 }

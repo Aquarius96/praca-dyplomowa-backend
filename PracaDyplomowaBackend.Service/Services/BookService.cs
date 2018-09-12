@@ -8,6 +8,7 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
+using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -54,13 +55,15 @@ namespace PracaDyplomowaBackend.Service.Services
             }
         }
 
-        public void AddBookComment(int bookId, string userEmailAddress, string content)
+        public BookComment AddBookComment(int bookId, string userEmailAddress, string content)
         {
             var user = _userRepository.Get(userEmailAddress);
 
             var bookComment = new BookComment { BookId = bookId, User = user, Content = content, Added = DateTime.UtcNow };
 
             _repository.AddBookComment(bookComment);
+
+            return bookComment;
         }
 
         public void AddBookGenre(int bookId, int genreId)
@@ -146,6 +149,11 @@ namespace PracaDyplomowaBackend.Service.Services
             }            
 
             return book;
+        }
+
+        public CommentDto GetBookComment(int commentId)
+        {
+            return Mapper.Map<CommentDto>(_repository.GetBookComment(commentId));
         }
 
         public RateDto GetBookRating(int bookId)

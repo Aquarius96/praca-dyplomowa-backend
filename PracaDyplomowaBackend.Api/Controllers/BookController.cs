@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Models.Models.Comment;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.Models.Rate;
@@ -51,7 +52,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpPost("{id}/genre/{genreId}")]
-        public IActionResult AddBookGenre(int id, int genreId)
+        private IActionResult AddBookGenre(int id, int genreId)
         {
             if (!_bookService.Exists(book => book.Id == id))
             {
@@ -81,9 +82,9 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return NotFound(ErrorMessages.UserNotFound);
             }
 
-            _bookService.AddBookComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
+            BookComment comment = _bookService.AddBookComment(id, addCommentModel.UserEmailAddress, addCommentModel.Content);
 
-            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+            return Save(_bookService, CreatedAtAction(nameof(GetBook), new { comment.Id }, null), "GetBookComment", comment);
         }
        
         [HttpPost("{id}/rate")]
@@ -118,7 +119,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }
 
         [HttpDelete("{id}/genre/{genreId}")]
-        public IActionResult DeleteBookGenre(int id, int genreId)
+        private IActionResult DeleteBookGenre(int id, int genreId)
         {
             if(!_bookService.Exists(book => book.Id == id))
             {
@@ -149,7 +150,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         }        
 
         [HttpDelete("rate/{bookId}/{userEmailAddress}")]
-        public IActionResult DeleteBookRate(int bookId, string userEmailAddress)
+        private IActionResult DeleteBookRate(int bookId, string userEmailAddress)
         {
             if (!_bookService.Exists(book => book.BookRates.Any(bookRate => bookRate.BookId == bookId && bookRate.User.EmailAddress == userEmailAddress)))
             {

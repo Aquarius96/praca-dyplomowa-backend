@@ -20,7 +20,7 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
 
         AuthorComment GetAuthorComment(int id);
         AuthorRate GetAuthorRate(int authorId, string userEmailAddress);
-        RateDto GetAuthorRating(int authorId);
+        RateDto GetAuthorRating(int authorId);        
 
         IEnumerable<CommentDto> GetAuthorComments(int authorId);
         IEnumerable<BookAuthorDto> GetBookAuthors(int bookId);
