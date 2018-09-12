@@ -32,7 +32,7 @@ namespace PracaDyplomowaBackend.Service.Services
             _reviewRepository = reviewRepository;
         }
 
-        public new void Add(AddBookModel model)
+        public new Book Add(AddBookModel model)
         {
             var book = Mapper.Map<Book>(model);
 
@@ -40,6 +40,8 @@ namespace PracaDyplomowaBackend.Service.Services
 
             AddBookGenres(book, model.GenreIds);
             AddBookAuthors(book, model.AuthorIds);
+
+            return book;
         }
 
         public void AddBookAuthors(Book book, ICollection<int> authorIds)
@@ -166,6 +168,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
                 book.Authors = _authorRepository.GetBookAuthors(book.Id);
                 book.Genres = _genreRepository.GetBookGenres(book.Id);
+                book.Comments = _repository.GetBookComments(book.Id);
                 book.Reviews = reviews;
                 book.Rating = _repository.GetBookRating(book.Id);
             }

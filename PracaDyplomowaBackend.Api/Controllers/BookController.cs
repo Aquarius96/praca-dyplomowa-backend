@@ -45,9 +45,9 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return NotFound(ErrorMessages.AuthorsNotFound);
             }
 
-            _bookService.Add(addBookModel);
+            var book = _bookService.Add(addBookModel);
 
-            return Save(_bookService, StatusCode(StatusCodes.Status201Created));
+            return Save(_bookService, CreatedAtAction(nameof(GetBook), new { book.Id }, null), book, "Get");
         }
 
         [HttpPost("{id}/genre/{genreId}")]
