@@ -24,7 +24,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _authorService = authorService;
         }
 
-        [HttpPost("{userEmailAddress}/favoritebook/{bookId}")]
+        [HttpPost("{userEmailAddress}/favorite_book/{bookId}")]
         public IActionResult AddFavoriteBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -39,10 +39,10 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _libraryService.AddFavoriteBook(userEmailAddress, bookId);
 
-            return Save(_libraryService, StatusCode(StatusCodes.Status201Created));
+            return Save(_libraryService, CreatedAtAction(nameof(GetUserLibrary), new { userEmailAddress }, null), userEmailAddress);
         }
 
-        [HttpPost("{userEmailAddress}/wantedbook/{bookId}")]
+        [HttpPost("{userEmailAddress}/wanted_book/{bookId}")]
         public IActionResult AddWantedBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -57,10 +57,10 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _libraryService.AddWantedBook(userEmailAddress, bookId);
 
-            return Save(_libraryService, StatusCode(StatusCodes.Status201Created));
+            return Save(_libraryService, CreatedAtAction(nameof(GetUserLibrary), new { userEmailAddress }, null), userEmailAddress);
         }
 
-        [HttpPost("{userEmailAddress}/currentlyreadbook/{bookId}")]
+        [HttpPost("{userEmailAddress}/currently_read_book/{bookId}")]
         public IActionResult AddCurrentlyReadBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -75,10 +75,10 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _libraryService.AddCurrentlyReadBook(userEmailAddress, bookId);
 
-            return Save(_libraryService, StatusCode(StatusCodes.Status201Created));
+            return Save(_libraryService, CreatedAtAction(nameof(GetUserLibrary), new { userEmailAddress }, null), userEmailAddress);
         }
 
-        [HttpPost("{userEmailAddress}/readbook")]
+        [HttpPost("{userEmailAddress}/read_book")]
         public IActionResult AddReadBook(string userEmailAddress, [FromBody]AddReadBookModel addReadBookModel)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -93,10 +93,10 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _libraryService.AddReadBook(userEmailAddress, addReadBookModel.BookId, addReadBookModel.Finished);
 
-            return Save(_libraryService, StatusCode(StatusCodes.Status201Created));
+            return Save(_libraryService, CreatedAtAction(nameof(GetUserLibrary), new { userEmailAddress }, null), userEmailAddress);
         }
 
-        [HttpPost("{userEmailAddress}/favoriteauthor/{authorId}")]
+        [HttpPost("{userEmailAddress}/favorite_author/{authorId}")]
         public IActionResult AddFavoriteAuthor(string userEmailAddress, int authorId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -111,10 +111,10 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             _libraryService.AddFavoriteAuthor(userEmailAddress, authorId);
 
-            return Save(_libraryService, StatusCode(StatusCodes.Status201Created));
+            return Save(_libraryService, CreatedAtAction(nameof(GetUserLibrary), new { userEmailAddress }, null), userEmailAddress);
         }
 
-        [HttpDelete("{userEmailAddress}/favoritebook/{bookId}")]
+        [HttpDelete("{userEmailAddress}/favorite_book/{bookId}")]
         public IActionResult DeleteFavoriteBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -132,7 +132,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_libraryService, NoContent());
         }
 
-        [HttpDelete("{userEmailAddress}/wantedbook/{bookId}")]
+        [HttpDelete("{userEmailAddress}/wanted_book/{bookId}")]
         public IActionResult DeleteWantedBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -150,7 +150,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_libraryService, NoContent());
         }
 
-        [HttpDelete("{userEmailAddress}/currentlyreadbook/{bookId}")]
+        [HttpDelete("{userEmailAddress}/currently_read_book/{bookId}")]
         public IActionResult DeleteCurrentlyReadBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -168,7 +168,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_libraryService, NoContent());
         }
 
-        [HttpDelete("{userEmailAddress}/readbook/{bookId}")]
+        [HttpDelete("{userEmailAddress}/read_book/{bookId}")]
         public IActionResult DeleteReadBook(string userEmailAddress, int bookId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -186,7 +186,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_libraryService, NoContent());
         }
 
-        [HttpDelete("{userEmailAddress}/favoriteauthor/{authorId}")]
+        [HttpDelete("{userEmailAddress}/favorite_author/{authorId}")]
         public IActionResult DeleteFavoriteAuthor(string userEmailAddress, int authorId)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -204,7 +204,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_libraryService, NoContent());
         }
         
-        [HttpGet("userEmailAddress")]
+        [HttpGet("{userEmailAddress}")]
         public IActionResult GetUserLibrary(string userEmailAddress)
         {
             if (!_userService.Exists(user => user.EmailAddress == userEmailAddress))
@@ -215,6 +215,17 @@ namespace PracaDyplomowaBackend.Api.Controllers
             var library = _libraryService.GetUserLibrary(userEmailAddress);
 
             return Ok(library);
+        }
+
+        private IActionResult Save(ILibraryService service, CreatedAtActionResult successActionResult, string userEmailAddress)
+        {
+            var saved = service.Save();
+
+            successActionResult.Value = service.GetUserLibrary(userEmailAddress);
+
+            var result = !saved ? StatusCode(500, ErrorMessages.SaveFailed) : successActionResult;
+
+            return result;
         }
     }
 }

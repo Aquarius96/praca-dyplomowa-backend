@@ -110,7 +110,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<ReadBookDto> GetUserReadBooks(string userEmailAddress)
         {
-            var readBooks = _context.ReadBooks.Where(readBook => readBook.User.EmailAddress == userEmailAddress).Include(readBook => readBook.Book).ThenInclude(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(favBook => favBook.Book).ThenInclude(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
+            var readBooks = _context.ReadBooks.Where(readBook => readBook.User.EmailAddress == userEmailAddress).Select(readBook => readBook.Book).Include(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
 
             return Mapper.Map<IEnumerable<ReadBookDto>>(readBooks);
         }
