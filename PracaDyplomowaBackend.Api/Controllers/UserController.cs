@@ -24,7 +24,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _authorService = authorService;
         }
 
-        [HttpPost("register")]
+        [HttpPost()]
         public IActionResult Register([FromBody]RegisterModel registerModel)
         {
             if(registerModel == null)

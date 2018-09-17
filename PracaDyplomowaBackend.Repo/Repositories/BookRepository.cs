@@ -84,7 +84,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
             if (_context.BookRates.Where(bookRate => bookRate.BookId == bookId).Count() != 0)
             {
-                rateDto = new RateDto { Value = Math.Round(_context.BookRates.Where(bookRate => bookRate.BookId == bookId).Average(book => book.Value), 2), VotesAmount = _context.BookRates.Count() };
+                rateDto = new RateDto { Value = Math.Round(_context.BookRates.Where(bookRate => bookRate.BookId == bookId).Average(book => book.Value), 2), VotesAmount = _context.BookRates.Where(bookRate => bookRate.BookId == bookId).Count() };
             }            
 
             return rateDto;

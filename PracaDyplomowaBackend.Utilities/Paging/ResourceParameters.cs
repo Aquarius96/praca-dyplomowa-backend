@@ -14,6 +14,10 @@ namespace PracaDyplomowaBackend.Utilities.Paging
 
         public string SearchQuery { get; set; } = "";
 
+        public string SortField { get; set; } = "Id";
+
+        public bool SortAscending { get; set; } = true;
+
         public List<string> SearchProperties;
     }
 }

@@ -60,9 +60,32 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<TEntity> GetList(ResourceParameters resourceParameters)
         {
-            var entities = _context.Set<TEntity>().Where(entity => resourceParameters.SearchProperties.Any(property => _stringProvider.PropertyContainsQuery(entity.GetType().GetProperty(property).GetValue(entity, null).ToString(), resourceParameters.SearchQuery)))
-            .Skip(resourceParameters.PageSize * (resourceParameters.PageNumber - 1))
-            .Take(resourceParameters.PageSize);
+            IEnumerable<TEntity> entities;
+
+            if (resourceParameters.SearchQuery == null)
+            {
+                resourceParameters.SearchQuery = "";
+            }
+
+            var querySplit = resourceParameters.SearchQuery.Split(" ");
+
+            if (resourceParameters.SortAscending)
+            {
+                entities = _context.Set<TEntity>()                
+                .Where(entity => querySplit.All(query => resourceParameters.SearchProperties.Any(property => _stringProvider.PropertyContainsQuery(entity.GetType().GetProperty(property).GetValue(entity, null).ToString(), query))))
+                .OrderBy(entity => entity.GetType().GetProperty(resourceParameters.SortField).GetValue(entity, null))
+                .Skip(resourceParameters.PageSize * (resourceParameters.PageNumber - 1))
+                .Take(resourceParameters.PageSize);
+            }
+
+            else
+            {
+                entities = _context.Set<TEntity>()
+                .Where(entity => querySplit.All(query => resourceParameters.SearchProperties.Any(property => _stringProvider.PropertyContainsQuery(entity.GetType().GetProperty(property).GetValue(entity, null).ToString(), query))))
+                .OrderByDescending(entity => entity.GetType().GetProperty(resourceParameters.SortField).GetValue(entity, null))
+                .Skip(resourceParameters.PageSize * (resourceParameters.PageNumber - 1))
+                .Take(resourceParameters.PageSize);
+            }
 
             return entities;
         }
