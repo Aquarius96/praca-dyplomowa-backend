@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
@@ -179,6 +180,11 @@ namespace PracaDyplomowaBackend.Service.Services
                 book.Comments = _repository.GetBookComments(book.Id);
                 book.Reviews = reviews;
                 book.Rating = _repository.GetBookRating(book.Id);
+            }
+
+            if(resourceParameters.SortByRating)
+            {
+                return books.OrderByDescending(book => book.Rating.Value).ThenByDescending(book => book.Rating.VotesAmount);
             }
 
             return books;

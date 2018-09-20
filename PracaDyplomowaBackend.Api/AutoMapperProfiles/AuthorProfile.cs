@@ -11,7 +11,8 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
         public AuthorProfile()
         {
             CreateMap<AddAuthorModel, Author>();
-            CreateMap<Author, AuthorDto>();
+            CreateMap<Author, AuthorDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.Firstname} {src.Lastname}"));
 
             CreateMap<Author, BookAuthorDto>()
                 .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => $"{src.Firstname} {src.Lastname}"));

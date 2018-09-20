@@ -18,6 +18,8 @@ namespace PracaDyplomowaBackend.Utilities.Paging
 
         public bool SortAscending { get; set; } = true;
 
+        public bool SortByRating { get; set; } = false;
+
         public List<string> SearchProperties;
     }
 }
