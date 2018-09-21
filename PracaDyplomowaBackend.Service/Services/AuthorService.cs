@@ -12,6 +12,7 @@ using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.Paging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PracaDyplomowaBackend.Service.Services
 {
@@ -145,6 +146,11 @@ namespace PracaDyplomowaBackend.Service.Services
                 author.Genres = _genreRepository.GetAuthorGenres(author.Id);
                 author.Comments = _repository.GetAuthorComments(author.Id);
                 author.Rating = _repository.GetAuthorRating(author.Id);
+            }
+
+            if (resourceParameters.SortByRating)
+            {
+                return authors.OrderByDescending(author => author.Rating.Value).ThenByDescending(author => author.Rating.VotesAmount);
             }
 
             return authors;
