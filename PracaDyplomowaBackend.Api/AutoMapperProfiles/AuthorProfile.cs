@@ -15,7 +15,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.Firstname} {src.Lastname}"));
 
             CreateMap<Author, BookAuthorDto>()
-                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => $"{src.Firstname} {src.Lastname}"));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.Firstname} {src.Lastname}"));
         }
     }
 }

@@ -11,7 +11,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
     public class Book : EntityBase<int>
     {        
         public string Title { get; set; }
-        public string OriginalTitle { get; set; }
         public string Description { get; set; }        
         public int PagesCount { get; set; }
         public DateTime Released { get; set; }

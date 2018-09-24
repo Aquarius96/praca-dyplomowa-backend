@@ -31,12 +31,12 @@ namespace PracaDyplomowaBackend.Repo
                 new Genre
                 {
                     Id = 1,
-                    GenreName = "fantasy"
+                    Name = "fantasy"
                 },
                 new Genre
                 {
                     Id = 2,
-                    GenreName = "kryminał"
+                    Name = "kryminał"
                 }
             );
 
@@ -74,7 +74,6 @@ namespace PracaDyplomowaBackend.Repo
                     Added = DateTime.UtcNow,
                     Description = "Jedyne w Polsce wydanie zawierające wszystkie opowiadania i nowele Arthura Conan Doyle’a o detektywie wszech czasów.",
                     Title = "Księga wszystkich dokonań Sherlocka Holmesa",
-                    OriginalTitle = "brak",
                     PagesCount = 1108,
                     PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
                 },
@@ -84,7 +83,6 @@ namespace PracaDyplomowaBackend.Repo
                     Added = DateTime.UtcNow,
                     Description = "Pierwsza część sagi o wiedźminie Geralcie z Rivii.",
                     Title = "Ostatnie życzenie",
-                    OriginalTitle = "brak",
                     PagesCount = 332,
                     PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
                 },
@@ -94,7 +92,6 @@ namespace PracaDyplomowaBackend.Repo
                     Added = DateTime.UtcNow,
                     Description = "Pełne magii i przygód wspaniałe preludium do „Władcy Pierścieni”.",
                     Title = "Hobbit",
-                    OriginalTitle = "brak",
                     PagesCount = 304,
                     PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
                 }
@@ -104,12 +101,12 @@ namespace PracaDyplomowaBackend.Repo
                 new Role
                 {
                     Id = 1,
-                    RoleName = "administrator"
+                    Name = "administrator"
                 },
                 new Role
                 {
                     Id = 2,
-                    RoleName = "user"
+                    Name = "user"
                 }
             );
 
