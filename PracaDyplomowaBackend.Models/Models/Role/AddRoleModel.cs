@@ -2,6 +2,6 @@
 {
     public class AddRoleModel : ModelBase
     {
-        public string RoleName { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Author
         public string BirthCity { get; set; }
         public string BirthCountry { get; set; }
         public string Gender { get; set; }
+        public string PhotoUrl { get; set; }
 
         public RateDto Rating { get; set; }
 
