@@ -15,6 +15,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         AuthorComment AddAuthorComment(int authorId, string userEmailAddress, string content);
         void AddAuthorRate(int authorId, string userEmailAddress, int value);
         void AddImage(int authorId, string imageUrl);
+        void ConfirmAuthor(int authorId);
 
         void DeleteAuthorGenre(int authorId, int genreId);
         void DeleteAuthorComment(int id);

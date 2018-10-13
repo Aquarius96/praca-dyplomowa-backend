@@ -31,7 +31,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody]AddBookModel addBookModel)
         {
-            if(addBookModel == null)
+            if (addBookModel == null)
             {
                 return BadRequest();
             }
@@ -59,7 +59,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return NotFound(ErrorMessages.BookNotFound);
             }
 
-            if(!_genreService.Exists(genre => genre.Id == genreId))
+            if (!_genreService.Exists(genre => genre.Id == genreId))
             {
                 return NotFound(ErrorMessages.GenreNotFound);
             }
@@ -86,7 +86,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_bookService, CreatedAtAction(nameof(GetBook), new { comment.Id }, null), "GetBookComment", comment);
         }
-       
+
         [HttpPost("{id}/rate")]
         public IActionResult AddBookRate(int id, [FromBody]AddRateModel addRateModel)
         {
@@ -103,7 +103,20 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _bookService.AddBookRate(id, addRateModel.UserEmailAddress, addRateModel.Value);
 
             return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookRating");
-        }        
+        }
+
+        [HttpPost("{id}/confirm")]
+        public IActionResult ConfirmBook(int id)
+        {
+            if (!_bookService.Exists(book => book.Id == id))
+            {
+                return NotFound(ErrorMessages.BookNotFound);
+            }
+
+            _bookService.ConfirmBook(id);
+
+            return Save(_bookService, NoContent());
+        }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)

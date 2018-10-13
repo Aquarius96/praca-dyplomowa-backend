@@ -32,6 +32,7 @@ namespace PracaDyplomowaBackend.Service.Services
         public new Author Add(AddAuthorModel model)
         {
             var author = Mapper.Map<Author>(model);
+            author.Confirmed = false;
 
             _repository.Add(author);
 
@@ -90,6 +91,13 @@ namespace PracaDyplomowaBackend.Service.Services
             var author = _repository.Get(authorId);
 
             author.PhotoUrl = imageUrl;
+        }
+
+        public void ConfirmAuthor(int authorId)
+        {
+            Author author = _repository.Get(authorId);
+
+            author.Confirmed = true;
         }
 
         public void DeleteAuthorComment(int id)

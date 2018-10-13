@@ -59,6 +59,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_reviewService, CreatedAtAction(nameof(GetBookReview), new { id }, null), id, "GetBookReviewRating");
         }
 
+        [HttpPost("{id}/confirm")]
+        public IActionResult ConfirmReview(int id)
+        {
+            if (!_reviewService.Exists(bookReview => bookReview.Id == id))
+            {
+                return NotFound(ErrorMessages.BookReviewNotFound);
+            }
+
+            _reviewService.ConfirmReview(id);
+
+            return Save(_reviewService, NoContent());
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetBookReview(int id)
         {

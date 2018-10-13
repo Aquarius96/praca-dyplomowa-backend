@@ -18,6 +18,7 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
         public string BirthCountry { get; set; }
         public string Gender { get; set; }
         public string PhotoUrl { get; set; }
+        public bool Confirmed { get; set; }
 
         public ICollection<AuthorGenre> AuthorGenres { get; set; }
         public ICollection<AuthorComment> AuthorComments { get; set; }

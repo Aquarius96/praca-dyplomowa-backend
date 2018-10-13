@@ -9,6 +9,8 @@ namespace PracaDyplomowaBackend.Service.Interfaces
     {
         void AddBookReviewRate(int bookReviewId, string userEmailAddress, bool value);
         void DeleteBookReviewRate(int bookReviewId, string userEmailAddress);
+        void ConfirmReview(int reviewId);
+
         RateDto GetBookReviewRating(int id);
     }
 }

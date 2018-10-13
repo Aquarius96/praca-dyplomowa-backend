@@ -19,7 +19,8 @@ namespace PracaDyplomowaBackend.Data.DbModels.Relations
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Added { get; set; }
-        
+        public bool Confirmed { get; set; }
+
         public ICollection<BookReviewRate> ReviewRates { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace PracaDyplomowaBackend.Service.Services
         public new Book Add(AddBookModel model)
         {
             var book = Mapper.Map<Book>(model);
+            book.Confirmed = false;
 
             _repository.Add(book);
 
@@ -106,6 +107,13 @@ namespace PracaDyplomowaBackend.Service.Services
             var book = _repository.Get(bookId);
 
             book.PhotoUrl = imageUrl;
+        }
+
+        public void ConfirmBook(int bookId)
+        {
+            Book book = _repository.Get(bookId);
+
+            book.Confirmed = true;
         }
 
         public void DeleteBookComment(int id)

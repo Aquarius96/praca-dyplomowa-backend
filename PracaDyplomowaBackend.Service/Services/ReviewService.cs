@@ -26,7 +26,7 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             var user = _userRepository.Get(model.UserEmailAddress);
 
-            var bookReview = new BookReview { BookId = model.BookId, User = user, Title = model.Title, Content = model.Content, Added = DateTime.UtcNow };
+            var bookReview = new BookReview { BookId = model.BookId, User = user, Title = model.Title, Content = model.Content, Added = DateTime.UtcNow, Confirmed = false };
 
             _repository.Add(bookReview);
 
@@ -84,6 +84,13 @@ namespace PracaDyplomowaBackend.Service.Services
         public RateDto GetBookReviewRating(int id)
         {
             return _repository.GetBookReviewRating(id);
+        }
+
+        public void ConfirmReview(int reviewId)
+        {
+            BookReview review = _repository.Get(reviewId);
+
+            review.Confirmed = true;
         }
     }
 }

@@ -103,6 +103,19 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { id }, null), id, "GetAuthorRating");
         }
 
+        [HttpPost("{id}/confirm")]
+        public IActionResult ConfirmAuthor(int id)
+        {
+            if (!_authorService.Exists(author => author.Id == id))
+            {
+                return NotFound(ErrorMessages.AuthorNotFound);
+            }
+
+            _authorService.ConfirmAuthor(id);
+
+            return Save(_authorService, NoContent());
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id)
         {

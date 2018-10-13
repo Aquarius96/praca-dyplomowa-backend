@@ -16,6 +16,7 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         BookComment AddBookComment(int bookId, string userEmailAddress, string content);        
         void AddBookRate(int bookId, string userEmailAddress, int value);
         void AddImage(int bookId, string imageUrl);
+        void ConfirmBook(int bookId);
 
         void DeleteBookGenre(int bookId, int genreId);
         void DeleteBookComment(int id);

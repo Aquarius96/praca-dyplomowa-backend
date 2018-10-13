@@ -16,6 +16,7 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
         public DateTime Released { get; set; }
         public DateTime Added { get; set; }
         public string PhotoUrl { get; set; }
+        public bool Confirmed { get; set; }
 
         public ICollection<BookGenre> BookGenres { get; set; }
         public ICollection<BookAuthor> BookAuthors { get; set; }
