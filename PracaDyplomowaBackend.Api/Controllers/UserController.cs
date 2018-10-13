@@ -94,5 +94,23 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Ok(users);
         }
+
+        [HttpPut("changepassword/{emailAddress}")]
+        public IActionResult ChangePassword(string emailAddress, ChangePasswordModel model)
+        {
+            if (!_userService.Exists(user => user.EmailAddress == emailAddress))
+            {
+                return NotFound(ErrorMessages.UserNotFound);
+            }
+
+            var passwordChanged = _userService.ChangePassword(emailAddress, model);
+
+            if (passwordChanged)
+            {
+                return Save(_userService, Ok());
+            }
+
+            return BadRequest();
+        }
     }
 }

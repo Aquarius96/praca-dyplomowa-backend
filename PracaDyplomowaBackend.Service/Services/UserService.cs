@@ -41,6 +41,19 @@ namespace PracaDyplomowaBackend.Service.Services
             return Crypto.VerifyHashedPassword(user.Password, loginModel.Password);
         }
 
+        public bool ChangePassword(string emailAddress, ChangePasswordModel changePasswordModel)
+        {
+            var user = _repository.Get(emailAddress);
+
+            if(Crypto.VerifyHashedPassword(user.Password, changePasswordModel.OldPassword))
+            {
+                user.Password = Crypto.HashPassword(changePasswordModel.Password);
+                return true;
+            }
+
+            return false;
+        }
+
         public string CreateToken(LoginModel loginModel)
         {
             var user = Mapper.Map<UserDto>(_repository.Get(loginModel.EmailAddress));
@@ -81,6 +94,11 @@ namespace PracaDyplomowaBackend.Service.Services
 
             _repository.Add(user);
             _roleRepository.AddUserRole(userRole);
-        }        
+        }
+
+        public void Update(string emailAddress, UpdateModel updateModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

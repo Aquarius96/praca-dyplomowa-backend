@@ -14,6 +14,9 @@ namespace PracaDyplomowaBackend.Service.Interfaces
 
         void Delete(string emailAddress);
 
+        void Update(string emailAddress, UpdateModel updateModel);
+        bool ChangePassword(string emailAddress, ChangePasswordModel changePasswordModel);
+
         UserDto Get(string emailAddress);
     }
 }
