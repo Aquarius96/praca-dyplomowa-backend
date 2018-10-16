@@ -17,7 +17,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public User Get(string emailAddress)
         {
-            return _context.Users.Where(user => user.EmailAddress == emailAddress).Include(user => user.UserRole.Role).FirstOrDefault();
+            return _context.Users.Where(user => user.EmailAddress == emailAddress).Include(user => user.AuthorComments).Include(user => user.BookComments).Include(user => user.BookReviews).Include(user => user.FavoriteAuthors).Include(user => user.FavoriteBooks).Include(user => user.ReadBooks).Include(user => user.UserRole.Role).FirstOrDefault();
         }
         
         public new IEnumerable<User> GetList(ResourceParameters resourceParameters)

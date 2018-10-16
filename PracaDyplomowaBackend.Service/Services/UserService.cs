@@ -79,7 +79,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
         public UserDto Get(string emailAddress)
         {
-            User user = _repository.Get(emailAddress);
+            User user = _repository.Get(emailAddress);            
 
             return Mapper.Map<UserDto>(user);
         }        

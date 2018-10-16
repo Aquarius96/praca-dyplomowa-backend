@@ -9,6 +9,7 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Book
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public bool Confirmed { get; set; }
         public DateTime Added { get; set; }
 
         public RateDto Rating { get; set; }

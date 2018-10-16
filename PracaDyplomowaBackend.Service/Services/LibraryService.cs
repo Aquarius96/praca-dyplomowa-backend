@@ -32,6 +32,11 @@ namespace PracaDyplomowaBackend.Service.Services
                 DeleteWantedBook(userEmailAddress, bookId);
             }
 
+            if(_userRepository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.ReadBooks.Any(readBook => readBook.BookId == bookId)))
+            {
+                DeleteReadBook(userEmailAddress, bookId);
+            }
+
             _libraryRepository.AddCurrentlyReadBook(currentlyReadBook);
         }
 
@@ -77,6 +82,16 @@ namespace PracaDyplomowaBackend.Service.Services
             User user = _userRepository.Get(userEmailAddress);
 
             var wantedBook = new WantedBook { User = user, BookId = bookId };
+
+            if (_userRepository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.CurrentlyReadBooks.Any(currentlyReadBook => currentlyReadBook.BookId == bookId)))
+            {
+                DeleteCurrentlyReadBook(userEmailAddress, bookId);
+            }
+
+            if (_userRepository.Exists(dbUser => dbUser.EmailAddress == userEmailAddress && dbUser.ReadBooks.Any(readBook => readBook.BookId == bookId)))
+            {
+                DeleteReadBook(userEmailAddress, bookId);
+            }
 
             _libraryRepository.AddWantedBook(wantedBook);
         }
