@@ -6,6 +6,7 @@ using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
+using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using PracaDyplomowaBackend.Repo.Interfaces;
 using PracaDyplomowaBackend.Utilities.Providers.Interfaces;
@@ -59,6 +60,13 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         public void DeleteBookReviewRate(BookReviewRate bookReviewRate)
         {
             _context.ReviewRates.Remove(bookReviewRate);
+        }
+
+        public IEnumerable<LibraryBookDto> GetAuthorBooks(int authorId)
+        {
+            var authorBooks = _context.Books.Where(book => book.BookAuthors.Any(bookAuthor => bookAuthor.AuthorId == authorId)).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
+
+            return Mapper.Map<IEnumerable<LibraryBookDto>>(authorBooks);
         }
 
         public BookComment GetBookComment(int id)

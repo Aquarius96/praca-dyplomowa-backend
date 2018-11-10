@@ -19,12 +19,14 @@ namespace PracaDyplomowaBackend.Service.Services
     public class AuthorService : ServiceBase<Author,AddAuthorModel, AuthorDto, int>, IAuthorService
     {
         private new readonly IAuthorRepository _repository;
+        private readonly IBookRepository _bookRepository;
         private readonly IGenreRepository _genreRepository;
         private readonly IUserRepository _userRepository;
 
-        public AuthorService(IAuthorRepository repository, IGenreRepository genreRepository, IUserRepository userRepository) : base(repository)
+        public AuthorService(IAuthorRepository repository, IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository) : base(repository)
         {
             _repository = repository;
+            _bookRepository = bookRepository;
             _genreRepository = genreRepository;
             _userRepository = userRepository;
         }
@@ -127,6 +129,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
             if (author != null)
             {
+                author.Books = _bookRepository.GetAuthorBooks(id);
                 author.Genres = _genreRepository.GetAuthorGenres(id);
                 author.Comments = _repository.GetAuthorComments(id);
                 author.Rating = _repository.GetAuthorRating(id);
