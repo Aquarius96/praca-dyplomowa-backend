@@ -1,8 +1,8 @@
 ﻿using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Rate;
+using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
-using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
 using System.Collections.Generic;
 
@@ -21,6 +21,6 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         RateDto GetBookRating(int bookId);
         
         IEnumerable<CommentDto> GetBookComments(int bookId);
-        IEnumerable<LibraryBookDto> GetAuthorBooks(int authorId);
+        IEnumerable<AuthorBookDto> GetAuthorBooks(int authorId);
     }
 }

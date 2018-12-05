@@ -133,6 +133,11 @@ namespace PracaDyplomowaBackend.Service.Services
                 author.Genres = _genreRepository.GetAuthorGenres(id);
                 author.Comments = _repository.GetAuthorComments(id);
                 author.Rating = _repository.GetAuthorRating(id);
+
+                foreach(var book in author.Books)
+                {
+                    book.Rating = _bookRepository.GetBookRating(book.Id);
+                }
             }           
 
             return author;

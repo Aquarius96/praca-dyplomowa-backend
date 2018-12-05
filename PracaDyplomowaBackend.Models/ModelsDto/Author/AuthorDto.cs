@@ -22,6 +22,6 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Author
 
         public IEnumerable<GenreDto> Genres { get; set; }
         public IEnumerable<CommentDto> Comments { get; set; }
-        public IEnumerable<LibraryBookDto> Books { get; set; }
+        public IEnumerable<AuthorBookDto> Books { get; set; }
     }
 }

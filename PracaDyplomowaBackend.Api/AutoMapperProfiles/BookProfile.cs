@@ -2,6 +2,7 @@
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
+using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using System.Collections.Generic;
@@ -19,6 +20,10 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
             CreateMap<Genre, BookGenreDto>();
                         
             CreateMap<Book, LibraryBookDto>()
+                .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.BookAuthors.Select(x => x.Author))))
+                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.BookGenres.Select(x => x.Genre))));
+
+            CreateMap<Book, AuthorBookDto>()
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.BookAuthors.Select(x => x.Author))))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.BookGenres.Select(x => x.Genre))));
 

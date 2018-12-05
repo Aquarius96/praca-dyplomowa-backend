@@ -4,6 +4,7 @@ using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
+using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
@@ -62,11 +63,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
             _context.ReviewRates.Remove(bookReviewRate);
         }
 
-        public IEnumerable<LibraryBookDto> GetAuthorBooks(int authorId)
+        public IEnumerable<AuthorBookDto> GetAuthorBooks(int authorId)
         {
-            var authorBooks = _context.Books.Where(book => book.BookAuthors.Any(bookAuthor => bookAuthor.AuthorId == authorId)).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre);
+            var authorBooks = _context.Books.Where(book => book.BookAuthors.Any(bookAuthor => bookAuthor.AuthorId == authorId)).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre).Include(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author);
 
-            return Mapper.Map<IEnumerable<LibraryBookDto>>(authorBooks);
+            return Mapper.Map<IEnumerable<AuthorBookDto>>(authorBooks);
         }
 
         public BookComment GetBookComment(int id)
