@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -11,6 +12,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Photo")]
+    [Authorize]
     public class PhotoController : BaseController
     {
         private readonly IHostingEnvironment _environment;
@@ -86,6 +88,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, StatusCode(StatusCodes.Status201Created));
         }
 
+        [AllowAnonymous]
         [HttpGet("{fileName}")]
         public IActionResult GetImage(string fileName)
         {

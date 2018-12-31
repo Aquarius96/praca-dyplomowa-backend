@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.Models.Rate;
@@ -10,6 +11,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewController : BaseController
     {
         private readonly IReviewService _reviewService;
@@ -59,6 +61,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_reviewService, CreatedAtAction(nameof(GetBookReview), new { id }, null), id, "GetBookReviewRating");
         }
 
+        [Authorize(Roles = "administrator")]
         [HttpPost("{id}/confirm")]
         public IActionResult ConfirmReview(int id)
         {
@@ -85,6 +88,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Ok(bookReview);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public IActionResult DeleteBookReview(int id)
         {
@@ -111,6 +115,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, NoContent());
         }
 
+        [AllowAnonymous]
         [HttpGet()]
         public IActionResult GetReviews()
         {

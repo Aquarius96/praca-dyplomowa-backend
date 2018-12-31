@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PracaDyplomowaBackend.Data.DbModels.Common;
+using PracaDyplomowaBackend.Data.DbModels.Rate;
 using PracaDyplomowaBackend.Data.DbModels.Relations;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
@@ -22,6 +23,9 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
                 .ForMember(dest => dest.ReviewAuthor, opt => opt.MapFrom(src => Mapper.Map<BookReviewAuthorDto>(src.User)));
 
             CreateMap<User, BookReviewAuthorDto>();
+
+            CreateMap<BookReviewRate, ReviewRateDto>()
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Positive));
         }
     }
 }

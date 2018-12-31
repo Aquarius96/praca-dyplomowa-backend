@@ -172,7 +172,14 @@ namespace PracaDyplomowaBackend.Service.Services
         
         public new IEnumerable<BookDto> GetList(ResourceParameters resourceParameters)
         {
-            var books = Mapper.Map<IEnumerable<BookDto>>(_repository.GetList(resourceParameters));
+            var dbBooks = _repository.GetList(resourceParameters);
+
+            if(dbBooks.Count() == 0)
+            {
+                return new List<BookDto>();
+            }
+
+            var books = Mapper.Map<IEnumerable<BookDto>>(dbBooks);
 
             foreach (var book in books)
             {

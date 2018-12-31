@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Models.Models.Comment;
@@ -13,6 +14,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Book")]
+    [Authorize]
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
@@ -105,6 +107,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookRating");
         }
 
+        [Authorize(Roles ="administrator")]
         [HttpPost("{id}/confirm")]
         public IActionResult ConfirmBook(int id)
         {
@@ -118,6 +121,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, NoContent());
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
@@ -175,6 +179,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_bookService, NoContent());
         }        
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetBook(int id)
         {
@@ -188,6 +193,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Ok(book);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetBooks(BookResourceParameters resourceParameters)
         {

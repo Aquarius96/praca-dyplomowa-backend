@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -9,6 +10,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Library")]
+    [Authorize]
     public class LibraryController : BaseController
     {
         private readonly ILibraryService _libraryService;

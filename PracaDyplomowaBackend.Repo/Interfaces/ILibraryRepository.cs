@@ -31,5 +31,8 @@ namespace PracaDyplomowaBackend.Repo.Interfaces
         IEnumerable<ReadBookDto> GetUserReadBooks(string userEmailAddress);
         IEnumerable<LibraryBookDto> GetUserWantedBooks(string userEmailAddress);
         IEnumerable<BookAuthorDto> GetUserFavoriteAuthors(string userEmailAddress);
+        IEnumerable<BookRateDto> GetUserBookRates(string userEmailAddress);
+        IEnumerable<AuthorRateDto> GetUserAuthorRates(string userEmailAddress);
+        IEnumerable<ReviewRateDto> GetUserReviewRates(string userEmailAddress);
     }
 }

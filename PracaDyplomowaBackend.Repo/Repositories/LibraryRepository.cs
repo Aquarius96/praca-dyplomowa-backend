@@ -126,5 +126,26 @@ namespace PracaDyplomowaBackend.Repo.Repositories
         {
             return _context.WantedBooks.FirstOrDefault(wantedBook => wantedBook.User.EmailAddress == userEmailAddress && wantedBook.BookId == bookId);
         }
+
+        public IEnumerable<BookRateDto> GetUserBookRates(string userEmailAddress)
+        {
+            var rates = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.BookRates);
+
+            return Mapper.Map<IEnumerable<BookRateDto>>(rates);
+        }
+
+        public IEnumerable<AuthorRateDto> GetUserAuthorRates(string userEmailAddress)
+        {
+            var rates = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.AuthorRates);
+
+            return Mapper.Map<IEnumerable<AuthorRateDto>>(rates);
+        }
+
+        public IEnumerable<ReviewRateDto> GetUserReviewRates(string userEmailAddress)
+        {
+            var rates = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.ReviewRates);
+
+            return Mapper.Map<IEnumerable<ReviewRateDto>>(rates);
+        }
     }
 }

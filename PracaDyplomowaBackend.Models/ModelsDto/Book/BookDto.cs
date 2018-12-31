@@ -15,8 +15,8 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Book
         public int PagesCount { get; set; }
         public string PhotoUrl { get; set; }
         public bool Confirmed { get; set; }
-        public DateTime Released { get; set; }
-        public DateTime Added { get; set; }
+        public string Released { get; set; }
+        //public DateTime Added { get; set; }
 
         public RateDto Rating { get; set; }
 

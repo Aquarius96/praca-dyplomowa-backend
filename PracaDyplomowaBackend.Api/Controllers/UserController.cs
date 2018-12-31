@@ -11,6 +11,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/User")]
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -24,6 +25,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _authorService = authorService;
         }
 
+        [AllowAnonymous]
         [HttpPost()]
         public IActionResult Register([FromBody]RegisterModel registerModel)
         {

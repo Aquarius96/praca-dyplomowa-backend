@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Genre;
 using PracaDyplomowaBackend.Service.Interfaces;
@@ -7,6 +8,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Genre")]
+    [Authorize]
     public class GenreController : BaseController
     {
         private readonly IGenreService _genreService;

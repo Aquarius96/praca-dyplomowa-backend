@@ -13,11 +13,15 @@ namespace PracaDyplomowaBackend.Service.Services
     public class LibraryService : ServiceBase<User, RegisterModel, UserDto, Guid>, ILibraryService
     {
         private readonly ILibraryRepository _libraryRepository;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly IUserRepository _userRepository;        
 
-        public LibraryService(ILibraryRepository libraryRepository, IUserRepository userRepository) : base(userRepository)
+        public LibraryService(ILibraryRepository libraryRepository, IAuthorRepository authorRepository, IBookRepository bookRepository, IUserRepository userRepository) : base(userRepository)
         {
             _libraryRepository = libraryRepository;
+            _authorRepository = authorRepository;
+            _bookRepository = bookRepository;
             _userRepository = userRepository;
         }
 
@@ -139,8 +143,36 @@ namespace PracaDyplomowaBackend.Service.Services
                 FavoriteAuthors = _libraryRepository.GetUserFavoriteAuthors(userEmailAddress),
                 FavoriteBooks = _libraryRepository.GetUserFavoriteBooks(userEmailAddress),
                 ReadBooks = _libraryRepository.GetUserReadBooks(userEmailAddress),
-                WantedBooks = _libraryRepository.GetUserWantedBooks(userEmailAddress)
+                WantedBooks = _libraryRepository.GetUserWantedBooks(userEmailAddress),
+                BookRates = _libraryRepository.GetUserBookRates(userEmailAddress),
+                AuthorRates = _libraryRepository.GetUserAuthorRates(userEmailAddress),
+                ReviewRates = _libraryRepository.GetUserReviewRates(userEmailAddress)
             };
+
+            foreach(var book in library.CurrentlyReadBooks)
+            {
+                book.Rating = _bookRepository.GetBookRating(book.Id);
+            }
+
+            foreach (var book in library.FavoriteBooks)
+            {
+                book.Rating = _bookRepository.GetBookRating(book.Id);
+            }
+
+            foreach (var book in library.ReadBooks)
+            {
+                book.Rating = _bookRepository.GetBookRating(book.Id);
+            }
+
+            foreach (var book in library.WantedBooks)
+            {
+                book.Rating = _bookRepository.GetBookRating(book.Id);
+            }
+
+            foreach (var author in library.FavoriteAuthors)
+            {
+                author.Rating = _authorRepository.GetAuthorRating(author.Id);
+            }
 
             return library;
         }

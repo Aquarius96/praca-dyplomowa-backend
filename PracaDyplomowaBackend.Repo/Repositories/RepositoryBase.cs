@@ -60,19 +60,11 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<TEntity> GetList(ResourceParameters resourceParameters)
         {
-            IEnumerable<TEntity> entities;
-
-            if (resourceParameters.SearchQuery == null)
-            {
-                resourceParameters.SearchQuery = "";
-            }
-
-            var querySplit = resourceParameters.SearchQuery.Split(" ");
+            IEnumerable<TEntity> entities;            
 
             if (resourceParameters.SortAscending)
             {
-                entities = _context.Set<TEntity>()                
-                .Where(entity => querySplit.All(query => resourceParameters.SearchProperties.Any(property => _stringProvider.PropertyContainsQuery(entity.GetType().GetProperty(property).GetValue(entity, null).ToString(), query))))
+                entities = _context.Set<TEntity>()               
                 .OrderBy(entity => entity.GetType().GetProperty(resourceParameters.SortField).GetValue(entity, null))
                 .Skip(resourceParameters.PageSize * (resourceParameters.PageNumber - 1))
                 .Take(resourceParameters.PageSize);
@@ -80,8 +72,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
             else
             {
-                entities = _context.Set<TEntity>()
-                .Where(entity => querySplit.All(query => resourceParameters.SearchProperties.Any(property => _stringProvider.PropertyContainsQuery(entity.GetType().GetProperty(property).GetValue(entity, null).ToString(), query))))
+                entities = _context.Set<TEntity>()                
                 .OrderByDescending(entity => entity.GetType().GetProperty(resourceParameters.SortField).GetValue(entity, null))
                 .Skip(resourceParameters.PageSize * (resourceParameters.PageNumber - 1))
                 .Take(resourceParameters.PageSize);

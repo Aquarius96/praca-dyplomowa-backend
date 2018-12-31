@@ -11,9 +11,10 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Author
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime DateOfBirth { get; set; }        
+        public string DateOfBirth { get; set; }        
         public string BirthCity { get; set; }
         public string BirthCountry { get; set; }
+        public string Description { get; set; }
         public string Gender { get; set; }
         public string PhotoUrl { get; set; }
         public bool Confirmed { get; set; }

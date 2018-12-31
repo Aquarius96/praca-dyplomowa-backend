@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Models.Models.Comment;
@@ -13,6 +14,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Author")]
+    [Authorize]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;
@@ -103,9 +105,10 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { id }, null), id, "GetAuthorRating");
         }
 
+        [Authorize(Roles ="administrator")]
         [HttpPost("{id}/confirm")]
         public IActionResult ConfirmAuthor(int id)
-        {
+        {                         
             if (!_authorService.Exists(author => author.Id == id))
             {
                 return NotFound(ErrorMessages.AuthorNotFound);
