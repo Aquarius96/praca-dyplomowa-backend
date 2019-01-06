@@ -15,13 +15,15 @@ namespace PracaDyplomowaBackend.Service.Services
         private readonly ILibraryRepository _libraryRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IBookRepository _bookRepository;
-        private readonly IUserRepository _userRepository;        
+        private readonly IGenreRepository _genreRepository;
+        private readonly IUserRepository _userRepository;     
 
-        public LibraryService(ILibraryRepository libraryRepository, IAuthorRepository authorRepository, IBookRepository bookRepository, IUserRepository userRepository) : base(userRepository)
+        public LibraryService(ILibraryRepository libraryRepository, IAuthorRepository authorRepository, IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository) : base(userRepository)
         {
             _libraryRepository = libraryRepository;
             _authorRepository = authorRepository;
             _bookRepository = bookRepository;
+            _genreRepository = genreRepository;
             _userRepository = userRepository;
         }
 
@@ -172,6 +174,7 @@ namespace PracaDyplomowaBackend.Service.Services
             foreach (var author in library.FavoriteAuthors)
             {
                 author.Rating = _authorRepository.GetAuthorRating(author.Id);
+                author.Genres = _genreRepository.GetAuthorGenres(author.Id);
             }
 
             return library;

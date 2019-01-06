@@ -13,8 +13,7 @@ using System.Linq;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Book")]
-    [Authorize]
+    [Route("api/Book")]    
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
@@ -106,8 +105,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_bookService, CreatedAtAction(nameof(GetBook), new { id }, null), id, "GetBookRating");
         }
-
-        [Authorize(Roles ="administrator")]
+        
         [HttpPost("{id}/confirm")]
         public IActionResult ConfirmBook(int id)
         {
@@ -120,8 +118,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_bookService, NoContent());
         }
-
-        [Authorize(Roles = "Administrator")]
+        
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {

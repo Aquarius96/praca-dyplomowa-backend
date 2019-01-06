@@ -79,9 +79,9 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<BookAuthorDto> GetUserFavoriteAuthors(string userEmailAddress)
         {
-            var favoriteAuthors = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.FavoriteAuthors).Select(favoriteAuthor => Mapper.Map<BookAuthorDto>(favoriteAuthor.Author));
+            var favoriteAuthors = _context.Users.Where(user => user.EmailAddress == userEmailAddress).SelectMany(user => user.FavoriteAuthors).Select(favoriteAuthor => favoriteAuthor.Author);
 
-            return favoriteAuthors;
+            return Mapper.Map<IEnumerable<BookAuthorDto>>(favoriteAuthors);
         }
 
         public FavoriteBook GetFavoriteBook(string userEmailAddress, int bookId)

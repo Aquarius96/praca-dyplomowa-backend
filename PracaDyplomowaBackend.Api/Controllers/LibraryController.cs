@@ -9,8 +9,7 @@ using System.Linq;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Library")]
-    [Authorize]
+    [Route("api/Library")]    
     public class LibraryController : BaseController
     {
         private readonly ILibraryService _libraryService;

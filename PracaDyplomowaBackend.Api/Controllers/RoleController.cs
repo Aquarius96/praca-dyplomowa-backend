@@ -8,8 +8,7 @@ using PracaDyplomowaBackend.Utilities.GlobalMessages;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Role")]
-    [Authorize]
+    [Route("api/Role")]    
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
@@ -18,8 +17,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         {
             _roleService = roleService;
         }
-
-        [Authorize(Roles = "Administrator")]
+        
         [HttpPost]
         public IActionResult AddRole([FromBody]AddRoleModel addRoleModel)
         {

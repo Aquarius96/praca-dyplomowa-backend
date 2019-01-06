@@ -13,8 +13,7 @@ using System.Linq;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Author")]
-    [Authorize]
+    [Route("api/Author")]        
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;
@@ -104,8 +103,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_authorService, CreatedAtAction(nameof(GetAuthor), new { id }, null), id, "GetAuthorRating");
         }
-
-        [Authorize(Roles ="administrator")]
+        
         [HttpPost("{id}/confirm")]
         public IActionResult ConfirmAuthor(int id)
         {                         
@@ -176,6 +174,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_authorService, NoContent());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetAuthor(int id)
         {            
@@ -188,10 +187,14 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Ok(author);
         }
-
-        [HttpGet]
+        
+        [HttpGet]        
         public IActionResult GetAuthors(AuthorResourceParameters resourceParameters)
         {
+            if (HttpContext.User!= null)
+            {
+                var x = 3;
+            }            
             var authors = _authorService.GetList(resourceParameters);
             
             return Ok(authors);

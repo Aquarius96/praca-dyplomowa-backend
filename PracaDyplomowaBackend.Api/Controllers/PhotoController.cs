@@ -11,8 +11,7 @@ using System.Linq;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Photo")]
-    [Authorize]
+    [Route("api/Photo")]    
     public class PhotoController : BaseController
     {
         private readonly IHostingEnvironment _environment;

@@ -7,8 +7,7 @@ using PracaDyplomowaBackend.Service.Interfaces;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Genre")]
-    [Authorize]
+    [Route("api/Genre")]    
     public class GenreController : BaseController
     {
         private readonly IGenreService _genreService;
@@ -44,6 +43,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_genreService, NoContent());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetGenre(int id)
         {
@@ -57,6 +57,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Ok(genre);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetGenres()
         {

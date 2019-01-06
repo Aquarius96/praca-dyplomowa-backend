@@ -1,4 +1,6 @@
-﻿using PracaDyplomowaBackend.Models.ModelsDto.Rate;
+﻿using PracaDyplomowaBackend.Models.ModelsDto.Genre;
+using PracaDyplomowaBackend.Models.ModelsDto.Rate;
+using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Models.ModelsDto.Library
 {
@@ -13,6 +15,7 @@ namespace PracaDyplomowaBackend.Models.ModelsDto.Library
         public string Gender { get; set; }
         public string PhotoUrl { get; set; }
 
+        public IEnumerable<GenreDto> Genres { get; set; }
         public RateDto Rating { get; set; }
     }
 }

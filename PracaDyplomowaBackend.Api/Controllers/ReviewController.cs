@@ -10,8 +10,7 @@ using System.Linq;
 namespace PracaDyplomowaBackend.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
+    [ApiController]    
     public class ReviewController : BaseController
     {
         private readonly IReviewService _reviewService;
@@ -60,8 +59,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_reviewService, CreatedAtAction(nameof(GetBookReview), new { id }, null), id, "GetBookReviewRating");
         }
-
-        [Authorize(Roles = "administrator")]
+        
         [HttpPost("{id}/confirm")]
         public IActionResult ConfirmReview(int id)
         {
@@ -75,6 +73,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             return Save(_reviewService, NoContent());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetBookReview(int id)
         {
@@ -87,8 +86,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Ok(bookReview);
         }
-
-        [Authorize(Roles = "Administrator")]
+        
         [HttpDelete("{id}")]
         public IActionResult DeleteBookReview(int id)
         {
