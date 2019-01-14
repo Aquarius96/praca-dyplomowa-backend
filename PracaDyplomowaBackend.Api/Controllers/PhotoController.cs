@@ -125,7 +125,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
         private static string GenerateImageUrl(string fileName)
         {
-            return "http://localhost:8000/api/photo/" + fileName;
+            return "https://bazaksiazek.azurewebsites.net/api/photo/" + fileName;
         }
     }
 }
