@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PracaDyplomowaBackend.Repo;
 
 namespace PracaDyplomowaBackend.Repo.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190112110140_AddAuthorDescription")]
+    partial class AddAuthorDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,6 +81,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
                     b.Property<DateTime>("DateOfBirth");
 
+                    b.Property<DateTime>("DateOfDeath");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Firstname");
@@ -92,6 +96,12 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new { Id = 1, Confirmed = false, DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), DateOfDeath = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Firstname = "Andrzej", Gender = "mężczyzna", Lastname = "Sapkowski", PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png" },
+                        new { Id = 2, Confirmed = false, DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), DateOfDeath = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Firstname = "Arthur Conan", Gender = "mężczyzna", Lastname = "Doyle", PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png" },
+                        new { Id = 3, Confirmed = false, DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), DateOfDeath = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Firstname = "John Ronald Reuel", Gender = "mężczyzna", Lastname = "Tolkien", PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png" }
+                    );
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.Book", b =>
@@ -99,6 +109,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Added");
 
                     b.Property<bool>("Confirmed");
 
@@ -115,12 +127,20 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new { Id = 1, Added = new DateTime(2019, 1, 12, 11, 1, 39, 565, DateTimeKind.Utc), Confirmed = false, Description = "Jedyne w Polsce wydanie zawierające wszystkie opowiadania i nowele Arthura Conan Doyle’a o detektywie wszech czasów.", PagesCount = 1108, PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png", Released = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Title = "Księga wszystkich dokonań Sherlocka Holmesa" },
+                        new { Id = 2, Added = new DateTime(2019, 1, 12, 11, 1, 39, 566, DateTimeKind.Utc), Confirmed = false, Description = "Pierwsza część sagi o wiedźminie Geralcie z Rivii.", PagesCount = 332, PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png", Released = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Title = "Ostatnie życzenie" },
+                        new { Id = 3, Added = new DateTime(2019, 1, 12, 11, 1, 39, 566, DateTimeKind.Utc), Confirmed = false, Description = "Pełne magii i przygód wspaniałe preludium do „Władcy Pierścieni”.", PagesCount = 304, PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png", Released = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Title = "Hobbit" }
+                    );
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Common.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Added");
 
                     b.Property<string>("EmailAddress");
 
@@ -135,7 +155,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("3f38fcb6-fd6e-43c9-d30b-08d6119ae085"), EmailAddress = "aquarius96@wp.pl", Password = "AQAAAAEAACcQAAAAELo43AUBrHAT76Rmf5YUHxiy51bN30zu1V7mMPGHIcdHV33n1GtuV0Vh7Hnzn0HqfA==", PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png", Username = "Administrator" }
+                        new { Id = new Guid("3f38fcb6-fd6e-43c9-d30b-08d6119ae085"), Added = new DateTime(2019, 1, 12, 11, 1, 39, 564, DateTimeKind.Utc), EmailAddress = "aquarius96@wp.pl", Password = "AQAAAAEAACcQAAAAELo43AUBrHAT76Rmf5YUHxiy51bN30zu1V7mMPGHIcdHV33n1GtuV0Vh7Hnzn0HqfA==", PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png", Username = "Administrator" }
                     );
                 });
 
@@ -150,6 +170,12 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("AuthorGenres");
+
+                    b.HasData(
+                        new { GenreId = 1, AuthorId = 1 },
+                        new { GenreId = 1, AuthorId = 3 },
+                        new { GenreId = 2, AuthorId = 2 }
+                    );
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Genre.BookGenre", b =>
@@ -163,6 +189,12 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("BookGenres");
+
+                    b.HasData(
+                        new { GenreId = 2, BookId = 1 },
+                        new { GenreId = 1, BookId = 2 },
+                        new { GenreId = 1, BookId = 3 }
+                    );
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Genre.Genre", b =>
@@ -179,17 +211,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
                     b.HasData(
                         new { Id = 1, Name = "fantasy" },
-                        new { Id = 2, Name = "kryminał / akcja" },
-                        new { Id = 3, Name = "dla dzieci" },
-                        new { Id = 4, Name = "popularnonaukowe" },
-                        new { Id = 5, Name = "kuchenne" },
-                        new { Id = 6, Name = "literatura faktu" },
-                        new { Id = 7, Name = "biografia" },
-                        new { Id = 8, Name = "historyczne" },
-                        new { Id = 9, Name = "przygodowe" },
-                        new { Id = 10, Name = "horror" },
-                        new { Id = 11, Name = "literatura młodzieżowa" },
-                        new { Id = 12, Name = "literatura obyczajowa i romans" }
+                        new { Id = 2, Name = "kryminał" }
                     );
                 });
 
@@ -296,7 +318,7 @@ namespace PracaDyplomowaBackend.Repo.Migrations
 
                     b.Property<Guid>("UserId");
 
-                    b.Property<bool>("Value");
+                    b.Property<bool>("Positive");
 
                     b.HasKey("BookReviewId", "UserId");
 
@@ -316,6 +338,12 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("BookAuthors");
+
+                    b.HasData(
+                        new { BookId = 1, AuthorId = 2 },
+                        new { BookId = 2, AuthorId = 1 },
+                        new { BookId = 3, AuthorId = 3 }
+                    );
                 });
 
             modelBuilder.Entity("PracaDyplomowaBackend.Data.DbModels.Relations.BookReview", b =>
@@ -323,6 +351,8 @@ namespace PracaDyplomowaBackend.Repo.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Added");
 
                     b.Property<int>("BookId");
 

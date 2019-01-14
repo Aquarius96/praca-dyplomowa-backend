@@ -17,8 +17,7 @@ namespace PracaDyplomowaBackend.Data.DbModels.Relations
         public Guid UserId { get; set; }
 
         public string Title { get; set; }
-        public string Content { get; set; }
-        public DateTime Added { get; set; }
+        public string Content { get; set; }        
         public bool Confirmed { get; set; }
 
         public ICollection<BookReviewRate> ReviewRates { get; set; }

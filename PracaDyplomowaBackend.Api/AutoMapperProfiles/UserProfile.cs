@@ -10,11 +10,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
     {
         public UserProfile()
         {
-            CreateMap<RegisterModel, User>().AfterMap((src, dest) =>
-            {
-                dest.Added = DateTime.UtcNow;
-                dest.Confirmed = false;
-            });
+            CreateMap<RegisterModel, User>();
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.UserRole.Role.Name))
                 .ForMember(dest => dest.AddedCommentsAmount, opt => opt.MapFrom(src => src.AuthorComments.Count))

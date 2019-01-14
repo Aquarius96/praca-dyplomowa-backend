@@ -11,14 +11,9 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
     public class User : EntityBase<Guid>
     {        
         public string Username { get; set; }
-        public string EmailAddress { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
+        public string EmailAddress { get; set; }       
         public string Password { get; set; }        
-        public DateTime Added { get; set; }
-        public string PhotoUrl { get; set; }
-        public Guid ConfirmationCode { get; set; }
-        public bool Confirmed { get; set; }
+        public string PhotoUrl { get; set; }        
 
         public UserRole UserRole { get; set; }
 

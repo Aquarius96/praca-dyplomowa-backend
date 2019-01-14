@@ -13,8 +13,7 @@ namespace PracaDyplomowaBackend.Data.DbModels.Common
         public string Title { get; set; }
         public string Description { get; set; }        
         public int PagesCount { get; set; }
-        public DateTime Released { get; set; }
-        public DateTime Added { get; set; }
+        public DateTime Released { get; set; }        
         public string PhotoUrl { get; set; }
         public bool Confirmed { get; set; }
 

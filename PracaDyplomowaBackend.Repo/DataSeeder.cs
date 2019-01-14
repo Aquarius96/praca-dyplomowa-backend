@@ -14,14 +14,9 @@ namespace PracaDyplomowaBackend.Repo
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = new Guid("3f38fcb6-fd6e-43c9-d30b-08d6119ae085"),
-                    Added = DateTime.UtcNow,
-                    ConfirmationCode = Guid.Empty,
-                    Confirmed = true,
-                    EmailAddress = "aquarius96@wp.pl",
-                    Firstname = "Marcin",
-                    Lastname = "Zapadka",
-                    Password = "AQAAAAEAACcQAAAAELFL9kOX6RSdfEY6XayG8rRXip7ST1br7qyVmlRQ4wlaiFGAQDyzpvUsh9mAH1RdLg==",
+                    Id = new Guid("3f38fcb6-fd6e-43c9-d30b-08d6119ae085"),                                 
+                    EmailAddress = "aquarius96@wp.pl",                    
+                    Password = "AQAAAAEAACcQAAAAELo43AUBrHAT76Rmf5YUHxiy51bN30zu1V7mMPGHIcdHV33n1GtuV0Vh7Hnzn0HqfA==",
                     PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png",
                     Username = "Administrator"
                 }
@@ -36,66 +31,59 @@ namespace PracaDyplomowaBackend.Repo
                 new Genre
                 {
                     Id = 2,
-                    Name = "kryminał"
-                }
-            );
-
-            modelBuilder.Entity<Author>().HasData(
-                new Author
-                {
-                    Id = 1,
-                    Firstname = "Andrzej",
-                    Lastname = "Sapkowski",
-                    Gender = "mężczyzna",
-                    PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"                    
+                    Name = "kryminał / akcja"
                 },
-                new Author
-                {
-                    Id = 2,
-                    Firstname = "Arthur Conan",
-                    Lastname = "Doyle",
-                    Gender = "mężczyzna",
-                    PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
-                },
-                new Author
+                new Genre
                 {
                     Id = 3,
-                    Firstname = "John Ronald Reuel",
-                    Lastname = "Tolkien",
-                    Gender = "mężczyzna",
-                    PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
-                }
-            );
-
-            modelBuilder.Entity<Book>().HasData(
-                new Book
-                {
-                    Id = 1,
-                    Added = DateTime.UtcNow,
-                    Description = "Jedyne w Polsce wydanie zawierające wszystkie opowiadania i nowele Arthura Conan Doyle’a o detektywie wszech czasów.",
-                    Title = "Księga wszystkich dokonań Sherlocka Holmesa",
-                    PagesCount = 1108,
-                    PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
+                    Name = "dla dzieci"
                 },
-                new Book
+                new Genre
                 {
-                    Id = 2,
-                    Added = DateTime.UtcNow,
-                    Description = "Pierwsza część sagi o wiedźminie Geralcie z Rivii.",
-                    Title = "Ostatnie życzenie",
-                    PagesCount = 332,
-                    PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
+                    Id = 4,
+                    Name = "popularnonaukowe"
                 },
-                new Book
+                new Genre
                 {
-                    Id = 3,
-                    Added = DateTime.UtcNow,
-                    Description = "Pełne magii i przygód wspaniałe preludium do „Władcy Pierścieni”.",
-                    Title = "Hobbit",
-                    PagesCount = 304,
-                    PhotoUrl = "https://iupac.org/cms/wp-content/uploads/2018/05/default-avatar.png"
+                    Id = 5,
+                    Name = "kuchenne"
+                },
+                new Genre
+                {
+                    Id = 6,
+                    Name = "literatura faktu"
+                },
+                new Genre
+                {
+                    Id = 7,
+                    Name = "biografia"
+                },
+                new Genre
+                {
+                    Id = 8,
+                    Name = "historyczne"
+                },
+                new Genre
+                {
+                    Id = 9,
+                    Name = "przygodowe"
+                },
+                new Genre
+                {
+                    Id = 10,
+                    Name = "horror"
+                },
+                new Genre
+                {
+                    Id = 11,
+                    Name = "literatura młodzieżowa"
+                },
+                new Genre
+                {
+                    Id = 12,
+                    Name = "literatura obyczajowa i romans"
                 }
-            );
+            );     
 
             modelBuilder.Entity<Role>().HasData(
                 new Role
@@ -109,61 +97,7 @@ namespace PracaDyplomowaBackend.Repo
                     Name = "user"
                 }
             );
-
-            modelBuilder.Entity<AuthorGenre>().HasData(
-                new AuthorGenre
-                {
-                    AuthorId = 1,
-                    GenreId = 1
-                },
-                new AuthorGenre
-                {
-                    AuthorId = 3,
-                    GenreId = 1
-                },
-                new AuthorGenre
-                {
-                    AuthorId = 2,
-                    GenreId = 2
-                }
-            );
-
-            modelBuilder.Entity<BookGenre>().HasData(
-                new BookGenre
-                {
-                    BookId = 1,
-                    GenreId = 2
-                },
-                new BookGenre
-                {
-                    BookId = 2,
-                    GenreId = 1
-                },
-                new BookGenre
-                {
-                    BookId = 3,
-                    GenreId = 1
-                }
-            );
-
-            modelBuilder.Entity<BookAuthor>().HasData(
-                new BookAuthor
-                {
-                    BookId = 1,
-                    AuthorId = 2
-                },
-                new BookAuthor
-                {
-                    BookId = 2,
-                    AuthorId = 1
-                },
-                new BookAuthor
-                {
-                    BookId = 3,
-                    AuthorId = 3
-                }
-            );
-
+            
             modelBuilder.Entity<UserRole>().HasData(
                 new UserRole
                 {

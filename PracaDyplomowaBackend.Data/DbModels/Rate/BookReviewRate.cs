@@ -15,6 +15,6 @@ namespace PracaDyplomowaBackend.Data.DbModels.Rate
         public User User { get; set; }
         public Guid UserId { get; set; }
 
-        public bool Positive { get; set; }
+        public bool Value { get; set; }
     }
 }

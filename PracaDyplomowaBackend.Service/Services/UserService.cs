@@ -60,9 +60,7 @@ namespace PracaDyplomowaBackend.Service.Services
 
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.Firstname),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.Lastname),
+                new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),               
                 new Claim(ClaimTypes.Role, user.Role),
                 new Claim("Role", user.Role)
             };

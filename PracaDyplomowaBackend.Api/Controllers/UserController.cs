@@ -23,8 +23,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
             _bookService = bookService;
             _authorService = authorService;
         }
-
-        [AllowAnonymous]
+        
         [HttpPost()]
         public IActionResult Register([FromBody]RegisterModel registerModel)
         {
@@ -42,8 +41,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
 
             return Save(_userService, StatusCode(StatusCodes.Status201Created));
         }    
-        
-        [AllowAnonymous]
+                
         [HttpPost("login")]
         public IActionResult Login([FromBody]LoginModel loginModel)
         {

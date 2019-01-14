@@ -190,11 +190,7 @@ namespace PracaDyplomowaBackend.Api.Controllers
         
         [HttpGet]        
         public IActionResult GetAuthors(AuthorResourceParameters resourceParameters)
-        {
-            if (HttpContext.User!= null)
-            {
-                var x = 3;
-            }            
+        {            
             var authors = _authorService.GetList(resourceParameters);
             
             return Ok(authors);

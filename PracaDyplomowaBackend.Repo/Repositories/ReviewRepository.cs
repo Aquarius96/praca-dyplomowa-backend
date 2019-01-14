@@ -59,7 +59,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
                 return new RateDto { Value = 0, VotesAmount = 0 };
             }
 
-            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId && bookReviewRate.Positive).Count()) / _context.ReviewRates.Where(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId).Count(), 2) * 100, VotesAmount = _context.ReviewRates.Where(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId).Count() };
+            var rateDto = new RateDto { Value = Math.Round(Convert.ToDouble(_context.ReviewRates.Where(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId && bookReviewRate.Value).Count()) / _context.ReviewRates.Where(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId).Count(), 2) * 100, VotesAmount = _context.ReviewRates.Where(bookReviewRate => bookReviewRate.BookReviewId == bookReviewId).Count() };
 
             return rateDto;
         }

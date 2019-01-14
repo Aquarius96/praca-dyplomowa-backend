@@ -7,6 +7,7 @@ using PracaDyplomowaBackend.Models.ModelsDto.Author;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Library;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
@@ -17,7 +18,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
         {           
             CreateMap<AddBookModel, Book>();
             CreateMap<Book, BookDto>()
-                .ForMember(dest => dest.Released, opt => opt.MapFrom(src => src.Released.ToString("dd MMMM yyyy")));
+                .ForMember(dest => dest.Released, opt => opt.MapFrom(src => src.Released.ToString("dd MMMM yyyy", new CultureInfo("PL"))));
 
             CreateMap<Genre, BookGenreDto>();
                         

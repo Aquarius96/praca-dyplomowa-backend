@@ -24,8 +24,7 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
 
             CreateMap<User, BookReviewAuthorDto>();
 
-            CreateMap<BookReviewRate, ReviewRateDto>()
-                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Positive));
+            CreateMap<BookReviewRate, ReviewRateDto>();                
         }
     }
 }
