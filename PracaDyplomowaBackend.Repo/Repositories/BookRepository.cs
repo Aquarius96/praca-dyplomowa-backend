@@ -65,7 +65,7 @@ namespace PracaDyplomowaBackend.Repo.Repositories
 
         public IEnumerable<AuthorBookDto> GetAuthorBooks(int authorId)
         {
-            var authorBooks = _context.Books.Where(book => book.Confirmed && book.BookAuthors.Any(bookAuthor => bookAuthor.AuthorId == authorId)).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre).Include(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author);
+            var authorBooks = _context.Books.Where(book => book.Confirmed && book.BookAuthors.Any(bookAuthor => bookAuthor.AuthorId == authorId)).Include(book => book.BookGenres).ThenInclude(bookGenre => bookGenre.Genre).Include(book => book.BookAuthors).ThenInclude(bookAuthor => bookAuthor.Author).Include(book => book.ReadBooks);
 
             return Mapper.Map<IEnumerable<AuthorBookDto>>(authorBooks);
         }
