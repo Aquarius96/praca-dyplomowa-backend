@@ -29,12 +29,12 @@ namespace PracaDyplomowaBackend.Api.AutoMapperProfiles
             CreateMap<Book, AuthorBookDto>()
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.BookAuthors.Select(x => x.Author))))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.BookGenres.Select(x => x.Genre))))
-                .ForMember(dest => dest.Released, opt => opt.MapFrom(src => src.Released.ToString("dd MMMM yyyy")));
+                .ForMember(dest => dest.Released, opt => opt.MapFrom(src => src.Released.ToString("dd MMMM yyyy", new CultureInfo("PL"))));
 
             CreateMap<Book, ReadBookDto>()
                 .ForMember(dest => dest.Authors, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookAuthorDto>>(src.BookAuthors.Select(x => x.Author))))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => Mapper.Map<IEnumerable<BookGenreDto>>(src.BookGenres.Select(x => x.Genre))))
-                .ForMember(dest => dest.Finished, opt => opt.MapFrom(src => src.ReadBooks.FirstOrDefault(book => book.BookId == src.Id).Finished));
+                .ForMember(dest => dest.Finished, opt => opt.MapFrom(src => src.ReadBooks.FirstOrDefault(book => book.BookId == src.Id).Finished.ToString("dd MMMM yyyy", new CultureInfo("PL"))));
 
             CreateMap<BookRate, BookRateDto>();
 
