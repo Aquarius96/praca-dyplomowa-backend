@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Facebook;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Models.Models.Common.User;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace PracaDyplomowaBackend.Api.Controllers
 {
@@ -55,9 +59,15 @@ namespace PracaDyplomowaBackend.Api.Controllers
                 return BadRequest(ErrorMessages.IncorrectPassword);
             }
 
-            var token = _userService.CreateToken(loginModel);
+            var token = _userService.Login(loginModel);
 
             return Ok(token);
+        }
+
+        [HttpPost("facebook/{accessToken}")]
+        public IActionResult FacebookLogin(string accessToken)
+        {
+            return Ok(_userService.LoginViaFacebook(accessToken));            
         }
         
         [HttpDelete("{emailAddress}")]

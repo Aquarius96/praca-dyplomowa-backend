@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using AutoMapper;
 using CryptoHelper;
+using Facebook;
+using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Role;
 using PracaDyplomowaBackend.Models.Models.Common.User;
@@ -54,19 +56,17 @@ namespace PracaDyplomowaBackend.Service.Services
             return false;
         }
 
-        public string CreateToken(LoginModel loginModel)
-        {
-            var user = Mapper.Map<UserDto>(_repository.Get(loginModel.EmailAddress));
-
+        private string CreateToken(UserDto user)
+        {            
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),               
+                new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),
                 new Claim(ClaimTypes.Role, user.Role),
                 new Claim("Role", user.Role)
             };
 
             return _tokenProvider.BuildToken(claims);
-        }
+        }        
 
         public void Delete(string emailAddress)
         {
@@ -80,7 +80,54 @@ namespace PracaDyplomowaBackend.Service.Services
             User user = _repository.Get(emailAddress);            
 
             return Mapper.Map<UserDto>(user);
-        }        
+        }
+
+        public string Login(LoginModel loginModel)
+        {
+            var user = Mapper.Map<UserDto>(_repository.Get(loginModel.EmailAddress));
+
+            return CreateToken(user);
+        }
+
+        public string LoginViaFacebook(string accessToken)
+        {
+            FacebookClient client = new FacebookClient()
+            {
+                AccessToken = accessToken,
+                AppId = "123",
+                AppSecret = "123"
+            };
+
+            JsonObject facebookData = (JsonObject)client.Get(
+                "me",
+                new Dictionary<string, object>
+                    {
+                        {"fields", "email, name"}
+                    });
+            facebookData.TryGetValue("email", out var emailAddress);
+            facebookData.TryGetValue("name", out var name);
+
+            if (_repository.Exists(dbUser => dbUser.EmailAddress == emailAddress.ToString()))
+            {
+                return CreateToken(Mapper.Map<UserDto>(_repository.Get(emailAddress.ToString())));
+            }
+
+            User user = new User
+            {
+                EmailAddress = emailAddress.ToString(),
+                Username = name.ToString()
+            };
+
+            var userRole = new UserRole { User = user, RoleId = 2 };
+
+            _repository.Add(user);
+            _roleRepository.AddUserRole(userRole);
+
+            _repository.Save();
+            _roleRepository.Save();
+
+            return CreateToken(Mapper.Map<UserDto>(user));
+        }
 
         public void Register(RegisterModel registerModel)
         {
@@ -97,6 +144,6 @@ namespace PracaDyplomowaBackend.Service.Services
         public void Update(string emailAddress, UpdateModel updateModel)
         {
             throw new NotImplementedException();
-        }
+        }        
     }
 }
