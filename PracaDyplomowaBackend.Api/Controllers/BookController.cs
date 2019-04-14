@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IronPdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
@@ -8,7 +9,9 @@ using PracaDyplomowaBackend.Models.Models.Rate;
 using PracaDyplomowaBackend.Service.Interfaces;
 using PracaDyplomowaBackend.Utilities.GlobalMessages;
 using PracaDyplomowaBackend.Utilities.Paging;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace PracaDyplomowaBackend.Api.Controllers
 {
@@ -197,6 +200,14 @@ namespace PracaDyplomowaBackend.Api.Controllers
             var books = _bookService.GetList(resourceParameters);
             
             return Ok(books);
-        }        
+        }
+        
+        [HttpGet("report")]
+        public IActionResult GetReport(BookResourceParameters resourceParameters)
+        {
+            var pdf = _bookService.GetBooksReport(resourceParameters);
+
+            return File(pdf.Stream, "application/octet-stream", "raport.pdf");
+        }
     }
 }

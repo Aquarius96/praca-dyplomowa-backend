@@ -1,9 +1,11 @@
-﻿using PracaDyplomowaBackend.Data.DbModels.Comment;
+﻿using IronPdf;
+using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Models.Models.Common.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Book;
 using PracaDyplomowaBackend.Models.ModelsDto.Comment;
 using PracaDyplomowaBackend.Models.ModelsDto.Rate;
+using PracaDyplomowaBackend.Utilities.Paging;
 using System.Collections.Generic;
 
 namespace PracaDyplomowaBackend.Service.Interfaces
@@ -24,5 +26,6 @@ namespace PracaDyplomowaBackend.Service.Interfaces
         
         RateDto GetBookRating(int bookId);
         CommentDto GetBookComment(int commentId);
+        PdfDocument GetBooksReport(BookResourceParameters resourceParameters);
     }
 }

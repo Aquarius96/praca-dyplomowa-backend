@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using IronPdf;
 using PracaDyplomowaBackend.Data.DbModels.Comment;
 using PracaDyplomowaBackend.Data.DbModels.Common;
 using PracaDyplomowaBackend.Data.DbModels.Genre;
@@ -169,7 +170,24 @@ namespace PracaDyplomowaBackend.Service.Services
         {
             return _repository.GetBookRating(bookId);
         }
-        
+
+        public PdfDocument GetBooksReport(BookResourceParameters resourceParameters)
+        {
+            var renderer = new HtmlToPdf();
+            string report = string.Empty;
+
+            var books = GetList(resourceParameters);
+
+            foreach (var book in books)
+            {
+                report += string.Format("<div><p>Tytuł: {0}</p><p>Autorzy: {1}</p><p>Liczba stron: {2}</p><p>Data pierwszego wydania: {3}</p></div>", book.Title, string.Join(",", book.Authors.SelectMany(author => author.Name)), book.PagesCount, book.Released);
+            }
+
+            var pdf = renderer.RenderHtmlAsPdf(report.ToString());
+
+            return pdf;
+        }
+
         public new IEnumerable<BookDto> GetList(ResourceParameters resourceParameters)
         {
             var dbBooks = _repository.GetList(resourceParameters);
